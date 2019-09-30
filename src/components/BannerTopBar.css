@@ -1,0 +1,33 @@
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7vh 50px 0 50px;
+    z-index: 100;
+    position: relative;
+    min-height: 140px;
+}
+
+.section1 {
+    justify-content: space-between;
+    max-width: 50%;
+    margin-left: 50%;
+}
+
+.age {
+    justify-content: flex-end;
+}
+
+@media(max-width: 600px) {
+    .topBar {
+        padding: 20px 50px 0 50px;
+        min-height: 100px;
+        margin-left: 20px;
+    }
+}
+
+@media(max-width: 450px) {
+    .topBar {
+        padding: 20px 16px 0 16px;
+    }
+}

@@ -1,0 +1,40 @@
+.logo {
+    position: relative;
+    z-index: 3;
+    height: auto;
+    width: fit-content;
+}
+
+.logoAnimationLines:first-of-type {
+    position: absolute;
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    width: 70%;
+    height: 80%;
+    top: 40%;
+    left: 40%;
+    opacity: 0;
+}
+
+.logoAnimationLines:last-of-type {
+    position: absolute;
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+    width: 70%;
+    height: 80%;
+    bottom: 40%;
+    right: 40%;
+    opacity: 0;
+}
+
+@media(max-width: 1260px) {
+    .logo img {
+        width: 140px;
+    }
+}
+
+@media(max-width: 600px) {
+    .logo img {
+        width: 110px;
+    }
+}

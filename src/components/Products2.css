@@ -1,0 +1,150 @@
+.mainBox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.topBanner {
+    width: 100%;
+    position: relative;
+    height: 18vh;
+    display: grid;
+    place-items: center;
+    z-index: 6;
+}
+
+.topBanner>img {
+    width: 105%;
+    position: absolute;
+    top: -3px;
+    left: 0;
+    min-height: 125px;
+}
+
+.topBanner>div {
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: "bannerBig";
+    position: relative;
+    z-index: 10;
+}
+
+.swiperBox {
+    width: 100%;
+    position: relative;
+
+}
+
+.swiperContainer {
+    width: 60%;
+    margin: 0 auto;
+    /* max-height: 40vh; */
+}
+
+.swiperWrapper {
+    width: 100%;
+
+}
+
+.swiperSlide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    /* max-height: 40vh; */
+}
+
+.swiperButton {
+    background: none;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    /* top: 50%;
+    transform: translateY(-50%); */
+}
+
+.swiperButton>svg>path {
+    color: rgb(36, 36, 36);
+}
+
+.swiperButtonNext {
+    right: 4vw;
+}
+
+.swiperButtonPrev {
+    left: 4vw;
+}
+
+.swiperSlide>img {
+    width: 100%;
+    /* height: 50vmin; */
+    min-height: 37vh;
+    max-height: 40vh;
+    object-fit: contain;
+}
+
+.productDescription {
+    color: black;
+    margin-top: 30px;
+    max-height: 20vh;
+    overflow-y: auto;
+    padding: 0 8px;
+}
+
+.bottomButtons {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 70%;
+    padding: 8vh 0;
+    margin: 0 auto;
+}
+
+.button>a>div>span {
+    font-size: 15px;
+    font-family: "Roboto Slab";
+    font-weight: 700;
+}
+
+.rightButton>a>div>span {
+    color: #6c6c6c;
+    margin-right: 3vw;
+}
+
+.rightButton>a>div>svg>path {
+    color: #6c6c6c
+}
+
+.leftButton>a>div>span {
+    color: #77924a;
+    margin-left: 3vw;
+}
+
+.leftButton>a>div>svg>path {
+    color: #77924a;
+}
+
+@media(max-width: 1030px) {
+    .swiperContainer {
+        width: 80%;
+    }
+
+    .topBanner {
+        height: 100px;
+    }
+}
+
+@media(max-width: 550px) {
+    .topBanner>img {
+        width: auto;
+        height: 125px;
+    }
+
+
+
+    .bottomButtons {
+        width: 98%;
+    }
+}

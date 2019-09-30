@@ -1,0 +1,69 @@
+.socialBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6vw;
+    min-width: 45px;
+    margin-bottom: 5vh;
+}
+
+.socialBox>a {
+    border: 1px solid #000;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    z-index: 20;
+    position: relative;
+}
+
+.socialBox>a:hover {
+    cursor: pointer;
+    transform: translateY(-12%);
+
+}
+
+.socialBox>a:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+
+.socialBox>a path {
+    color: #000;
+
+}
+
+.socialBox>a:hover path {
+    color: #fff
+}
+
+.socialBox>a:hover {
+    border-color: #3b5998;
+    background-color: #3b5998;
+}
+
+.socialBox>a:nth-of-type(2):hover {
+    border-color: #fb3958;
+    background-color: #fb3958;
+}
+
+.socialBox>a:nth-of-type(3):hover {
+    border-color: #1DA1F2;
+    background-color: #1DA1F2;
+}
+
+.whiteSocial svg path {
+    color: #fff
+}
+
+@media(max-width: 800px) {
+    .socialBox>a {
+        width: 28px;
+        height: 28px;
+    }
+
+    .socialBox>a {
+        font-size: 16px;
+    }
+}

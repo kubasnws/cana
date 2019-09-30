@@ -1,0 +1,232 @@
+.mainContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #242424;
+    position: relative;
+    padding-left: 6%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.sideText {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 35vmin;
+}
+
+.bottomBox {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 80%;
+    margin-top: 50px;
+    margin-top: 0;
+    z-index: 10;
+}
+
+.bottomBox .description .title {
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 50px;
+    font-family: "Impact";
+    text-transform: uppercase;
+}
+
+.bottomBox .description .text {
+    width: 719px;
+    height: 66px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    line-height: 30px;
+    color: #8e8d8d;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+}
+
+.buttonWrapper {
+    transform: translateX(100%);
+}
+
+
+
+.buttonWrapper p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8c909f;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+    margin: 0;
+    text-align: start;
+}
+
+.buttonWrapper button {
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-family: "Roboto Slab";
+    font-weight: 600;
+    color: #77924A;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.nextButton {
+    margin-left: auto;
+    border-bottom: 1px solid #77924A;
+    width: fit-content;
+    z-index: 10;
+}
+
+.nextButton span {
+    text-decoration: none;
+    color: #77924A;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.nextButton svg>path {
+    color: #77924A;
+}
+
+.decorationText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transform: rotate(90deg) translate(-67%, 12%);
+    transform-origin: left;
+    font-size: 231px;
+    letter-spacing: 23px;
+    color: #e2ceaa;
+    font-family: "BannerBig";
+    display: flex;
+}
+
+.decorationText>span {
+    display: block
+}
+
+
+
+
+.cannaBox {
+    height: 100%;
+    width: auto;
+    position: relative;
+}
+
+.cannaCar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50px);
+}
+
+.number {
+    font-size: 337px;
+    letter-spacing: 47px;
+    color: #343333;
+    font-family: "Impact";
+    position: absolute;
+    top: 130px;
+    left: 70px;
+}
+
+.down {
+    position: fixed;
+    bottom: 4vh;
+    right: 8vw;
+}
+
+@media(max-width: 1450px) {
+    .buttonWrapper {
+        transform: translateX(50%);
+    }
+
+    .cannaCar {
+        transform: translateY(-105px);
+        width: 80vw
+    }
+
+    .description {
+        padding-left: 40px;
+        width: 70%;
+    }
+
+    .text {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media(max-width: 1300px) {
+    .buttonWrapper {
+        transform: unset
+    }
+
+    .description {
+        padding-left: 140px;
+    }
+}
+
+@media(max-width: 1150px) {
+    .bottomBox {
+        width: 100%;
+    }
+
+    .description {
+        padding-left: 40px;
+    }
+
+    .cannaCar {
+        transform: translateY(16vw);
+        width: 100vw;
+    }
+
+    .number {
+        font-size: 340px;
+        top: 350px;
+        left: 20px;
+    }
+}
+
+@media(max-width: 770px) {
+    .bottomBox {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttonWrapper {
+        width: 180px;
+        margin-top: 20px;
+    }
+
+    .cannaCar {
+        transform: translateY(-8vw);
+        width: 100vw;
+    }
+
+    .number {
+        font-size: 140px;
+        top: 120px;
+        left: 20px;
+    }
+}
+
+@media(max-width: 600px) {
+    .cannaCar {
+        transform: translateY(20vw)
+    }
+}

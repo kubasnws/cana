@@ -1,0 +1,197 @@
+.mainContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #242424;
+    position: relative;
+    padding-left: 6%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sideText {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 20vw;
+}
+
+.decorationText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transform: rotate(90deg) translate(-67%, 12%);
+    transform-origin: left;
+    font-size: 231px;
+    letter-spacing: 23px;
+    color: #e2ceaa;
+    font-family: "BannerBig";
+    display: flex;
+}
+
+.decorationText>span {
+    display: block
+}
+
+.leftSection {
+    width: 80%;
+    padding-left: 6vw;
+    display: flex;
+    align-items: flex-start;
+}
+
+.leftSection>div {
+    padding: 0 46px;
+}
+
+.content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 270px;
+}
+
+.video {
+    width: 50%;
+    position: relative;
+}
+
+
+.number {
+    font-size: 337px;
+    letter-spacing: 47px;
+    color: #343333;
+    font-family: "BannerBig";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(-26%, 40%);
+    font-weight: 300
+}
+
+.leftImage {
+    position: fixed;
+    left: 5vw;
+    bottom: 10vh;
+}
+
+
+.buttonWrapper {
+    /* transform: translateX(100%); */
+}
+
+.buttonWrapper p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8c909f;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+    margin: 0;
+    text-align: start;
+}
+
+.buttonWrapper button {
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-family: "Roboto Slab";
+    font-weight: 600;
+    color: #77924A;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+    line-height: 31px;
+}
+
+.nextButton {
+    margin-left: auto;
+    border-bottom: 1px solid #77924A;
+    width: fit-content;
+    z-index: 10;
+}
+
+.nextButton span {
+    text-decoration: none;
+    color: #77924A;
+    font-weight: bold;
+}
+
+.nextButton span {
+    margin-right: 10px;
+}
+
+.nextButton svg>path {
+    color: #77924A;
+}
+
+.down {
+    position: fixed;
+    bottom: 4vh;
+    right: 8vw;
+}
+
+.descriptionVid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px;
+    text-align: left;
+    background-image: linear-gradient(transparent, black)
+}
+
+
+
+@media(max-width: 1150px) {
+    .leftSection {
+        width: 100%;
+        padding: 0;
+    }
+
+    .leftImage {
+        width: 45vw;
+        bottom: 16vh
+    }
+}
+
+@media(max-width: 820px) {
+    .leftSection {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .content {
+        width: 50%;
+        flex-direction: column-reverse;
+        height: auto;
+        margin-top: 10px;
+    }
+
+
+    .videoBox {
+        height: 133vw;
+    }
+
+    .leftSection>div {
+        padding: 0;
+    }
+
+}
+
+@media(max-width: 680px) {
+    .videoBox {
+        max-width: 90%;
+    }
+
+    .video {
+        width: 88%;
+        margin-left: 50px;
+    }
+}

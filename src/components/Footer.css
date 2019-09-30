@@ -1,0 +1,248 @@
+footer {
+    background-color: #242424;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    padding-left: 6%;
+    display: flex;
+}
+
+.left {
+    padding-left: 6vw;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 60%;
+    z-index: 5;
+}
+
+.information h3 {
+    text-transform: uppercase;
+    font-size: 24px;
+    letter-spacing: 1px;
+    line-height: 20px;
+    font-family: "Impact";
+    font-weight: 500;
+}
+
+.information p {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #8e8d8d;
+    font-family: "Roboto";
+    font-weight: 300;
+}
+
+.centerPhoto {
+    width: 65%;
+    height: 60%;
+    position: relative;
+    padding-left: 6vw;
+}
+
+.backText {
+    text-transform: uppercase;
+    font-size: 170px;
+    letter-spacing: 9px;
+    line-height: 140px;
+    color: #e2ceaa;
+    font-family: "bannerBig";
+}
+
+.centerPhoto>img {
+    position: absolute;
+    top: -186px;
+    left: -273px;
+    pointer-events: none;
+}
+
+.backgroundPhoto {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(16%, 35%);
+}
+
+.decorationText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transform: rotate(90deg) translate(-67%, 12%);
+    transform-origin: left;
+    font-size: 231px;
+    letter-spacing: 23px;
+    color: #e2ceaa;
+    font-family: "BannerBig";
+    display: flex;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    transform: translateY(50%)
+}
+
+.bottom>img {
+    width: 100%;
+    min-width: 1680px;
+    pointer-events: none;
+}
+
+.copy {
+    position: absolute;
+    left: 9vw;
+    top: 14%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 14px;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.copy>a>img {
+    height: 12px;
+}
+
+.copy>a {
+    margin-left: 10px;
+}
+
+.copy p {
+    margin: 0;
+}
+
+@media(max-width: 1000px) {
+    .backgroundPhoto {
+        width: 140vw;
+    }
+
+    .left {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: unset;
+    }
+
+    .information {
+        flex-direction: row;
+        height: unset;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .information h3 {
+        margin-top: 0;
+    }
+
+    .sideText {
+        position: absolute;
+        right: 0;
+    }
+
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        transform: translateY(50%)
+    }
+
+    .bottom>img {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .copy {
+        left: 9vw;
+        top: 0px;
+        flex-direction: column-reverse
+    }
+
+    .copy>img {
+        height: 12px;
+        width: 60px;
+        margin-left: unset;
+        margin-bottom: 6px;
+    }
+}
+
+@media(max-width: 800px) {
+    .backText {
+        font-size: 120px;
+        line-height: .8
+    }
+
+    .centerPhoto>img {
+        width: 650px;
+        top: -79px;
+        left: -72px;
+    }
+
+    footer {
+        padding-left: 60px;
+    }
+}
+
+@media(max-width: 650px) {
+    .left {
+        padding-left: 6vw;
+        flex-direction: row;
+    }
+
+    .information {
+        flex-direction: column;
+        height: 80%;
+    }
+
+    .centerPhoto {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end
+    }
+
+    .centerPhoto>img {
+        width: 300px;
+        bottom: -95px;
+        left: -92px;
+        top: unset;
+    }
+
+    .centerPhoto>span {
+        font-size: 170px;
+        line-height: 140px;
+        color: #e2ceaa;
+        font-family: 'bannerBig';
+        text-transform: uppercase;
+    }
+
+    .copy {
+        left: 60px;
+        bottom: 50px;
+        top: unset;
+    }
+}
+
+@media(max-width: 440px) {
+    .centerPhoto>img {
+        bottom: -117px;
+        left: -165px;
+    }
+}

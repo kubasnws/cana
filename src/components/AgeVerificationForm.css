@@ -1,0 +1,69 @@
+.ageForm {
+    margin-left: 130px;
+    z-index: 1;
+}
+
+.formLabel {
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-family: "Impact";
+    margin-bottom: 40px;
+}
+
+.inputsForm {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+}
+
+.buttonWrapper p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8c909f;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+    margin: 0;
+}
+
+.buttonWrapper button {
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-family: "Roboto Slab";
+    font-weight: 600;
+    color: #77924A;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.failAge {
+    margin: 8px 0;
+    color: rgb(167, 64, 64);
+    font-family: "Roboto Slab";
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+@media(max-width: 620px) {
+    .ageForm {
+        margin-left: unset;
+    }
+}
+
+@media(max-width: 480px) {
+    .inputsForm {
+        flex-wrap: wrap;
+    }
+}

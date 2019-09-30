@@ -1,0 +1,28 @@
+.languages ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 18px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.languages ul li {
+    padding: 0 8px;
+    text-transform: uppercase;
+}
+
+.languages ul li:last-of-type {
+    font-weight: bold;
+}
+
+.languagesAgeSite ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

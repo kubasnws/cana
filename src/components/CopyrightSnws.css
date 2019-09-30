@@ -1,0 +1,13 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.content p {
+    text-transform: uppercase;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 2px;
+}

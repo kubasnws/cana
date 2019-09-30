@@ -1,0 +1,123 @@
+.menuContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+}
+
+.element h1 a {
+    text-transform: uppercase;
+    font-size: 90px;
+    letter-spacing: 7px;
+    font-family: 'BannerBig';
+    font-weight: 500;
+    color: #e2ceaa;
+}
+
+@media(min-width: 659px) {
+    .disactive>h1 {
+        transition: transform .24s ease-in-out;
+        cursor: pointer;
+    }
+
+    .disactive:first-of-type>h1 {
+        transform: translateX(-60%);
+    }
+
+    .disactive:last-of-type>h1 {
+        transform: translateX(60%);
+    }
+
+    .disactive:last-of-type>h1:hover {
+        transform: translateX(-40px) scale(1.2);
+    }
+
+    .disactive:first-of-type>h1:hover {
+        transform: translateX(40px) scale(1.2);
+    }
+
+    .active {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: bottom center;
+        white-space: nowrap;
+    }
+
+    .active h1>a {
+        display: block;
+        font-size: 150px;
+        letter-spacing: 15px;
+        color: #000;
+        text-shadow: 0px 0px 10px #77924a;
+        transform: translate(-50%, -32%);
+    }
+}
+
+
+
+@media(max-width: 1260px) {
+    .element h1>a {
+        font-size: 70px;
+    }
+
+    .active h1>a {
+        font-size: 118px
+    }
+}
+
+@media(max-width: 1050px) {
+    .element h1>a {
+        font-size: 55px;
+    }
+
+    .active h1>a {
+        font-size: 90px
+    }
+}
+
+@media(max-width: 865px) {
+    .element h1>a {
+        font-size: 45px;
+    }
+
+    .active h1>a {
+        font-size: 60px
+    }
+}
+
+@media(max-width: 660px) {
+
+    .menuContainer .box {
+        flex-direction: column;
+        width: 70vw;
+        margin: 0 auto;
+        height: 70%;
+        justify-content: space-evenly;
+    }
+
+    .active h1>a {
+
+        color: #000;
+        text-shadow: 0px 0px 10px #77924a;
+    }
+}
+
+@media(max-width: 430px) {
+    .element h1>a {
+        font-size: 30px;
+    }
+
+    .active h1>a {
+        font-size: 40px;
+        white-space: nowrap;
+    }
+}

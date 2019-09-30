@@ -1,0 +1,304 @@
+.burgerMenu {
+    /* position: relative; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 11px;
+    z-index: 99;
+    cursor: pointer;
+    position: fixed;
+    top: 40px;
+    right: 60px;
+}
+
+.burgerMenuFixed {
+    position: fixed;
+    top: 40px;
+    right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 11px;
+    z-index: 40;
+    cursor: pointer;
+}
+
+.burgerMenu>span {
+    height: 40px;
+    width: 1px;
+    background-color: #fff;
+    border-radius: 16px;
+    transition: transform .2s ease-in-out;
+    z-index: 3;
+}
+
+.burgerMenu>span:nth-of-type(1) {
+    transform: translateY(4px);
+}
+
+.burgerMenu>span:nth-of-type(2) {
+    transform: translateY(8px);
+}
+
+.burgerMenu:hover>span:nth-of-type(1) {
+    transform: translateY(0);
+}
+
+.burgerMenu:hover>span:nth-of-type(2) {
+    transform: translateY(-4px);
+}
+
+.burgerMenu:hover>span:nth-of-type(3) {
+    transform: translateY(4px);
+}
+
+.circle {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #77924a;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+
+.text {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 94px) rotate(90deg);
+    white-space: nowrap;
+    width: auto;
+    display: flex;
+}
+
+.text>span {
+    color: #77924a;
+    font-family: "Impact";
+    font-size: 12px;
+    margin-right: 5px;
+    display: block
+}
+
+.burgerMenuContainer {
+    position: fixed;
+    border: 1px solid #77924a;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+    max-width: 450px;
+}
+
+.item {
+    position: fixed;
+    background-color: aqua;
+    z-index: 50;
+    overflow: hidden;
+    font-size: 30px;
+    text-align: center;
+    z-index: 40;
+}
+
+.menuText {
+    position: fixed;
+    font-size: 34px;
+    color: #77924a;
+    font-family: "Impact";
+    opacity: 0;
+    z-index: 40;
+}
+
+.closeItem {
+    position: absolute;
+    top: 5%;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.menuContentBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.86);
+    z-index: 100;
+    opacity: 0;
+}
+
+.whiteMenuBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* height: 42%; */
+    padding-bottom: 6vh;
+    background-color: whitesmoke;
+    transform: translateY(-100%);
+    display: flex;
+}
+
+.menuCloseBox {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+    transition: transform .3s ease-in-out;
+
+}
+
+.menuCloseBox:hover {
+    transform: scale(.94);
+}
+
+.menuCloseBox>svg {
+    font-size: 40px;
+
+}
+
+.menuCloseBox>svg>path {
+    color: #000;
+}
+
+.menuLeft {
+    display: grid;
+    place-items: center;
+    width: calc((100vw - 800px)/2);
+    min-width: 240px;
+}
+
+.menuRight {
+    width: calc((100vw - 800px)/2);
+}
+
+.menuCenter {
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    font-family: "bannerBig";
+    letter-spacing: 2px;
+}
+
+.infos {
+    width: 100%;
+    padding: 5vh 0;
+    display: flex;
+    justify-content: flex-start;
+    white-space: nowrap;
+}
+
+.infos .element {
+    color: rgb(37, 37, 37);
+    font-size: 18px;
+    font-weight: 300;
+
+}
+
+.infos .element>span {
+    color: #77924a;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.infos .element:first-of-type {
+    margin-right: 5vw;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.navElement {
+    width: calc(100% / 3);
+    display: flex;
+    flex-direction: column;
+
+}
+
+.navElement h2 a {
+    text-transform: uppercase;
+    color: rgb(37, 37, 37);
+    letter-spacing: 3px;
+    font-size: 18px;
+    font-weight: 900;
+    margin-left: 20px;
+    transition: color .2s ease-in-out;
+}
+
+.navElement h2 a:hover {
+    color: #77924a;
+}
+
+.navElement>* {
+    color: rgb(37, 37, 37);
+}
+
+.navElement>a {
+    color: rgba(37, 37, 37, 0.5);
+    font-size: 14px;
+    margin: unset;
+    line-height: 180%;
+    transition: color .2s ease-in-out;
+}
+
+.navElement>a:hover {
+    color: rgba(119, 146, 74, 0.5);
+    cursor: pointer;
+}
+
+@media(max-width: 760px) {
+    .infos {
+        flex-direction: column;
+    }
+
+    .infos .element:last-of-type {
+        margin-top: 14px;
+    }
+
+    .navigation {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navElement:not(:last-of-type) {
+        margin-bottom: 14px;
+    }
+
+    .navElement {
+        width: auto;
+        white-space: nowrap;
+    }
+
+    .menuCenter {
+        width: 45%;
+    }
+
+    .menuLeft {
+        width: 35%;
+    }
+}
+
+@media(max-width: 600px) {
+    .whiteMenuBox {
+        flex-direction: column;
+        padding-top: 5vh;
+        align-items: center;
+    }
+
+    .navigation {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menuCenter {
+        min-width: 200px;
+        width: 60%;
+    }
+}

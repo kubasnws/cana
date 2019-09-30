@@ -1,0 +1,69 @@
+.mainSection {
+    display: flex;
+    position: relative;
+}
+
+.leftSection {
+    width: 76%;
+    height: 94vh;
+}
+
+.rightSection {
+    width: 24%;
+    background-color: #242424;
+    background-position-x: 6vw;
+    background-repeat: no-repeat;
+    height: 500vh;
+    position: relative;
+}
+
+.sideText {
+    text-transform: uppercase;
+    font-family: "bannerBig";
+    font-size: 231px;
+    line-height: 150px;
+    color: #e2ceaa;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16vh;
+
+}
+
+.sideText>span {
+    min-height: 100px;
+}
+
+.starterKitImage {
+    position: absolute;
+    display: block;
+    top: 100vh;
+    left: -30px;
+    transform: translateY(-120%);
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.cannaCircle {
+    position: absolute;
+    top: 50vh;
+    left: -250px;
+    animation: rotating 200s linear infinite;
+    opacity: .12;
+}
+
+@media(max-width: 950px) {
+    .leftSection {
+        width: 100%;
+    }
+}

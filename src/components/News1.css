@@ -1,0 +1,232 @@
+.mainBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.topBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.languageBox,
+.logoBox {
+    display: flex;
+    width: 100%;
+}
+
+.languageBox {
+    justify-content: flex-end;
+    margin: 6vh 10vw 40px 0;
+}
+
+.logoBox {
+    justify-content: flex-start;
+    margin-left: 10vw;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: -120px;
+    z-index: -1;
+}
+
+.middleBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.titleBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 80px;
+}
+
+.rightProduct {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleBox h1 {
+    font-size: 68px;
+    letter-spacing: 2px;
+    line-height: 82px;
+    color: #242424;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+    text-align: right;
+}
+
+.titleBox h1>span {
+    color: #77924A;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 82px;
+    font-family: "bannerBig";
+    white-space: nowrap;
+}
+
+
+.bottomBox {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.socialMedia {
+    width: 120px;
+}
+
+.imageWrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 65vh;
+    width: 120px;
+    display: grid;
+    place-items: center;
+}
+
+.socialImage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.bottomBox>img {
+    width: 100%;
+    height: auto;
+    min-height: 45vh;
+    object-fit: cover;
+
+}
+
+.absoluteBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.textWrapper {
+    width: 94%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    height: 100%;
+    padding: 30px 0;
+}
+
+.textWrapper>h2 {
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    font-family: "Impact";
+    font-weight: 100;
+}
+
+.textWrapper>div {
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #8e8d8d;
+    font-family: "Roboto Slab";
+    font-weight: 300;
+}
+
+.textWrapper>div::after {
+    content: '2.';
+
+}
+
+@media(min-height: 1200px) {
+    .activeProduct {
+        margin-top: 17vh;
+    }
+}
+
+@media(max-width: 1439px) {
+    .languageBox {
+        margin-bottom: unset;
+        white-space: nowrap;
+    }
+
+    .titleBox>h1 {
+        font-size: 54px;
+        line-height: 120%;
+    }
+
+}
+
+@media(max-width: 800px) {
+    .activeProduct {
+        margin: 0 auto;
+
+    }
+
+    .rightProduct {
+        width: 100%;
+    }
+
+    .titleBox {
+        padding-right: 100px;
+    }
+}
+
+@media(max-width: 770px) {
+    .swiperContainer {
+        width: 94%;
+    }
+
+    .swiperButtonNext {
+        right: 10px;
+    }
+
+    .swiperButtonPrev {
+        left: 10px;
+    }
+}
+
+@media(max-width: 550px) {
+    .swiper {
+        width: 100%;
+    }
+
+    .titleBox {
+        padding-right: unset;
+        align-items: center;
+    }
+
+    .titleBox>h1 {
+        text-align: center;
+    }
+}
+
+@media(max-width: 450px) {
+    .titleBox>h1 {
+        font-size: 40px;
+        line-height: 140%;
+    }
+
+    .titleBox>h1>span {
+        font-size: 55px;
+    }
+
+    .activeProduct {
+        padding-bottom: 10px;
+    }
+}

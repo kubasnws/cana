@@ -1,0 +1,208 @@
+.mainContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #242424;
+    position: relative;
+    padding-left: 6%;
+}
+
+.logoBox {
+    max-width: 160px;
+    width: fit-content;
+    margin: 20px 0 0 90px;
+    z-index: 10;
+    position: relative;
+}
+
+.sideText {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 35vmin;
+}
+
+.underLogoText {
+    margin-top: 4vmin;
+    min-height: 60px;
+}
+
+.underLogoText>span {
+    font-size: 18px;
+    letter-spacing: 9px;
+    line-height: 30px;
+    color: #8c909f;
+    font-family: "Roboto";
+    font-weight: 400;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 100%;
+    margin-top: 50px;
+    margin-top: 0;
+    z-index: 10;
+}
+
+.buttonWrapper {
+    transform: translateX(100%);
+}
+
+.buttonWrapper p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8c909f;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+    margin: 0;
+    text-align: end;
+}
+
+.buttonWrapper button {
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-family: "Roboto Slab";
+    font-weight: 600;
+    color: #77924A;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.leftBox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding-left: 6vw;
+}
+
+.leftBox>img {
+    position: absolute;
+    height: 100%;
+    bottom: 0;
+    left: 6vw;
+}
+
+
+
+.sampleProductBox {
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    max-width: 1000px;
+    width: 70%;
+    margin: 0 auto;
+    z-index: 10;
+    position: relative;
+    pointer-events: none;
+}
+
+.down {
+    position: fixed;
+    bottom: 4vh;
+    right: 8vw;
+}
+
+.products {
+    position: fixed;
+    top: 58%;
+    left: 12vw;
+    z-index: 11;
+}
+
+.nextButton {
+    margin-left: auto;
+    border-bottom: 1px solid #77924A;
+    width: fit-content;
+    z-index: 10;
+}
+
+.nextButton span {
+    text-decoration: none;
+    color: #77924A;
+    font-weight: bold;
+    margin-right: 10px;
+    backface-visibility: hidden;
+}
+
+.nextButton svg>path {
+    color: #77924A;
+}
+
+.sampleProduct {}
+
+
+
+@media(max-width: 1280px) {
+    .buttonBox {
+        justify-content: flex-end;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .buttonBox>a {
+        margin-right: 60px;
+        font-size: 24px;
+    }
+
+    .buttonWrapper {
+        transform: unset;
+    }
+
+}
+
+@media(max-width: 1030px) {
+    .sampleProductBox {
+        width: 84%;
+        justify-content: flex-start;
+    }
+
+    .sampleProduct {
+        width: 200px;
+        margin-top: 60px;
+    }
+
+    .sampleProduct {
+        width: 120px;
+        margin-top: 30px;
+    }
+}
+
+@media(max-width: 599px) {
+    .underLogoText>span {
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: 5px;
+    }
+
+    .sampleProduct {
+        width: 70px;
+        margin-left: 14vw;
+        margin-top: 0;
+    }
+
+    .nextButton {
+        margin-left: 16px;
+    }
+
+    .nextButton>span {
+        font-size: 14px;
+
+    }
+
+    .logoBox {
+        margin: 20px 0 0 12vw;
+    }
+}
