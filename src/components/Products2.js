@@ -6,6 +6,7 @@ import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
 import Swiper from 'swiper/js/swiper.esm.bundle';
 import { withRouter } from "react-router";
 
+let debounce = false
 
 class Products2 extends Component {
     state = {
@@ -30,15 +31,19 @@ class Products2 extends Component {
     }
 
     onScroll = e => {
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/products/section1')
+                debounce = false
             }, 500);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             // onLeaveSection2Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/products/section3')
+                debounce = false
             }, 500);
         }
     }

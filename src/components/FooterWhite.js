@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import s from './FooterWhite.css'
 import Logo from './Logo'
-import { onLoadLogoHandler, socialLoad } from './Animations'
+import { onLoadLogoHandler, socialLoad, whiteFooterAnimation } from './Animations'
 import SocialMedia from './SocialMedia'
 import CopyrightSnws from './CopyrightSnws'
+
+let debounce = false
 
 class FooterWhite extends Component {
     state = {
@@ -15,6 +17,7 @@ class FooterWhite extends Component {
         window.addEventListener('wheel', this.onScroll, false);
         onLoadLogoHandler()
         socialLoad()
+        whiteFooterAnimation('enter')
     }
 
     componentWillUnmount() {
@@ -24,13 +27,16 @@ class FooterWhite extends Component {
 
     onScroll = e => {
         const { localization } = this.props
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
+            whiteFooterAnimation('leave')
+            debounce = true
+
             setTimeout(() => {
                 localization === 'news' ? this.props.history.push('/news/section4') : this.props.history.push('/products/section3')
+                debounce = false
             }, 500);
         }
         else if (e.deltaY > 0) { //Down
-            // onLeaveSection2Handler()
             return
         }
     }
@@ -41,14 +47,14 @@ class FooterWhite extends Component {
         const { dark_logo } = this.props.images
 
         const leftSection = (
-            <div className={s.image}>
+            <div className={[s.image, 'footerImage'].join(' ')}>
                 {typeof leftImage === 'undefined' ? null : <img src={leftImage.url} alt="Product decoration" />}
             </div>
         )
 
         return (
             <div className={s.mainBox}>
-                <div className={s.topBanner}>
+                <div className={[s.topBanner, 'topBannerFooter'].join(' ')}>
                     <div>catch and stay with the dark horse!</div>
                     {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
                 </div>
@@ -66,7 +72,7 @@ class FooterWhite extends Component {
                                     <EasyContact data={footerApi.easyContact} />
                                 </div>
                                 <div className={s.bottom}>
-                                    <div className={s.mail} >
+                                    <div className={[s.mail, 'footerMail'].join(' ')} >
                                         <div className={s.mailText}>{footerApi.easyContact.mail}</div>
                                         {typeof mailImage === 'undefined' ? null : <img src={mailImage.url} alt="Mail background" />}
                                     </div>

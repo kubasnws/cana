@@ -10,6 +10,8 @@ import { withRouter } from "react-router";
 import { LongArrowRight } from './Icons'
 import { onLeaveSection1Handler } from './Animations'
 
+let debounce = false
+
 class MainSection1 extends Component {
     state = {
         width: Number
@@ -39,16 +41,20 @@ class MainSection1 extends Component {
     }
 
     onScroll = e => {
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
             onLeaveSection1Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/')
+                debounce = false
             }, 500);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveSection1Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/main-section-2')
+                debounce = false
             }, 500);
         }
     }

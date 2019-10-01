@@ -9,6 +9,8 @@ import { withRouter } from "react-router";
 import BurgerMenu from './BurgerMenu'
 import Languages from './Languages'
 
+let debounce = false
+
 class MainSection2 extends Component {
     state = {
         width: Number,
@@ -25,16 +27,20 @@ class MainSection2 extends Component {
     }
 
     onScroll = e => {
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
             onLeaveSection2Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/main-section-1')
+                debounce = false
             }, 500);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveSection2Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/main-section-3')
+                debounce = false
             }, 500);
         }
     }
@@ -87,7 +93,7 @@ class MainSection2 extends Component {
                     <div className={[styles.buttonWrapper, 'buttonBox'].join(' ')}>
                         <p>See how to roll</p>
                         <DelayLink
-                            to='/main-section-2'
+                            to='/news/section3'
                             delay={0}
                             onDelayStart={() => { }}
                             onDelayEnd={() => { }}>

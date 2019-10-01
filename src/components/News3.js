@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import s from './News3.css'
 import { news3 } from './Animations'
 
+let debounce = false
+
 class News3 extends Component {
     state = {
 
@@ -19,16 +21,20 @@ class News3 extends Component {
 
     onScroll = e => {
         const delay = 700
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
             news3('leave')
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/news/section2')
+                debounce = false
             }, delay);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             news3('leave')
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/news/section4')
+                debounce = false
             }, delay);
             return
         }

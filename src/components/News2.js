@@ -6,6 +6,7 @@ import { withRouter } from "react-router";
 import VideoDisplay from './VideoDisplay'
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
+let debounce = false
 
 class News2 extends Component {
     state = {
@@ -46,16 +47,20 @@ class News2 extends Component {
 
     onScroll = e => {
         const delay = 700
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
             news2('leave')
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/news/section1')
+                debounce = false
             }, delay);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             news2('leave')
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/news/section3')
+                debounce = false
             }, delay);
         }
     }

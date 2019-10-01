@@ -12,6 +12,7 @@ import VideoDisplay from './VideoDisplay'
 
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
+let debounce = false
 
 class MainSection3 extends Component {
     state = {
@@ -59,16 +60,20 @@ class MainSection3 extends Component {
     }
 
     onScroll = e => {
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
             onLeaveSection3Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/main-section-2')
+                debounce = false
             }, 500);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveSection3Handler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/footer')
+                debounce = false
             }, 500);
         }
     }
@@ -126,7 +131,7 @@ class MainSection3 extends Component {
                         <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
                             <p>It is so easy</p>
                             <DelayLink
-                                to='/main-section-3'
+                                to='/news/section1'
                                 delay={0}
                                 onDelayStart={() => { }}
                                 onDelayEnd={() => { }}>

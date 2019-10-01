@@ -6,7 +6,7 @@ import Logo from './Logo'
 import SocialMedia from './SocialMedia'
 import { withRouter } from "react-router";
 
-
+let debounce = false
 
 class News1 extends Component {
     state = {
@@ -41,11 +41,13 @@ class News1 extends Component {
         if (e.deltaY < 0) { //Up
             return
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             // onLeaveSection2Handler()
             console.log('dzoala')
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/news/section2')
+                debounce = false
             }, 500);
         }
     }

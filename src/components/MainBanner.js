@@ -7,6 +7,7 @@ import BannerBottomBar from './BannerBottomBar'
 import { onLoadBannerHandler, onLoadLogoHandler, onLeaveBannerHandler } from './Animations'
 import { withRouter } from "react-router";
 
+let debounce = false
 
 class MainBanner extends Component {
     state = {
@@ -28,10 +29,12 @@ class MainBanner extends Component {
         if (e.deltaY < 0) { //Up
             return
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveBannerHandler()
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/main-section-1')
+                debounce = false
             }, 500);
         }
     }

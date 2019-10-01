@@ -308,7 +308,7 @@ export const instaSection = (option) => {
         e.addLabel('start')
             .staggerTo('.instaElement:nth-of-type(-n+3)', .5, { x: -300, opacity: 0, ease: power }, .06)
             .staggerTo('.instaElement:nth-of-type(n+4)', .5, { x: 300, opacity: 0, ease: power }, -.06, 'start')
-            .to('.topBannerSec3', .3, { y: '-150%', ease: power })
+            .to('.topBannerSec3', .3, { y: '-150%', ease: power }, '-=.2')
 
     } else if (option === 'enter') {
         const e = new TimelineMax({ delay: .3 })
@@ -316,6 +316,26 @@ export const instaSection = (option) => {
             .addLabel('start')
             .staggerFrom('.instaElement', .6, { cycle: { x: [-100, 0, 100], y: [-100, -100, -100, 100, 100, 100] }, opacity: 0, ease: power }, .06, 'start-=.1')
             .set('.instagramBox', { overflowY: 'auto' })
+    }
+    return;
+}
+
+export const whiteFooterAnimation = (option) => {
+
+    if (option === 'leave') {
+        const e = new TimelineMax()
+        e.addLabel('start')
+
+            .to('.topBannerFooter', .3, { y: '-150%', ease: power })
+
+    } else if (option === 'enter') {
+        const e = new TimelineMax({ delay: .3 })
+        e.from('.topBannerFooter', .4, { y: '-150%', ease: power })
+            .addLabel('start')
+            .from('.footerImage', .3, { x: -200, opacity: 0, ease: power })
+            .staggerFrom('.contactElement', .3, { x: 40, opacity: 0, ease: power }, .1, 'start-=.1')
+            .from('.footerMail', .3, { y: 40, opacity: 0, ease: power }, 'start+=.3')
+
     }
     return;
 }

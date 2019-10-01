@@ -9,6 +9,8 @@ import Swiper from 'swiper/js/swiper.esm.bundle';
 import SocialMedia from './SocialMedia'
 import { withRouter } from "react-router";
 
+let debounce = false
+
 
 class Products1 extends Component {
     state = {
@@ -78,11 +80,13 @@ class Products1 extends Component {
         if (e.deltaY < 0) { //Up
             return
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             // onLeaveSection2Handler()
             console.log('dzoala')
+            debounce = true
             setTimeout(() => {
                 this.props.history.push('/products/section2')
+                debounce = false
             }, 500);
         }
     }

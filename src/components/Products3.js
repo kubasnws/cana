@@ -5,6 +5,7 @@ import { LongArrowRight } from './Icons'
 import { withRouter } from "react-router";
 import { dateFormatted } from './userHandlers'
 
+let debounce = false
 
 class Products3 extends Component {
     state = {
@@ -45,16 +46,20 @@ class Products3 extends Component {
     onScroll = e => {
         const { localization } = this.props
         const delay = 700
-        if (e.deltaY < 0) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
             instaSection('leave')
+            debounce = true
             setTimeout(() => {
                 localization === 'news' ? this.props.history.push('/news/section3') : this.props.history.push('/products/section2')
+                debounce = false
             }, delay);
         }
-        else if (e.deltaY > 0) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             instaSection('leave')
+            debounce = true
             setTimeout(() => {
                 localization === 'news' ? this.props.history.push('/news/footer') : this.props.history.push('/products/footer')
+                debounce = false
             }, delay);
         }
     }
