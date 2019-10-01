@@ -86,7 +86,7 @@ class Products extends Component {
             .catch(error => console.log(error + " coś poszło nie tak!"))
 
         // pobieranie api z insta
-        const token = '21406152901.b379a5c.791f0004ec104098bd5018dfcd6b5bf5'
+        const token = '4684109970.1677ed0.0dfef633bc6a4f52881cc3c780ca6464'
         const num_photos = 6;
         fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${token}&count=${num_photos}`)
             .then(response => {

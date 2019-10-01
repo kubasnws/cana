@@ -10,7 +10,13 @@ let debounce = false
 
 class News2 extends Component {
     state = {
-        firstVideoPost: {},
+        firstVideoPost: {
+            videoLink: String,
+            postTitle: String,
+            videoTitle: String,
+            videoDescription: String,
+            videoPostsConnection: [],
+        },
         videoAPILoaded: false,
     }
 
@@ -34,6 +40,7 @@ class News2 extends Component {
                         postTitle: d.title.rendered,
                         videoTitle: d.acf.video_description,
                         videoDescription: d.acf.video_title,
+                        videoPostsConnection: d.acf.video_products_conection
                     },
                     videoAPILoaded: true,
                 }));

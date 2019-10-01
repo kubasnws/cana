@@ -125,7 +125,7 @@ export const onLoadSection3Handler = (delay) => {
         .from('.sec_3_number', .7, { scale: 0, ease: elasticEase }, 'start+=.3')
         .add(whiteElementLoad, 'start')
         .staggerFrom('.section3Desc > *', .5, { x: 500, opacity: 0, ease: back1 }, .16, 'start+=.6')
-        .from('.videoSec3', .5, { scale: .4, opacity: 0, ease: elasticEase }, 'start+=.4')
+        .from('.videoSec3', .5, { scale: .4, opacity: 0, ease: elasticEase, clearProps: 'all' }, 'start+=.4')
 }
 
 export const onLeaveSection3Handler = () => {
@@ -276,7 +276,7 @@ export const news2 = (option) => {
         const e = new TimelineMax({ delay: .3 })
         e.from('.topBanner', .4, { y: '-100%', ease: power })
             .addLabel('start')
-            .from('.videoBox', .4, { x: 500, opacity: 0, ease: power }, 'start+=.1')
+            .from('.videoBox', .4, { x: 500, opacity: 0, ease: power, clearProps: 'all' }, 'start+=.1')
             .from('.left > h2', .4, { x: -500, opacity: 0, ease: power }, 'start+=.1')
             .from('.left > div', .4, { x: -500, opacity: 0, ease: power }, 'start+=.3')
     }

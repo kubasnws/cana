@@ -127,13 +127,14 @@ class Products3 extends Component {
 
 const InstaElement = props => {
     const { image, link, time, description } = props
+    const truncate = (input) => input.length > 60 ? `${input.substring(0, 60)}...` : input;
     return (
         <div className={[s.instaElement, 'instaElement'].join(' ')} style={props.custStyle()}>
             <img src={image} alt="Insta img" />
             <a href={link} target='_blank' rel="noopener noreferrer">a</a>
             <div className={s.elementDescription}>
                 <div className={s.overText}>
-                    <div className={s.description}>{description}</div>
+                    <div className={s.description}>{truncate(description)}</div>
                     <div className={s.date}>{dateFormatted(time)}</div>
                 </div>
             </div>

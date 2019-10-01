@@ -94,3 +94,72 @@
     cursor: pointer;
     font-size: 22px;
 }
+
+.mainConnected {
+    position: fixed;
+    right: 4vw;
+    top: 16vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.connectedBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #fff;
+    max-width: 26vw;
+    width: 420px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: scale(.3);
+    transition: .3s ease-in-out;
+    overflow: hidden;
+}
+
+.prodImage {
+    width: 40%;
+    display: grid;
+    place-items: center;
+    margin-right: 22px;
+}
+
+.prodImage>img {
+    max-width: 96%;
+    max-height: 140px;
+}
+
+.prodText {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.prodText>h2,
+.prodText>div {
+    color: black;
+    margin-top: 0;
+}
+
+.prodText>h2 {
+    text-transform: uppercase;
+}
+
+.connectedVisible:hover {
+    opacity: 1;
+    transform: scale(1.03)
+}
+
+.connectedVisible {
+    opacity: 1;
+    transform: scale(1)
+}
+
+.connectedHide {
+    transform: translateX(600px);
+    opacity: 0;
+}
