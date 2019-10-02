@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import s from './VideoDisplay.css'
 import Player from 'react-player'
 import { PlayButton, PauseButton, VolumeOn, VolumeOff } from './Icons'
+import DelayLink from './DelayLink'
 
 class VideoDisplay extends Component {
     state = {
@@ -21,13 +22,6 @@ class VideoDisplay extends Component {
         const { videoPostsConnection } = this.props.firstVideoPost
         if (videoPostsConnection.length !== 0 && !this.state.isApiLoaded) {
             let prodArray = []
-            const addMoreInfos = () => {
-                videoPostsConnection.forEach((element, index) => {
-                    prodArray[index] = element[index]
-                    console.log(prodArray)
-                });
-                // console.log(prodArray)
-            }
             videoPostsConnection.forEach(item => {
                 const productId = item.chose_product
                 const videoApi = `http://cana.snwsprodukcja71.pl/wp-json/wp/v2/products/${productId}`
@@ -42,14 +36,13 @@ class VideoDisplay extends Component {
                     .then(response => response.json())
                     .then(data => {
                         prodArray.push(data)
-                        // console.log(prodArray)
+
 
                         this.setState({
                             isApiLoaded: true,
                             productsArray: prodArray,
                         })
 
-                        // addMoreInfos()
                     })
                     .catch(error => console.log(error + " coś nie tak"))
             })
@@ -86,7 +79,7 @@ class VideoDisplay extends Component {
 
         const { isVideoPlaying, isVolumeOff, secondsElapsed, productsArray } = this.state
         const { videoBackground, width, videoAPILoaded } = this.props
-        const { videoLink, videoTitle, videoDescription, videoPostId, videoPostsConnection } = this.props.firstVideoPost
+        const { videoLink, videoTitle, videoDescription, videoPostsConnection } = this.props.firstVideoPost
 
         const descriptionVideo = (
             <div className={[s.description, s.descriptionVid].join(' ')}>
@@ -131,7 +124,7 @@ class ConnectedProduct extends Component {
 
     }
     componentDidMount() {
-        // videoConnectingProducts()
+
     }
     render() {
         const { productsArray, secondsElapsed, arr } = this.props
@@ -140,8 +133,15 @@ class ConnectedProduct extends Component {
             let { display_start: start, display_end: end } = arr[index]
             start = parseInt(start)
             end = parseInt(end)
+            const currentProductLink = `/products/section2#${item.id}`
             const htmlElement = (
                 <div className={[s.connectedBox, secondsElapsed >= start && secondsElapsed <= end ? s.connectedVisible : s.connectedHide, 'connectedBox'].join(' ')} key={item.id}>
+                    <DelayLink
+                        to={currentProductLink}
+                        delay={0}
+                        onDelayStart={() => { }}
+                        onDelayEnd={() => { }}>
+                    </DelayLink>
                     <div className={[s.prodImage, 'prodImage'].join(' ')}>
                         <img src={item.acf.images[0].sizes.medium_large} alt={item.acf.images[0].alt} />
                     </div>

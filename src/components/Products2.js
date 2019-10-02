@@ -21,6 +21,7 @@ class Products2 extends Component {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+            hashNavigation: true,
         })
 
         window.addEventListener('wheel', this.onScroll, false);
@@ -108,7 +109,7 @@ const SwiperElement = props => {
     const { url, name } = props.item.acf.images[0]
     const { short_description } = props.item.acf
     return (
-        <div className={[s.swiperSlide, 'swiper-slide'].join(' ')}>
+        <div className={[s.swiperSlide, 'swiper-slide'].join(' ')} data-hash={props.item.id}>
             <img src={url} alt={name} />
             <div className={s.productDescription}>
                 {short_description}

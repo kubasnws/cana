@@ -91,6 +91,10 @@ class Products1 extends Component {
         }
     }
 
+    productClickHandler = link => {
+        this.props.history.push(link)
+    }
+
     render() {
         const { horse, bannerPhoto, socialBar } = this.props.sectionApi
         const { dark_logo } = this.props.images
@@ -147,9 +151,7 @@ class Products1 extends Component {
                     <div className={s.swiper}>
                         <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
                             <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
-                                <SwiperElements products={this.props.products} hover={this.productHoverHandler} />
-                                <SwiperElements products={this.props.products} hover={this.productHoverHandler} />
-                                <SwiperElements products={this.props.products} hover={this.productHoverHandler} />
+                                <SwiperElements products={this.props.products} hover={this.productHoverHandler} click={this.productClickHandler} />
                             </div>
                         </div>
                         <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
@@ -166,7 +168,7 @@ class Products1 extends Component {
 const SwiperElements = props => {
 
     const products = props.products
-    const result = products.map(item => <SwiperElement key={item.id} element={item} hover={props.hover} />)
+    const result = products.map(item => <SwiperElement key={item.id} element={item} hover={props.hover} click={props.click} />)
     return (
         <>
             {result}
@@ -176,9 +178,16 @@ const SwiperElements = props => {
 
 const SwiperElement = props => {
     const { url, name } = props.element.acf.images[0]
+    const currentProductLink = `/products/section2#${props.element.id}`
     return (
         <div className={[s.swiperSlide, 'swiper-slide'].join(' ')}>
-            <img src={url} alt={name} data-description={props.element.title.rendered} onMouseEnter={e => props.hover(e)} />
+            {/* <DelayLink
+                to={currentProductLink}
+                delay={0}
+                onDelayStart={() => { }}
+                onDelayEnd={() => { }}>
+            </DelayLink> */}
+            <img src={url} alt={name} data-description={props.element.title.rendered} onMouseEnter={e => props.hover(e)} onClick={() => props.click(currentProductLink)} />
         </div>
     )
 
