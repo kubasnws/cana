@@ -177,7 +177,6 @@ class App extends Component {
   }
 
 
-
   render() {
 
     // window.addEventListener('wheel', (e) => scrollDirectionDetect(e));
@@ -238,7 +237,7 @@ class App extends Component {
                   logo={this.state.logo}
                   socialMedia={this.state.social_media} />}
               />
-              <Route path='/products'
+              {/* <Route path='/products'
                 component={() => <Products
                   images={this.state.images}
                   social={this.state.social_media}
@@ -249,7 +248,7 @@ class App extends Component {
                   images={this.state.images}
                   social={this.state.social_media}
                   footer={this.state.footer}
-                />} />
+                />} /> */}
               <Route
                 path="/age"
                 component={AgeChecker}
@@ -258,7 +257,6 @@ class App extends Component {
               <Redirect to='/404' />
             </Switch>
           </Router>
-
         </>
       );
     }

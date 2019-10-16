@@ -9,6 +9,7 @@ import Typed from 'typed.js'
 import { withRouter } from "react-router";
 import { LongArrowRight } from './Icons'
 import { onLeaveSection1Handler } from './Animations'
+import Swipe from 'react-easy-swipe';
 
 let debounce = false
 
@@ -38,6 +39,15 @@ class MainSection1 extends Component {
     componentWillUnmount() {
         window.removeEventListener('wheel', this.onScroll, false);
         this.typed.destroy();
+    }
+
+    onSwipeDown = () => {
+        onLeaveSection1Handler()
+        setTimeout(() => { this.props.history.push('/') }, 500);
+    }
+    onSwipeUp = () => {
+        onLeaveSection1Handler()
+        setTimeout(() => { this.props.history.push('/main-section-2') }, 500);
     }
 
     onScroll = e => {
@@ -96,27 +106,29 @@ class MainSection1 extends Component {
         )
 
         return (
-            <div className={styles.mainContainer}>
-                <WhiteElement socialMedia={this.props.socialMedia} />
-                <BannerTopBar logoDisplay={false} custStyle='section1' />
-                {seeProducts}
-                <div className={styles.logoBox}>
-                    <Logo logo={logo} customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
-                    <div className={styles.underLogoText}>
-                        <span ref={(el) => { this.el = el }}></span>
+            <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
+                <div className={styles.mainContainer}>
+                    <WhiteElement socialMedia={this.props.socialMedia} />
+                    <BannerTopBar logoDisplay={false} custStyle='section1' />
+                    {seeProducts}
+                    <div className={styles.logoBox}>
+                        <Logo logo={logo} customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
+                        <div className={styles.underLogoText}>
+                            <span ref={(el) => { this.el = el }}></span>
+                        </div>
+                    </div>
+                    <div className={[styles.sideText, 'sideText'].join(' ')}><img src={sideTextSection__1} alt='Decoration text' /></div>
+                    <div className={[styles.sampleProductBox, 'sampleProductBox'].join(' ')}>
+                        <img className={styles.sampleProduct} src={sample_product} alt="Sample product" />
+                    </div>
+                    <div className={[styles.buttonBox, 'buttonBox'].join(' ')}>
+                        {scrollDown}
+                    </div>
+                    <div className={[styles.leftBox, 'sec1left'].join(' ')}>
+                        <img src={left_image__1} alt="Canna" />
                     </div>
                 </div>
-                <div className={[styles.sideText, 'sideText'].join(' ')}><img src={sideTextSection__1} alt='Decoration text' /></div>
-                <div className={[styles.sampleProductBox, 'sampleProductBox'].join(' ')}>
-                    <img className={styles.sampleProduct} src={sample_product} alt="Sample product" />
-                </div>
-                <div className={[styles.buttonBox, 'buttonBox'].join(' ')}>
-                    {scrollDown}
-                </div>
-                <div className={[styles.leftBox, 'sec1left'].join(' ')}>
-                    <img src={left_image__1} alt="Canna" />
-                </div>
-            </div>
+            </Swipe>
         );
     }
 }

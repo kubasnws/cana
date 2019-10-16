@@ -114,7 +114,7 @@ class VideoDisplay extends Component {
                     {width <= 680 ? null : <img className={s.backVid} src={videoBackground} alt="Under video" />}
                     {width <= 820 ? null : <div className={[s.number, 'sec_3_number'].join(' ')}>2.</div>}
                 </div>
-                <ConnectedProduct productsArray={productsArray} arr={videoPostsConnection} secondsElapsed={secondsElapsed} />
+                {/* <ConnectedProduct productsArray={productsArray} arr={videoPostsConnection} secondsElapsed={secondsElapsed} /> */}
             </>
         );
     }

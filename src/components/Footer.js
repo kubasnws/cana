@@ -7,7 +7,9 @@ import { scrollDirectionDetect, lettersSplit } from './userHandlers'
 import { withRouter } from "react-router";
 // import BannerTopBar from './BannerTopBar'
 import BurgerMenu from './BurgerMenu'
-import Languages from './Languages'
+import Languages from './Languages';
+import Swipe from 'react-easy-swipe';
+
 
 class Footer extends Component {
     state = {
@@ -24,6 +26,11 @@ class Footer extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('wheel', this.onScroll, false);
+    }
+
+    onSwipeDown = () => {
+        onLeaveFooterHandler()
+        setTimeout(() => { this.props.history.push('/main-section-3') }, 500);
     }
 
     onScroll = e => {
@@ -60,31 +67,33 @@ class Footer extends Component {
         const cdh = lettersSplit('cdh')
 
         return (
-            <footer>
-                <BurgerMenu fixed={true} />
-                <WhiteElement socialMedia={socialMedia} />
-                <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} />
-                <img className={s.backgroundPhoto} src={img.background.url} alt={img.background.name} />
-                <div className={s.left}>
-                    <div className={s.information}>
-                        <Logo logo={this.props.logo} customStyles={{ width: '120px' }} />
-                        <Localization data={footer.information} />
-                        <EasyContact data={footer.easyContact} />
+            <Swipe onSwipeDown={this.onSwipeDown}>
+                <footer>
+                    <BurgerMenu fixed={true} />
+                    <WhiteElement socialMedia={socialMedia} />
+                    <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} />
+                    <img className={s.backgroundPhoto} src={img.background.url} alt={img.background.name} />
+                    <div className={s.left}>
+                        <div className={s.information}>
+                            <Logo logo={this.props.logo} customStyles={{ width: '120px' }} />
+                            <Localization data={footer.information} />
+                            <EasyContact data={footer.easyContact} />
+                        </div>
+                        <div className={s.centerPhoto}>
+                            {width <= 650 ? cdh : <div className={[s.backText, 'backTextFooter'].join(' ')}>canna dark horse</div>}
+                            <img className='productFooter' src={img.product.url} alt={img.product.name} />
+                        </div>
                     </div>
-                    <div className={s.centerPhoto}>
-                        {width <= 650 ? cdh : <div className={[s.backText, 'backTextFooter'].join(' ')}>canna dark horse</div>}
-                        <img className='productFooter' src={img.product.url} alt={img.product.name} />
+                    {width <= 650 ? null : side}
+                    <div className={s.bottom}>
+                        <div className={s.copy}>
+                            <p>{`copyright 2018 ${width <= 1000 ? '' : '/ interactive agency'}`}</p>
+                            <a href='https://www.snws.pl' target="_blank" rel="noopener noreferrer"><img src={process.env.PUBLIC_URL + '/images/snwsLogo.png'} alt='Logo SNWS' /></a>
+                        </div>
+                        <img src={width <= 1000 ? img.bottom_small.url : img.bottom_big.url} alt={img.bottom_big.name} />
                     </div>
-                </div>
-                {width <= 650 ? null : side}
-                <div className={s.bottom}>
-                    <div className={s.copy}>
-                        <p>{`copyright 2018 ${width <= 1000 ? '' : '/ interactive agency'}`}</p>
-                        <a href='https://www.snws.pl' target="_blank" rel="noopener noreferrer"><img src={process.env.PUBLIC_URL + '/images/snwsLogo.png'} alt='Logo SNWS' /></a>
-                    </div>
-                    <img src={width <= 1000 ? img.bottom_small.url : img.bottom_big.url} alt={img.bottom_big.name} />
-                </div>
-            </footer>
+                </footer>
+            </Swipe>
         );
     }
 }

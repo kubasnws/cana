@@ -9,6 +9,7 @@ import { withRouter } from "react-router";
 import Languages from './Languages'
 import BurgerMenu from './BurgerMenu'
 import VideoDisplay from './VideoDisplay'
+import Swipe from 'react-easy-swipe';
 
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
@@ -59,6 +60,15 @@ class MainSection3 extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('wheel', this.onScroll, false);
+    }
+
+    onSwipeDown = () => {
+        onLeaveSection3Handler()
+        setTimeout(() => { this.props.history.push('/main-section-2') }, 500);
+    }
+    onSwipeUp = () => {
+        onLeaveSection3Handler()
+        setTimeout(() => { this.props.history.push('/footer') }, 500);
     }
 
     onScroll = e => {
@@ -123,39 +133,41 @@ class MainSection3 extends Component {
 
 
         return (
-            <div className={s.mainContainer}>
-                <WhiteElement socialMedia={this.props.socialMedia} />
-                <BurgerMenu fixed={true} />
-                <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} />
-                {width <= 820 ? null : <img className={[s.leftImage, 'sec_3_image'].join(' ')} src={leftImage} alt="" />}
-                <div className={s.leftSection}>
-                    <div className={s.content}>
-                        <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
-                            <p>It is so easy</p>
-                            <DelayLink
-                                to='/news/section1'
-                                delay={0}
-                                onDelayStart={() => { }}
-                                onDelayEnd={() => { }}>
-                                <button type='button'>Just find out</button>
-                                <div className={s.nextButton}><span>Click</span><LongArrowRight /></div>
-                            </DelayLink>
+            <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
+                <div className={s.mainContainer}>
+                    <WhiteElement socialMedia={this.props.socialMedia} />
+                    <BurgerMenu fixed={true} />
+                    <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} />
+                    {width <= 820 ? null : <img className={[s.leftImage, 'sec_3_image'].join(' ')} src={leftImage} alt="" />}
+                    <div className={s.leftSection}>
+                        <div className={s.content}>
+                            <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
+                                <p>It is so easy</p>
+                                <DelayLink
+                                    to='/news/section1'
+                                    delay={0}
+                                    onDelayStart={() => { }}
+                                    onDelayEnd={() => { }}>
+                                    <button type='button'>Just find out</button>
+                                    <div className={s.nextButton}><span>Click</span><LongArrowRight /></div>
+                                </DelayLink>
+                            </div>
+                            {width <= 820 ? null : description}
                         </div>
-                        {width <= 820 ? null : description}
-                    </div>
-                    <div className={[s.video, 'videoSec3'].join(' ')}>
+                        <div className={[s.video, 'videoSec3'].join(' ')}>
 
-                        <VideoDisplay
-                            firstVideoPost={firstVideoPost}
-                            width={width}
-                            videoAPILoaded={videoAPILoaded}
-                            videoBackground={videoBackground}
-                        />
+                            <VideoDisplay
+                                firstVideoPost={firstVideoPost}
+                                width={width}
+                                videoAPILoaded={videoAPILoaded}
+                                videoBackground={videoBackground}
+                            />
+                        </div>
                     </div>
+                    {width <= 1150 ? null : sideText}
+                    {scrollDown}
                 </div>
-                {width <= 1150 ? null : sideText}
-                {scrollDown}
-            </div>
+            </Swipe>
         );
     }
 }
