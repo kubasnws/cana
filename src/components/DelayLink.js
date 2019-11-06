@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
  * Wraps the React Router Link component and creates a delay after the link is clicked.
  */
 
-class DelayLink extends React.Component {
+class DelayLink extends Component {
 
     static propTypes = {
         /**
@@ -22,13 +22,15 @@ class DelayLink extends React.Component {
         /**
          * Called after the delay timer ends.
          */
-        onDelayEnd: PropTypes.func
+        onDelayEnd: PropTypes.func,
+        class: PropTypes.string,
     };
 
     static defaultProps = {
         delay: 0,
         onDelayStart: () => { },
-        onDelayEnd: () => { }
+        onDelayEnd: () => { },
+        class: 'delayLink'
     };
 
     static contextTypes = Link.contextTypes;
@@ -70,13 +72,11 @@ class DelayLink extends React.Component {
     };
 
     render() {
-        const props = Object.assign({}, this.props);
-        delete props.delay;
-        delete props.onDelayStart;
-        delete props.onDelayEnd;
+        const { delay, onDelayEnd, onDelayStart, ...rest } = this.props
+
 
         return (
-            <Link {...props} onClick={this.handleClick} />
+            <Link {...rest} onClick={this.handleClick} className={this.class} />
         );
     }
 }

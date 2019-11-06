@@ -14,7 +14,8 @@ import MainSection2 from './MainSection2'
 import MainSection3 from './MainSection3'
 import Footer from './Footer'
 import Products from './Products'
-import News from './News'
+import News from './News';
+import { routes } from '../routes'
 
 
 
@@ -185,9 +186,9 @@ class App extends Component {
     if (localStorage.getItem('isAgeOk') !== 'true') {
       return (
         <Router>
-          <Redirect to="/age" />
+          <Redirect to={routes.age} />
           <Route
-            path="/age"
+            path={routes.age}
             component={(e) => <AgeChecker
               location={e.location.pathname}
               selectHandler={this.selectHandler}
@@ -211,50 +212,50 @@ class App extends Component {
         <>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route exact path='/' component={() => <MainBanner
+              <Route exact path={routes.home} component={() => <MainBanner
                 logo={this.state.logo}
                 socialMedia={this.state.social_media}
                 videos={this.state.videos} />} />
-              <Route path='/main-section-1'
+              <Route path={routes.mainProd}
                 component={() => <MainSection1
                   images={this.state.images}
                   socialMedia={this.state.social_media} />}
               />
-              <Route path='/main-section-2'
+              <Route path={routes.mainImage}
                 component={() => <MainSection2
                   images={this.state.images}
                   sectionApi={this.state.mainSection2}
                   socialMedia={this.state.social_media} />} />
-              <Route path='/main-section-3'
+              <Route path={routes.mainVideo}
                 component={() => <MainSection3
                   images={this.state.images}
                   section={this.state.mainSection3}
                   socialMedia={this.state.social_media} />} />
-              <Route path='/footer'
+              <Route path={routes.mainFooter}
                 component={() => <Footer
                   images={this.state.images}
                   section={this.state.footer}
                   logo={this.state.logo}
                   socialMedia={this.state.social_media} />}
               />
-              {/* <Route path='/products'
+              <Route path={routes.products}
                 component={() => <Products
                   images={this.state.images}
                   social={this.state.social_media}
                   footer={this.state.footer}
                 />} />
-              <Route path='/news'
+              <Route path={routes.news}
                 component={() => <News
                   images={this.state.images}
                   social={this.state.social_media}
                   footer={this.state.footer}
-                />} /> */}
+                />} />
               <Route
-                path="/age"
+                path={routes.age}
                 component={AgeChecker}
               />
-              <Route path="/404" component={() => <ErrorPage cameleon={this.state.images} />} />
-              <Redirect to='/404' />
+              <Route path={routes.error} component={() => <ErrorPage cameleon={this.state.images} />} />
+              <Redirect to={routes.error} />
             </Switch>
           </Router>
         </>

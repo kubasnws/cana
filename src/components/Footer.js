@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import s from './Footer.css'
 import Logo from './Logo'
-import { onLoadLogoHandler, onLoadSideSocialHandler, onLoadFooterHandler, onLeaveFooterHandler } from './Animations'
+import { onLoadSideSocialHandler, onLoadFooterHandler, onLeaveFooterHandler } from './Animations'
 import WhiteElement from './WhiteElement'
 import { scrollDirectionDetect, lettersSplit } from './userHandlers'
 import { withRouter } from "react-router";
@@ -16,7 +16,6 @@ class Footer extends Component {
         width: Number
     }
     componentDidMount() {
-        onLoadLogoHandler()
         onLoadSideSocialHandler(.6)
         onLoadFooterHandler()
         // burgerMenuAnimation()

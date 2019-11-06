@@ -3,9 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 6vw;
-    min-width: 45px;
-    margin-bottom: 5vh;
+    width: 100%;
 }
 
 .socialBox>a {
@@ -55,6 +53,10 @@
 
 .whiteSocial svg path {
     color: #fff
+}
+
+.none {
+    display: none !important;
 }
 
 @media(max-width: 800px) {

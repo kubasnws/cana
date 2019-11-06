@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './MainSection1.css'
 import BannerTopBar from './BannerTopBar'
-import { onLoadSection1Handler, onLoadLogoHandler, onLoadSideSocialHandler } from './Animations'
+import { onLoadSection1Handler, onLoadSideSocialHandler } from './Animations'
 import WhiteElement from './WhiteElement'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
@@ -10,6 +10,7 @@ import { withRouter } from "react-router";
 import { LongArrowRight } from './Icons'
 import { onLeaveSection1Handler } from './Animations'
 import Swipe from 'react-easy-swipe';
+import { routes } from '../routes';
 
 let debounce = false
 
@@ -18,7 +19,6 @@ class MainSection1 extends Component {
         width: Number
     }
     componentDidMount() {
-        onLoadLogoHandler()
         onLoadSection1Handler()
         onLoadSideSocialHandler(.6)
         this.widthChange()
@@ -43,11 +43,11 @@ class MainSection1 extends Component {
 
     onSwipeDown = () => {
         onLeaveSection1Handler()
-        setTimeout(() => { this.props.history.push('/') }, 500);
+        setTimeout(() => { this.props.history.push(routes.home) }, 500);
     }
     onSwipeUp = () => {
         onLeaveSection1Handler()
-        setTimeout(() => { this.props.history.push('/main-section-2') }, 500);
+        setTimeout(() => { this.props.history.push(routes.mainImage) }, 500);
     }
 
     onScroll = e => {
@@ -55,7 +55,7 @@ class MainSection1 extends Component {
             onLeaveSection1Handler()
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/')
+                this.props.history.push(routes.home)
                 debounce = false
             }, 500);
         }
@@ -63,7 +63,7 @@ class MainSection1 extends Component {
             onLeaveSection1Handler()
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/main-section-2')
+                this.props.history.push(routes.mainImage)
                 debounce = false
             }, 500);
         }
@@ -74,8 +74,8 @@ class MainSection1 extends Component {
     }
     render() {
         window.addEventListener("resize", this.widthChange);
-
-        const { logo, sideTextSection__1, left_image__1, sample_product } = this.props.images
+        const { images } = this.props
+        const { logo, sideTextSection__1, left_image__1, sample_product } = images
         const { width } = this.state
 
         const scrollDown = (
@@ -83,10 +83,9 @@ class MainSection1 extends Component {
                 <p>Ready to see?</p>
 
                 <DelayLink
-                    to='/main-section-2'
+                    to={routes.mainImage}
                     delay={500}
-                    onDelayStart={() => onLeaveSection1Handler()}
-                    onDelayEnd={() => { }}>
+                    onDelayStart={() => onLeaveSection1Handler()}>
                     <button type='button'>scroll it!</button>
                 </DelayLink>
             </div>
@@ -98,7 +97,7 @@ class MainSection1 extends Component {
                 <DelayLink
                     to='/products/section1'
                     delay={500}
-                    onDelayStart={() => onLeaveSection1Handler()}
+                    onDelayStart={onLeaveSection1Handler}
                     onDelayEnd={() => { }}>
                     <div className={[styles.nextButton, 'prodButton'].join(' ')}><span>Check the amazing products</span><LongArrowRight /></div>
                 </DelayLink>
@@ -112,7 +111,7 @@ class MainSection1 extends Component {
                     <BannerTopBar logoDisplay={false} custStyle='section1' />
                     {seeProducts}
                     <div className={styles.logoBox}>
-                        <Logo logo={logo} customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
+                        <Logo customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
                         <div className={styles.underLogoText}>
                             <span ref={(el) => { this.el = el }}></span>
                         </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import s from './Products1.css'
-import { onLoadLogoHandler } from './Animations';
 import Languages from './Languages'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
@@ -18,8 +17,6 @@ class Products1 extends Component {
         bigDescription: String,
     }
     componentDidMount() {
-        onLoadLogoHandler()
-
         new Swiper('.swiper-container', {
             navigation: {
                 nextEl: '.swiper-button-next',

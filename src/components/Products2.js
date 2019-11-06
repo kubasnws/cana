@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import s from './Products2.css'
-// import { onLoadLogoHandler } from './Animations';
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
 import Swiper from 'swiper/js/swiper.esm.bundle';

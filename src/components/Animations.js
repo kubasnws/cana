@@ -8,7 +8,7 @@ const back1 = Back.easeOut.config(2)
 const backIn = Back.easeInOut.config(1.5)
 
 const logoLeave = () => {
-    console.log('called logo');
+    // console.log('called logo');
     TweenMax.to(`.logo`, .3, { scale: 0, ease: elasticEase })
 }
 const languagesLeave = () => {
@@ -18,8 +18,8 @@ const burgerMenuLeave = () => {
     TweenMax.to('.burgerMenu', .3, { x: 160, ease: elasticEase2 })
 }
 const whiteElementLoad = () => {
-    TweenMax.to('.whiteElement', .7, { x: '-94%', ease: elasticEase })
-    TweenMax.from('.whiteElement', .7, { backgroundColor: '#242424' })
+    TweenMax.to('.whiteElement', .35, { x: 0, ease: power })
+    // TweenMax.from('.whiteElement', .7, { backgroundColor: '#242424' })
 }
 const menuBoxLeave = () => {
     TweenMax.to(`.buttonBox`, .4, { y: 100, opacity: 0, ease: elasticEase2 })

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import s from './MainSection3.css'
 import WhiteElement from './WhiteElement'
+import Swipe from 'react-easy-swipe';
 import { lettersSplit } from './userHandlers'
 import DelayLink from './DelayLink'
 import { LongArrowRight, ChevronDown } from './Icons'
@@ -9,8 +10,8 @@ import { withRouter } from "react-router";
 import Languages from './Languages'
 import BurgerMenu from './BurgerMenu'
 import VideoDisplay from './VideoDisplay'
-import Swipe from 'react-easy-swipe';
-
+import { routes } from '../routes';
+import Logo from './Logo';
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
 let debounce = false
@@ -64,11 +65,11 @@ class MainSection3 extends Component {
 
     onSwipeDown = () => {
         onLeaveSection3Handler()
-        setTimeout(() => { this.props.history.push('/main-section-2') }, 500);
+        setTimeout(() => { this.props.history.push(routes.mainImage) }, 500);
     }
     onSwipeUp = () => {
         onLeaveSection3Handler()
-        setTimeout(() => { this.props.history.push('/footer') }, 500);
+        setTimeout(() => { this.props.history.push(routes.mainFooter) }, 500);
     }
 
     onScroll = e => {
@@ -76,7 +77,8 @@ class MainSection3 extends Component {
             onLeaveSection3Handler()
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/main-section-2')
+                '/news/section1'
+                this.props.history.push(routes.mainImage)
                 debounce = false
             }, 500);
         }
@@ -84,7 +86,7 @@ class MainSection3 extends Component {
             onLeaveSection3Handler()
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/footer')
+                this.props.history.push(routes.mainFooter)
                 debounce = false
             }, 500);
         }
@@ -106,11 +108,12 @@ class MainSection3 extends Component {
         const scrollDown = (
             <div className={s.down}>
                 <DelayLink
-                    to='/footer'
+                    to={routes.mainFooter}
                     delay={500}
-                    onDelayStart={() => onLeaveSection3Handler()}
-                    onDelayEnd={() => { }}>
-                    <ChevronDown />
+                    onDelayStart={onLeaveSection3Handler}>
+                    <>
+                        <ChevronDown />
+                    </>
                 </DelayLink>
             </div>
         )
@@ -136,15 +139,17 @@ class MainSection3 extends Component {
             <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
                 <div className={s.mainContainer}>
                     <WhiteElement socialMedia={this.props.socialMedia} />
+                    <div className={s.logoBox}>
+                        <Logo customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
+                    </div>
                     <BurgerMenu fixed={true} />
-                    <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} />
                     {width <= 820 ? null : <img className={[s.leftImage, 'sec_3_image'].join(' ')} src={leftImage} alt="" />}
                     <div className={s.leftSection}>
                         <div className={s.content}>
                             <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
                                 <p>It is so easy</p>
                                 <DelayLink
-                                    to='/news/section1'
+                                    to={routes.mainProd}
                                     delay={0}
                                     onDelayStart={() => { }}
                                     onDelayEnd={() => { }}>

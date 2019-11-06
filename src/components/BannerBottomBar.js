@@ -1,33 +1,34 @@
 import React from 'react';
-import styles from './BannerBottomBar.css'
+import s from './BannerBottomBar.css'
 import DelayLink from './DelayLink'
 import { onLeaveBannerHandler } from './Animations'
 import { ChevronDown, Facebook, Instagram, Twitter } from './Icons'
+import { routes } from '../routes'
 
 
-const BannerBottomBar = (props) => {
-    const { facebook, instagram, twitter } = props.socialMedia
+const BannerBottomBar = ({ socialMedia }) => {
+    const { facebook, instagram, twitter } = socialMedia
     const scrollIt = (
-        <div className={`${styles.scrollIt} scrollIt`}>
+        <div className={`${s.scrollIt} scrollIt`}>
             <ChevronDown />
             <p>scroll it!</p>
         </div>
     )
     return (
-        <div className={styles.bottomBar}>
-            <div className={`${styles.social} social`}>
+        <div className={s.bottomBar}>
+            <div className={`${s.social} social`}>
                 <ul>
-                    <a href={facebook} target="_blank" rel="noopener noreferrer">
+                    <a href={facebook} className={facebook === '' ? s.hide : ''} target="_blank" rel="noopener noreferrer">
                         <li>
                             <Facebook />
                         </li>
                     </a>
-                    <a href={instagram} target="_blank" rel="noopener noreferrer">
+                    <a href={instagram} className={instagram === '' ? s.hide : ''} target="_blank" rel="noopener noreferrer">
                         <li>
                             <Instagram />
                         </li>
                     </a>
-                    <a href={twitter} target="_blank" rel="noopener noreferrer">
+                    <a href={twitter} className={twitter === '' ? s.hide : ''} target="_blank" rel="noopener noreferrer">
                         <li>
                             <Twitter />
                         </li>
@@ -35,10 +36,9 @@ const BannerBottomBar = (props) => {
                 </ul>
             </div>
             <DelayLink
-                to='/main-section-1'
+                to={routes.mainProd}
                 delay={500}
-                onDelayStart={onLeaveBannerHandler}
-                onDelayEnd={() => { }}>
+                onDelayStart={onLeaveBannerHandler}>
                 {scrollIt}
             </DelayLink>
         </div>

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import styles from './MainBanner.css';
-// import BannerVideo from './BannerVideo';
+import BannerVideo from './BannerVideo';
 import BannerTopBar from "./BannerTopBar";
 import CarouselMenu from './CarouselMenu';
 import BannerBottomBar from './BannerBottomBar'
-import { onLoadBannerHandler, onLoadLogoHandler, onLeaveBannerHandler } from './Animations'
+import { onLoadBannerHandler, onLeaveBannerHandler } from './Animations'
 import { withRouter } from "react-router";
 import Swipe from 'react-easy-swipe';
+import { routes } from '../routes';
 
 let debounce = false
 
@@ -17,7 +18,6 @@ class MainBanner extends Component {
 
 
     componentDidMount() {
-        onLoadLogoHandler()
         onLoadBannerHandler()
         window.addEventListener('wheel', this.onScroll, false);
     }
@@ -28,7 +28,7 @@ class MainBanner extends Component {
 
     onSwipeUp = () => {
         onLeaveBannerHandler()
-        setTimeout(() => { this.props.history.push('/main-section-1') }, 500);
+        setTimeout(() => { this.props.history.push(routes.mainProd) }, 500);
     }
 
     onScroll = e => {
@@ -38,10 +38,9 @@ class MainBanner extends Component {
         else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveBannerHandler()
             debounce = true
-            console.log('object');
             setTimeout(() => {
-                this.props.history.push('/main-section-1')
-                // debounce = false
+                this.props.history.push(routes.mainProd)
+                debounce = false
             }, 1000);
         }
     }

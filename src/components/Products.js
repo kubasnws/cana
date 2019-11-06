@@ -9,6 +9,7 @@ import BurgerMenu from './BurgerMenu'
 import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { withRouter } from "react-router";
+import { routes } from '../routes';
 
 const APISite = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/146';
 const APIProducts = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/products';
@@ -120,20 +121,20 @@ class Products extends Component {
         const { sideBackgroundText, kitImage } = this.state.productsPage
         const backgroundText = {
             backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? null : sideBackgroundText.url})`,
-            overflow: path === '/products/footer' ? 'hidden' : 'unset'
+            overflow: path === routes.productsFooter ? 'hidden' : 'unset'
         }
         const sideBarText = (
             <div className={s.rightSection} style={backgroundText}>
-                <Route path='/products' component={() => <SideBarTextElement api={productsPage} />} />
-                {path === '/products/section3' && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
-                {path === '/products/footer' && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
+                <Route path={routes.products} component={() => <SideBarTextElement api={productsPage} />} />
+                {path === routes.productsInsta && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
+                {path === routes.productsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
             </div>
         )
         return (
             <section className={s.mainSection}>
                 <BurgerMenu fixed={true} y={width > 950 ? null : '230px'} />
                 <div className={s.leftSection}>
-                    <Route path='/products/section1'
+                    <Route path={routes.productsHome}
                         component={() => <Products1
                             sectionApi={section1}
                             images={images}
@@ -141,13 +142,13 @@ class Products extends Component {
                             isLoaded={isLoaded}
                             width={width} />}
                     />
-                    <Route path='/products/section2'
+                    <Route path={routes.productsSingle}
                         component={() => <Products2
                             sectionApi={section2}
                             products={products}
                             width={width} />}
                     />
-                    <Route path='/products/section3'
+                    <Route path={routes.productsInsta}
                         component={() => <Products3
                             sectionApi={section3}
                             width={width}
@@ -155,7 +156,7 @@ class Products extends Component {
                             social={social}
                         />}
                     />
-                    <Route path='/products/footer'
+                    <Route path={routes.productsFooter}
                         component={() => <FooterWhite
                             sectionApi={footer}
                             images={images}
@@ -175,13 +176,13 @@ class SideBarTextElement extends Component {
     state = {}
     componentDidMount() {
         const path = window.location.pathname
-        if (path === '/products/section1')
+        if (path === routes.productsHome)
             productSideText(0, path)
-        else if (path === '/products/section2')
+        else if (path === routes.productsSingle)
             productSideText(0, path)
-        else if (path === '/products/section3')
+        else if (path === routes.productsInsta)
             productSideText(0, path)
-        else if (path === '/products/footer')
+        else if (path === routes.productsFooter)
             productSideText(0, path)
     }
     render() {

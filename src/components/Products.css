@@ -22,7 +22,6 @@
     font-family: "bannerBig";
     font-size: 231px;
     line-height: 150px;
-    color: #e2ceaa;
     height: auto;
     width: 100%;
     display: flex;
@@ -30,6 +29,11 @@
     align-items: center;
     margin-top: 16vh;
 
+
+}
+
+.sideText>span {
+    color: #CBB898;
 }
 
 .sideText>span {

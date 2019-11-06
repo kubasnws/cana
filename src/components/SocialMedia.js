@@ -4,7 +4,7 @@ import { Facebook, Twitter, Instagram } from './Icons'
 import { socialLinks } from './App'
 
 const SocialMedia = props => {
-    const { facebook, instagram, twitter } = socialLinks
+
     const { isWhite, fontSize, boxSize, marginBottom, isHorizontal } = props
     const socialSize = {
         fontSize: fontSize,
@@ -18,13 +18,30 @@ const SocialMedia = props => {
         width: isHorizontal === true ? 'auto' : null,
         margin: marginBottom === false ? 0 : null,
     }
+
     return (
+
         <div className={[s.socialBox, 'socialBox'].join(' ')} style={socialStyles} >
-            <a className={isWhite === true ? s.whiteSocial : null} style={socialSize} href={facebook} target="_blank" rel="noopener noreferrer"><Facebook /></a>
-            <a className={isWhite === true ? s.whiteSocial : null} style={socialSize} href={instagram} target="_blank" rel="noopener noreferrer"><Instagram /></a>
-            <a className={isWhite === true ? s.whiteSocial : null} style={socialSize} href={twitter} target="_blank" rel="noopener noreferrer"><Twitter /></a>
+            <SocialElement socialSize={socialSize} isWhite={isWhite} />
         </div>
     );
 }
+
+const SocialElement = ({ isWhite, socialSize }) => {
+    const values = Object.values(socialLinks)
+    const social = values.map((element, index) => {
+        return (
+            <a key={index} className={[isWhite && s.whiteSocial, element === '' && s.none].join(' ')} style={socialSize} href={element} target="_blank" rel="noopener noreferrer">
+                {element !== '' && (index === 0 ? <Facebook /> : index === 1 ? <Instagram /> : <Twitter />)}
+            </a>
+        )
+    });
+    return (
+        <>
+            {social}
+        </>
+    );
+}
+
 
 export default SocialMedia;

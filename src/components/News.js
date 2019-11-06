@@ -10,6 +10,7 @@ import BurgerMenu from './BurgerMenu'
 import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { withRouter } from "react-router";
+import { routes } from '../routes';
 
 const APISite = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/230';
 const APISite_146 = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/146';
@@ -147,20 +148,20 @@ class News extends Component {
         const { sideBackgroundText, kitImage } = this.state.productsPage
         const backgroundText = {
             backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? '' : sideBackgroundText.url})`,
-            overflow: path === '/products/footer' ? 'hidden' : 'unset'
+            overflow: path === routes.productsFooter ? 'hidden' : 'unset'
         }
         const sideBarText = (
             <div className={s.rightSection} style={backgroundText}>
                 <Route path='/news' component={() => <SideBarTextElement api={productsPage} />} />
-                {path === '/news/section4' && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
-                {path === '/news/footer' && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
+                {path === routes.newsInsta && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
+                {path === routes.newsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
             </div>
         )
         return (
             <section className={s.mainSection}>
                 <BurgerMenu fixed={true} y='40px' />
                 <div className={s.leftSection}>
-                    <Route path='/news/section1'
+                    <Route path={routes.newsHome}
                         component={() => <News1
                             sectionApi={section1}
                             sImages={sImages}
@@ -169,7 +170,7 @@ class News extends Component {
                             isLoaded={isLoaded}
                             width={width} />}
                     />
-                    <Route path='/news/section2'
+                    <Route path={routes.newsVideos}
                         component={() => <News2
                             sectionApi={section2}
                             images={images}
@@ -177,7 +178,7 @@ class News extends Component {
                             isLoaded={isLoaded}
                             width={width} />}
                     />
-                    <Route path='/news/section3'
+                    <Route path={routes.newsImages}
                         component={() => <News3
                             sectionApi={section1}
                             images={images}
@@ -187,7 +188,7 @@ class News extends Component {
                             firstPost={firstPost}
                         />}
                     />
-                    <Route path='/news/section4'
+                    <Route path={routes.newsInsta}
                         component={() => <Products3
                             sectionApi={section4}
                             width={width}
@@ -196,7 +197,7 @@ class News extends Component {
                             localization='news'
                         />}
                     />
-                    <Route path='/news/footer'
+                    <Route path={routes.newsFooter}
                         component={() => <FooterWhite
                             sectionApi={footer}
                             images={images}
@@ -216,20 +217,20 @@ class SideBarTextElement extends Component {
     state = {}
     componentDidMount() {
         const path = window.location.pathname
-        if (path === '/news/section1')
+        if (path === routes.newsHome)
             productSideText(0, path)
-        else if (path === '/news/section2')
+        else if (path === routes.newsVideos)
             productSideText(0, path)
-        else if (path === '/news/section3')
+        else if (path === routes.newsImages)
             productSideText(0, path)
-        else if (path === '/news/footer')
+        else if (path === routes.newsFooter)
             productSideText(0, path)
     }
     render() {
         const splitHorse = lettersSplit('latest news')
         const path = window.location.pathname
         const splitCondition = () => {
-            if (path === '/news/section4' || path === '/news/footer') {
+            if (path === routes.newsInsta || path === routes.newsFooter) {
                 return null
             } else {
                 return splitHorse

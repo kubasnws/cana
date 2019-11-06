@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import s from './News1.css'
-import { onLoadLogoHandler } from './Animations';
-import Languages from './Languages'
 import Logo from './Logo'
 import SocialMedia from './SocialMedia'
 import { withRouter } from "react-router";
+import { routes } from '../routes';
 
 let debounce = false
 
@@ -14,8 +13,6 @@ class News1 extends Component {
         bigDescription: String,
     }
     componentDidMount() {
-        onLoadLogoHandler()
-
         window.addEventListener('wheel', this.onScroll, false);
     }
 
@@ -46,7 +43,7 @@ class News1 extends Component {
             console.log('dzoala')
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/news/section2')
+                this.props.history.push(routes.newsVideos)
                 debounce = false
             }, 500);
         }
@@ -71,7 +68,6 @@ class News1 extends Component {
                 <div>
                     <div className={s.topBox}>
                         <div className={s.languageBox}>
-                            <Languages color='dark' />
                         </div>
                         <div className={s.logoBox}>
                             <Logo logo={dark_logo} color='dark' />

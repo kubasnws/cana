@@ -2,14 +2,15 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 100vw;
+    width: 6vw;
     height: 100vh;
-    transform: translateX(-100%);
+    /* transform: translateX(-100%); */
     /* z-index: 20; */
     background-color: #fff;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     z-index: 40;
-    min-width: 750px;
+    padding: 4vh 0;
 }

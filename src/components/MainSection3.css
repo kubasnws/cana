@@ -26,13 +26,13 @@
     transform-origin: left;
     font-size: 231px;
     letter-spacing: 23px;
-    color: #e2ceaa;
     font-family: "BannerBig";
     display: flex;
 }
 
 .decorationText>span {
-    display: block
+    display: block;
+    color: #CBB898;
 }
 
 .leftSection {
@@ -194,4 +194,10 @@
         width: 88%;
         margin-left: 50px;
     }
+}
+
+.logoBox {
+    position: absolute;
+    top: 4vh;
+    left: 8vw;
 }

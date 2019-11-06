@@ -22,6 +22,10 @@
     color: #e2ceaa;
 }
 
+.disactive {
+    z-index: 3;
+}
+
 @media(min-width: 659px) {
     .disactive>h1 {
         transition: transform .24s ease-in-out;
@@ -29,11 +33,11 @@
     }
 
     .disactive:first-of-type>h1 {
-        transform: translateX(-60%);
+        transform: translateX(-27%);
     }
 
     .disactive:last-of-type>h1 {
-        transform: translateX(60%);
+        transform: translateX(20%);
     }
 
     .disactive:last-of-type>h1:hover {

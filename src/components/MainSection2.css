@@ -115,7 +115,8 @@ a {
 }
 
 .decorationText>span {
-    display: block
+    display: block;
+    color: #CBB898;
 }
 
 
@@ -229,4 +230,10 @@ a {
     .cannaCar {
         transform: translateY(20vw)
     }
+}
+
+.logoBox {
+    position: absolute;
+    top: 4vh;
+    left: 8vw;
 }

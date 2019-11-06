@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import s from './FooterWhite.css'
 import Logo from './Logo'
-import { onLoadLogoHandler, socialLoad, whiteFooterAnimation } from './Animations'
+import { socialLoad, whiteFooterAnimation } from './Animations'
 import SocialMedia from './SocialMedia'
 import CopyrightSnws from './CopyrightSnws'
 
@@ -15,7 +15,6 @@ class FooterWhite extends Component {
     componentDidMount() {
 
         window.addEventListener('wheel', this.onScroll, false);
-        onLoadLogoHandler()
         socialLoad()
         whiteFooterAnimation('enter')
     }

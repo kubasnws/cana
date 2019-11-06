@@ -1,15 +1,20 @@
 import React from 'react';
-import styles from './WhiteElement.css'
-import SocialMedia from './SocialMedia'
+import { withRouter } from "react-router";
+import s from './WhiteElement.css';
+import SocialMedia from './SocialMedia';
+import Languages from './Languages';
+import SideNavigation from './SideNavigation/SideNavigation';
 
 
 const WhiteElement = props => {
 
     return (
-        <div className={[styles.whiteElement, 'whiteElement'].join(' ')}>
-            {props.isSocialDisplay === false ? null : <SocialMedia />}
+        <div className={[s.whiteElement, 'whiteElement'].join(' ')}>
+            <Languages />
+            <SideNavigation location={props.location.pathname} />
+            {!props.isSocialDisplay && <SocialMedia />}
         </div>
     );
 }
 
-export default WhiteElement;
+export default withRouter(WhiteElement);
