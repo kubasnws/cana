@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import s from './MainSection2.css'
-import { onLoadSection2Handler, onLoadSideSocialHandler, onLeaveSection2Handler } from './Animations'
+import { onLoadSection2Handler, onLeaveSection2Handler } from './Animations'
 import DelayLink from './DelayLink'
 import { LongArrowRight, ChevronDown } from './Icons'
 import WhiteElement from './WhiteElement'
 import { lettersSplit } from './userHandlers'
 import { withRouter } from "react-router";
 import BurgerMenu from './BurgerMenu'
-import Languages from './Languages'
 import Swipe from 'react-easy-swipe';
 import Logo from './Logo'
 import { routes } from '../routes';
@@ -20,7 +19,6 @@ class MainSection2 extends Component {
     }
     componentDidMount() {
         onLoadSection2Handler()
-        onLoadSideSocialHandler(.7)
         this.widthChange()
         window.addEventListener('wheel', this.onScroll, false);
     }

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import s from './VideoDisplay.css'
 import Player from 'react-player'
-import { PlayButton, PauseButton, VolumeOn, VolumeOff } from './Icons'
-import DelayLink from './DelayLink'
+import { PlayButton, PauseButton, VolumeOn, VolumeOff, Bell, BellSlash } from './Icons'
+import DelayLink from './DelayLink';
+import { routes } from '../routes';
+import { TimelineMax, Power2 } from 'gsap';
 
 class VideoDisplay extends Component {
     state = {
         isVideoPlaying: true,
         isVolumeOff: true,
+        notifications: true,
         duration: 0,
         secondsElapsed: 0,
         isApiLoaded: false,
@@ -36,7 +39,6 @@ class VideoDisplay extends Component {
                     .then(response => response.json())
                     .then(data => {
                         prodArray.push(data)
-
 
                         this.setState({
                             isApiLoaded: true,
@@ -75,9 +77,13 @@ class VideoDisplay extends Component {
         this.setState({ isVolumeOff: !this.state.isVolumeOff });
     }
 
+    handlerNotifications = () => {
+        this.setState({ notifications: !this.state.notifications });
+    }
+
     render() {
 
-        const { isVideoPlaying, isVolumeOff, secondsElapsed, productsArray } = this.state
+        const { isVideoPlaying, isVolumeOff, notifications, secondsElapsed, productsArray, duration } = this.state
         const { videoBackground, width, videoAPILoaded } = this.props
         const { videoLink, videoTitle, videoDescription, videoPostsConnection } = this.props.firstVideoPost
 
@@ -98,6 +104,9 @@ class VideoDisplay extends Component {
                         <div className={s.muteBox} onClick={this.volumeOnOffHandler}>
                             {isVolumeOff ? <VolumeOff /> : <VolumeOn />}
                         </div>
+                        <div className={s.notifications} onClick={this.handlerNotifications}>
+                            {notifications ? <BellSlash /> : <Bell />}
+                        </div>
                         {width <= 820 ? descriptionVideo : null}
                     </div>
                     <Player
@@ -113,56 +122,117 @@ class VideoDisplay extends Component {
                     />
                     {width <= 680 ? null : <img className={s.backVid} src={videoBackground} alt="Under video" />}
                     {width <= 820 ? null : <div className={[s.number, 'sec_3_number'].join(' ')}>2.</div>}
+                    {notifications && <ConnectedProducts duration={duration} productsArray={productsArray} arr={videoPostsConnection} secondsElapsed={secondsElapsed} />}
                 </div>
-                {/* <ConnectedProduct productsArray={productsArray} arr={videoPostsConnection} secondsElapsed={secondsElapsed} /> */}
+
             </>
         );
     }
 }
+
+const ConnectedProducts = ({ productsArray, secondsElapsed, arr, duration }) => {
+
+    const item = productsArray.map((item, index) =>
+        <ConnectedProduct
+            key={index}
+            index={index}
+            item={item}
+            secondsElapsed={secondsElapsed}
+            arr={arr}
+            duration={duration}
+        />);
+    return (
+        <div className={s.mainConnected}>
+            {item}
+        </div>
+    )
+}
+
 class ConnectedProduct extends Component {
     state = {
-
+        isVisible: false,
     }
+
+    handlerProductVisible = () => {
+        const { index, secondsElapsed, arr, duration } = this.props
+        let { display_start: start, display_end: end, end_point } = arr[index]
+        start = parseInt(start);
+        end = end_point === 'true' ? parseInt(end) : duration
+
+        if (secondsElapsed >= start && secondsElapsed <= end) {
+            this.setState({ isVisible: true })
+        } else {
+            this.setState({ isVisible: false })
+        }
+
+        this.handlerPosition()
+    }
+
+    handlerPosition = () => {
+
+        const { index } = this.props;
+        const mainContainer = document.querySelector(`.${s.mainConnected}`)
+        let top = 0;
+        for (let i = 0; i < index; i++) {
+            const height = typeof mainContainer.children[i] !== 'undefined' ? mainContainer.children[i].clientHeight : 0;
+            top = top + height + 2
+        }
+
+        const tl = new TimelineMax();
+        if (this.refs.mainElement !== null && this.state.isVisible) {
+            tl.to(this.refs.mainElement, .2, { opacity: .75, y: top })
+        }
+    }
+
     componentDidMount() {
-
+        this.mainInterval = setInterval(() => {
+            this.handlerProductVisible()
+        }, 1000);
     }
+
+    componentWillUnmount() {
+        clearInterval(this.mainInterval)
+    }
+
     render() {
-        const { productsArray, secondsElapsed, arr } = this.props
+        const { isVisible } = this.state;
+        const { item, arr, index } = this.props;
+        const { sneak_peek } = arr[index]
+
         const truncate = (input) => input.length > 100 ? `${input.substring(0, 100)}...` : input;
-        const item = productsArray.map((item, index) => {
-            let { display_start: start, display_end: end } = arr[index]
-            start = parseInt(start)
-            end = parseInt(end)
-            const currentProductLink = `/products/section2#${item.id}`
-            const htmlElement = (
-                <div className={[s.connectedBox, secondsElapsed >= start && secondsElapsed <= end ? s.connectedVisible : s.connectedHide, 'connectedBox'].join(' ')} key={item.id}>
-                    <DelayLink
-                        to={currentProductLink}
-                        delay={0}
-                        onDelayStart={() => { }}
-                        onDelayEnd={() => { }}>
-                    </DelayLink>
+        const currentProductLink = `${routes.productsSingle}#${item.id}`;
+
+        const sneakPeak = (
+            <div className={s.productMoreContent}>
+                {truncate(item.acf.short_description)}
+            </div>
+        )
+
+        const element = (
+            <div className={[s.connectedBox, isVisible ? s.connectedVisible : s.connectedHide, 'connectedBox'].join(' ')} ref="mainElement" key={item.id}>
+                <DelayLink
+                    to={currentProductLink}
+                    delay={0}
+                >
+                </DelayLink>
+                <div className={s.productMainInfos}>
                     <div className={[s.prodImage, 'prodImage'].join(' ')}>
                         <img src={item.acf.images[0].sizes.medium_large} alt={item.acf.images[0].alt} />
                     </div>
                     <div className={[s.prodText, 'prodText'].join(' ')}>
-                        <h2>{item.title.rendered}</h2>
-                        <div>{truncate(item.acf.short_description)}</div>
+                        <h5>{item.title.rendered}</h5>
                     </div>
                 </div>
-            )
-            return (
-                htmlElement
-            )
-        })
-        return (
-            <div className={s.mainConnected}>
-                {item}
+                {sneak_peek && sneakPeak}
             </div>
+        )
+
+        return (
+            <>
+                {element}
+            </>
         );
     }
-
 }
-
 
 export default VideoDisplay;

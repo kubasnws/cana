@@ -13,12 +13,6 @@ class BurgerMenu extends Component {
         menuIsOpen: false,
     }
 
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
     burgerMenuHandler = () => {
         if (this.state.menuIsOpen) {
             menuOpen('close')

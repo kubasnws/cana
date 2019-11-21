@@ -1,0 +1,23 @@
+.buttonWrapper p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #8c909f;
+    font-family: "Roboto Slab";
+    font-weight: 400;
+    margin: 0;
+    text-align: end;
+}
+
+.buttonWrapper button {
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-family: "Roboto Slab";
+    font-weight: 600;
+    color: #77924A;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}

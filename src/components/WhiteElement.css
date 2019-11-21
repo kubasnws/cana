@@ -4,13 +4,18 @@
     top: 0;
     width: 6vw;
     height: 100vh;
-    /* transform: translateX(-100%); */
-    /* z-index: 20; */
-    background-color: #fff;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     z-index: 40;
     padding: 4vh 0;
+    z-index: 40;
+}
+
+@media(max-width: 850px) {
+    .whiteElement {
+        width: 50px;
+    }
 }

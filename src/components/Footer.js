@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import s from './Footer.css'
 import Logo from './Logo'
-import { onLoadSideSocialHandler, onLoadFooterHandler, onLeaveFooterHandler } from './Animations'
+import { onLoadFooterHandler, onLeaveFooterHandler } from './Animations'
 import WhiteElement from './WhiteElement'
 import { scrollDirectionDetect, lettersSplit } from './userHandlers'
 import { withRouter } from "react-router";
-// import BannerTopBar from './BannerTopBar'
 import BurgerMenu from './BurgerMenu'
-import Languages from './Languages';
 import Swipe from 'react-easy-swipe';
+import { routes } from '../routes'
 
+const path = window.location.pathname
 
 class Footer extends Component {
     state = {
         width: Number
     }
     componentDidMount() {
-        onLoadSideSocialHandler(.6)
         onLoadFooterHandler()
         // burgerMenuAnimation()
         this.widthChange()
@@ -29,14 +28,30 @@ class Footer extends Component {
 
     onSwipeDown = () => {
         onLeaveFooterHandler()
-        setTimeout(() => { this.props.history.push('/main-section-3') }, 500);
+        setTimeout(() => {
+            if (path === routes.mainFooter) {
+                this.props.history.push(routes.mainVideo)
+            } else if (path === routes.productsFooter) {
+                this.props.history.push(routes.productsInsta)
+            } else if (path === routes.newsFooter) {
+                this.props.history.push(routes.newsInsta)
+            }
+        }, 500);
     }
 
     onScroll = e => {
+
         if (e.deltaY < 0) { //Up
             onLeaveFooterHandler()
             setTimeout(() => {
-                this.props.history.push('/main-section-3')
+                if (path === routes.mainFooter) {
+                    this.props.history.push(routes.mainVideo)
+                } else if (path === routes.productsFooter) {
+                    this.props.history.push(routes.productsInsta)
+                } else if (path === routes.newsFooter) {
+                    this.props.history.push(routes.newsInsta)
+                }
+
             }, 500);
         }
         else if (e.deltaY > 0) { //Down
@@ -52,7 +67,7 @@ class Footer extends Component {
         window.addEventListener("resize", this.widthChange);
         window.addEventListener('wheel', (e) => scrollDirectionDetect(e, this.props.history));
 
-        const { section: footer, socialMedia } = this.props
+        const { section: footer } = this.props
         const { images: img } = footer
         const { sideTextSection__1 } = this.props.images
         const { width } = this.state
@@ -69,8 +84,7 @@ class Footer extends Component {
             <Swipe onSwipeDown={this.onSwipeDown}>
                 <footer>
                     <BurgerMenu fixed={true} />
-                    <WhiteElement socialMedia={socialMedia} />
-                    <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} />
+                    <WhiteElement />
                     <img className={s.backgroundPhoto} src={img.background.url} alt={img.background.name} />
                     <div className={s.left}>
                         <div className={s.information}>
@@ -89,7 +103,7 @@ class Footer extends Component {
                             <p>{`copyright 2018 ${width <= 1000 ? '' : '/ interactive agency'}`}</p>
                             <a href='https://www.snws.pl' target="_blank" rel="noopener noreferrer"><img src={process.env.PUBLIC_URL + '/images/snwsLogo.png'} alt='Logo SNWS' /></a>
                         </div>
-                        <img src={width <= 1000 ? img.bottom_small.url : img.bottom_big.url} alt={img.bottom_big.name} />
+                        <img src={img.bottom_big.url} alt={img.bottom_big.name} />
                     </div>
                 </footer>
             </Swipe>

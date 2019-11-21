@@ -5,16 +5,19 @@ import News1 from './News1'
 import News2 from './News2'
 import News3 from './News3'
 import Products3 from './Products3'
-import FooterWhite from './FooterWhite'
+import Footer from './Footer'
 import BurgerMenu from './BurgerMenu'
 import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
+import { instaToken } from './usefullVariables';
+import { backendBaseUrl } from './usefullVariables';
+import WhiteElement from './WhiteElement'
 
-const APISite = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/230';
-const APISite_146 = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/146';
-const APIFirstImagePost = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/photo_posts?per_page=1';
+const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/230`;
+const APISite_146 = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
+const APIFirstImagePost = `${backendBaseUrl}/wp-json/wp/v2/photo_posts?per_page=1`;
 
 class News extends Component {
     state = {
@@ -113,25 +116,27 @@ class News extends Component {
             })
             .catch(error => console.log(error + " coś poszło nie tak!"))
 
-        // pobieranie api z insta
-        const token = '4684109970.1677ed0.0dfef633bc6a4f52881cc3c780ca6464'
-        const num_photos = 6;
-        fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${token}&count=${num_photos}`)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const posts = data.data;
+        this.getInstaPosts()
 
-                this.setState(() => ({
-                    instaPosts: posts
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
+    }
+
+    getInstaPosts = async () => {
+        // pobieranie api z insta
+        const num_photos = 6;
+        const apiLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
+
+        try {
+            const response = await fetch(apiLink)
+            const data = await response.json()
+
+            const posts = data.data;
+
+            this.setState(() => ({
+                instaPosts: posts
+            }));
+        } catch (err) {
+            console.log(err + " coś poszło nie tak!")
+        }
 
     }
 
@@ -144,7 +149,7 @@ class News extends Component {
 
         const path = window.location.pathname
         const { productsPage, width, isLoaded, products, section1, section2, firstPost, section4, footer, instaPosts, sImages } = this.state
-        const { images, social, footer: footerApi } = this.props
+        const { images, social, section: footerContent, footerImages } = this.props
         const { sideBackgroundText, kitImage } = this.state.productsPage
         const backgroundText = {
             backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? '' : sideBackgroundText.url})`,
@@ -157,10 +162,14 @@ class News extends Component {
                 {path === routes.newsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
             </div>
         )
+        const custStyles = {
+            display: "none",
+        }
         return (
             <section className={s.mainSection}>
-                <BurgerMenu fixed={true} y='40px' />
-                <div className={s.leftSection}>
+                {path !== routes.productsFooter && <BurgerMenu fixed={true} y='40px' />}
+                <div className={s.leftSection} style={path === routes.newsFooter ? custStyles : {}}>
+                    <WhiteElement />
                     <Route path={routes.newsHome}
                         component={() => <News1
                             sectionApi={section1}
@@ -197,16 +206,14 @@ class News extends Component {
                             localization='news'
                         />}
                     />
-                    <Route path={routes.newsFooter}
-                        component={() => <FooterWhite
-                            sectionApi={footer}
-                            images={images}
-                            width={width}
-                            footer={footerApi}
-                            localization='news'
-                        />}
-                    />
+
                 </div>
+                <Route path={routes.newsFooter}
+                    component={() => <Footer
+                        images={footerImages}
+                        section={footerContent}
+                    />}
+                />
                 {width > 950 ? sideBarText : null}
             </section>
         );

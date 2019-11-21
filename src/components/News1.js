@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import s from './News1.css'
 import Logo from './Logo'
-import SocialMedia from './SocialMedia'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
 
@@ -51,16 +50,6 @@ class News1 extends Component {
 
     render() {
         const { testImage } = this.props.sectionApi
-        const { dark_logo } = this.props.images
-        const { width } = this.props
-        const { socialBar } = this.props.sImages
-
-        const social = (
-            <div className={s.imageWrapper}>
-                <SocialMedia isWhite={true} fontSize="22px" boxSize='42px' marginBottom={false} />
-                <img className={s.socialImage} src={typeof socialBar === 'undefined' ? null : socialBar.url} alt={typeof socialBar === 'undefined' ? null : socialBar.name} />
-            </div>
-        )
 
         return (
             <div className={s.mainBox}>
@@ -70,7 +59,7 @@ class News1 extends Component {
                         <div className={s.languageBox}>
                         </div>
                         <div className={s.logoBox}>
-                            <Logo logo={dark_logo} color='dark' />
+                            <Logo />
                         </div>
                     </div>
                     <div className={s.middleBox}>
@@ -90,7 +79,6 @@ class News1 extends Component {
                         </div>
                     </div>
                 </div>
-                {width >= 550 ? social : null}
             </div>
 
         );

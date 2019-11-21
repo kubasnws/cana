@@ -58,7 +58,7 @@ class FooterWhite extends Component {
                     {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
                 </div>
                 <div className={s.logoBox}>
-                    <Logo logo={dark_logo} color='dark' />
+                    <Logo />
                     {width <= 1024 ? <SocialMedia fontSize={20} boxSize={36} isHorizontal={true} marginBottom={false} /> : null}
                 </div>
                 <div className={s.contentBox}>

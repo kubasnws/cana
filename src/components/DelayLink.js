@@ -23,14 +23,12 @@ class DelayLink extends Component {
          * Called after the delay timer ends.
          */
         onDelayEnd: PropTypes.func,
-        class: PropTypes.string,
     };
 
     static defaultProps = {
         delay: 0,
         onDelayStart: () => { },
         onDelayEnd: () => { },
-        class: 'delayLink'
     };
 
     static contextTypes = Link.contextTypes;
@@ -40,11 +38,7 @@ class DelayLink extends Component {
         this.timeout = null;
     }
 
-    componentWillUnmount() {
-        if (this.timeout) {
-            clearTimeout(this.timeout);
-        }
-    }
+
 
     /**
      * Called when the link is clicked
@@ -71,12 +65,18 @@ class DelayLink extends Component {
         }, delay);
     };
 
+    componentWillUnmount() {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+    }
+
     render() {
         const { delay, onDelayEnd, onDelayStart, ...rest } = this.props
 
 
         return (
-            <Link {...rest} onClick={this.handleClick} className={this.class} />
+            <Link {...rest} onClick={this.handleClick} />
         );
     }
 }

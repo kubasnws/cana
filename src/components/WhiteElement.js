@@ -6,13 +6,13 @@ import Languages from './Languages';
 import SideNavigation from './SideNavigation/SideNavigation';
 
 
-const WhiteElement = props => {
+const WhiteElement = ({ location, isSocialDisplay, language }) => {
 
     return (
         <div className={[s.whiteElement, 'whiteElement'].join(' ')}>
-            <Languages />
-            <SideNavigation location={props.location.pathname} />
-            {!props.isSocialDisplay && <SocialMedia />}
+            {language ? <Languages /> : <div></div>}
+            <SideNavigation location={location.pathname} />
+            {!isSocialDisplay && <SocialMedia />}
         </div>
     );
 }

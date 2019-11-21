@@ -88,7 +88,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 200px;
+    /* width: 200px; */
+    margin-right: 24px;
+}
+
+.social ul>a:not(:last-of-type) {
+    margin-right: 14px;
 }
 
 .social ul li {
@@ -145,10 +150,13 @@
     transform: scale(1.04);
 }
 
+.bottomLanguageBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media(max-width: 660px) {
-    .social ul {
-        width: 160px;
-    }
 
     .social ul li {
         width: 38px;
@@ -156,19 +164,17 @@
     }
 
     .bottomBar {
-        padding: 0 16px 5vh 16px;
+        padding: 0 16px 7vh 16px;
     }
 }
 
-@media(max-width: 400px) {
-    .social ul {
-        width: 120px;
+@media(max-width: 500px) {
+    .bottomBar {
+        flex-direction: column-reverse;
     }
 
-    .social ul li {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
+    .bottomBar>div {
+        margin-bottom: 10px;
     }
 }
 

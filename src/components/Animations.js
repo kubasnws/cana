@@ -1,4 +1,5 @@
 import { TweenMax, TimelineMax, Elastic, Power2, Back } from 'gsap';
+import { routes } from '../routes'
 
 const elasticEase = Elastic.easeOut.config(1, 0.6)
 const elasticEase2 = Elastic.easeIn.config(1, 0.75)
@@ -161,12 +162,6 @@ export const onLoadSideSocialHandler = (delay) => {
     const socialEl = document.querySelectorAll('.socialBox > a')
     e.addLabel('start')
         .staggerFrom(socialEl, .5, { scale: 0, ease: back1, clearProps: 'all' }, .3)
-        .to('.socialBox>a:nth-of-type(1)', .5, { backgroundColor: '#3b5998', borderColor: '#3b5998', ease: back1 }, 'start')
-        .to('.socialBox>a:nth-of-type(2)', .5, { backgroundColor: '#fb3958', borderColor: '#fb3958', ease: back1 }, 'start+=.3')
-        .to('.socialBox>a:nth-of-type(3)', .5, { backgroundColor: '#1DA1F2', borderColor: '#1DA1F2', ease: back1 }, 'start+=.6')
-        .staggerTo('.socialBox> a path', .3, { color: '#fff' }, .3, 'start')
-        .staggerTo(socialEl, .5, { backgroundColor: 'transparent', borderColor: '#000', clearProps: 'all' }, .3, '-=.4')
-        .staggerTo('.socialBox> a path', .1, { color: '#000', clearProps: 'all' }, .3, '-=1')
         .set(socialEl, { transition: '.3s ease-in-out' })
 }
 export const socialLoad = () => {
@@ -230,14 +225,14 @@ export const productSideText = (delay, location) => {
     if (location === '/products/section1' || location === '/news/section1') {
         e.addLabel('start')
             .staggerFromTo('.productSideText > span', .8, { opacity: 0, y: 300 }, { rotation: 90, transformOrigin: "center center", opacity: 1, y: 0, ease: elasticEase }, .08)
-    } else if (location === '/products/section2' || location === '/news/section2') {
+    } else if (location === routes.productsSingle || location === routes.newsVideos) {
 
         e.addLabel('start')
             .staggerFromTo('.productSideText > span', 1.3, { rotation: 90, opacity: 1, y: 0 }, { y: '-86vh', ease: elasticEase }, .08)
-    } else if (location === '/products/section3' || location === '/news/section3') {
+    } else if (location === routes.productsInsta || location === routes.newsImages) {
         e.addLabel('start')
             .staggerFromTo('.productSideText > span', 1.3, { rotation: 90, opacity: 1, y: '-86vh' }, { y: '-170vh', ease: elasticEase }, .08)
-    } else if (location === '/products/footer' || location === '/news/footer') {
+    } else if (location === routes.productsFooter || location === routes.newsFooter) {
         e.addLabel('start')
             .fromTo('.productSideText > span', .1, { rotation: 90, opacity: 1, y: '-170vh' }, { opacity: 0, ease: elasticEase })
     }

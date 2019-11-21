@@ -102,7 +102,8 @@ footer {
 .copy {
     position: absolute;
     left: 9vw;
-    top: 14%;
+    top: 0;
+    transform: translateY(-110%);
     display: flex;
     justify-content: space-between;
     font-size: 11px;
@@ -170,12 +171,6 @@ footer {
         min-width: unset;
     }
 
-    .copy {
-        left: 9vw;
-        top: 0px;
-        flex-direction: column-reverse
-    }
-
     .copy>img {
         height: 12px;
         width: 60px;
@@ -231,12 +226,6 @@ footer {
         color: #e2ceaa;
         font-family: 'bannerBig';
         text-transform: uppercase;
-    }
-
-    .copy {
-        left: 60px;
-        bottom: 50px;
-        top: unset;
     }
 }
 

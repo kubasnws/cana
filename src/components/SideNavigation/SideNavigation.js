@@ -1,21 +1,21 @@
 import React from 'react';
 import s from './SideNavigation.css';
 import './SideNavigation.css';
-import DelayLink from '../DelayLink'
-import { navigation } from '../../routes';
-import * as animation from '../Animations'
+// import DelayLink from '../DelayLink'
+import { Link } from 'react-router-dom';
+import { navigation, routes } from '../../routes';
+// import * as animation from '../Animations'
 
 
 const SideNavigation = ({ location }) => {
-    console.log(animation);
     let element;
 
-    if (location.includes('/news')) {
-        element = navigation.news.map((element, index) => <SideNavigationElement key={index} element={element} location={location} />);
-    } else if (location.includes('/products')) {
-        element = navigation.products.map((element, index) => <SideNavigationElement key={index} element={element} location={location} />);
+    if (location.includes(routes.news)) {
+        element = navigation.news.map((element, index) => <SideNavigationElement key={index} index={index} element={element} location={location} />);
+    } else if (location.includes(routes.products)) {
+        element = navigation.products.map((element, index) => <SideNavigationElement key={index} index={index} element={element} location={location} />);
     } else {
-        element = navigation.home.map((element, index) => <SideNavigationElement key={index} element={element} location={location} />);
+        element = navigation.home.map((element, index) => <SideNavigationElement key={index} index={index} element={element} location={location} />);
     }
 
     return (
@@ -25,18 +25,21 @@ const SideNavigation = ({ location }) => {
     );
 }
 
-const SideNavigationElement = ({ element, location }) => {
-    console.log(location, element);
+const SideNavigationElement = ({ element, location, index }) => {
     return (
         <div className={[s.elementBox, location === element ? s.activeElement : ''].join(' ')}>
-            <DelayLink
+            {/* <DelayLink
                 to={element}
                 delay={500}
-                class='sidebarLink'
                 onDelayStart={() => animation.onLeaveSection1Handler()}
             >
-
-            </DelayLink>
+            </DelayLink> */}
+            <Link to={element}></Link>
+            <div className={s.infoBox}>
+                <div className={s.content}>
+                    <h1>{`0${index + 1}`}</h1>
+                </div>
+            </div>
         </div>
 
     )

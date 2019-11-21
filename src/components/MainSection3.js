@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import s from './MainSection3.css'
-import WhiteElement from './WhiteElement'
+import s from './MainSection3.css';
+import WhiteElement from './WhiteElement';
 import Swipe from 'react-easy-swipe';
-import { lettersSplit } from './userHandlers'
-import DelayLink from './DelayLink'
-import { LongArrowRight, ChevronDown } from './Icons'
-import { onLoadSideSocialHandler, onLoadSection3Handler, onLeaveSection3Handler } from './Animations'
+import { lettersSplit } from './userHandlers';
+import DelayLink from './DelayLink';
+import { LongArrowRight, ChevronDown } from './Icons';
+import { onLoadSection3Handler, onLeaveSection3Handler } from './Animations';
 import { withRouter } from "react-router";
-import Languages from './Languages'
-import BurgerMenu from './BurgerMenu'
-import VideoDisplay from './VideoDisplay'
+import BurgerMenu from './BurgerMenu';
+import VideoDisplay from './VideoDisplay';
 import { routes } from '../routes';
 import Logo from './Logo';
 
@@ -30,7 +29,6 @@ class MainSection3 extends Component {
     }
 
     componentDidMount() {
-        onLoadSideSocialHandler(1)
         onLoadSection3Handler()
         this.widthChange()
         window.addEventListener('wheel', this.onScroll, false);
@@ -44,7 +42,7 @@ class MainSection3 extends Component {
             .then(response => response.json())
             .then(data => {
                 const d = data;
-                this.setState(() => ({
+                this.setState({
                     firstVideoPost: {
                         videoLink: d.acf.video.url,
                         postTitle: d.title.rendered,
@@ -53,7 +51,7 @@ class MainSection3 extends Component {
                         videoPostsConnection: d.acf.video_products_conection
                     },
                     videoAPILoaded: true,
-                }));
+                });
             })
             .catch(error => console.log(error + " coś nie tak"))
 

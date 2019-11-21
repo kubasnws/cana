@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import styles from './MainSection1.css'
 import BannerTopBar from './BannerTopBar'
-import { onLoadSection1Handler, onLoadSideSocialHandler } from './Animations'
+import { onLoadSection1Handler, onLeaveSection1Handler } from './Animations'
 import WhiteElement from './WhiteElement'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
 import Typed from 'typed.js'
 import { withRouter } from "react-router";
 import { LongArrowRight } from './Icons'
-import { onLeaveSection1Handler } from './Animations'
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
+import ScrollButton from './ScrollItButton/ScrollItButton'
 
 let debounce = false
 
@@ -20,7 +20,6 @@ class MainSection1 extends Component {
     }
     componentDidMount() {
         onLoadSection1Handler()
-        onLoadSideSocialHandler(.6)
         this.widthChange()
 
         window.addEventListener('wheel', this.onScroll, false);
@@ -75,30 +74,15 @@ class MainSection1 extends Component {
     render() {
         window.addEventListener("resize", this.widthChange);
         const { images } = this.props
-        const { logo, sideTextSection__1, left_image__1, sample_product } = images
+        const { sideTextSection__1, left_image__1, sample_product } = images
         const { width } = this.state
-
-        const scrollDown = (
-            <div className={styles.buttonWrapper}>
-                <p>Ready to see?</p>
-
-                <DelayLink
-                    to={routes.mainImage}
-                    delay={500}
-                    onDelayStart={() => onLeaveSection1Handler()}>
-                    <button type='button'>scroll it!</button>
-                </DelayLink>
-            </div>
-        )
-
 
         const seeProducts = (
             <div className={styles.products}>
                 <DelayLink
-                    to='/products/section1'
+                    to={routes.mainProd}
                     delay={500}
-                    onDelayStart={onLeaveSection1Handler}
-                    onDelayEnd={() => { }}>
+                    onDelayStart={onLeaveSection1Handler}>
                     <div className={[styles.nextButton, 'prodButton'].join(' ')}><span>Check the amazing products</span><LongArrowRight /></div>
                 </DelayLink>
             </div>
@@ -107,7 +91,7 @@ class MainSection1 extends Component {
         return (
             <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
                 <div className={styles.mainContainer}>
-                    <WhiteElement socialMedia={this.props.socialMedia} />
+                    <WhiteElement />
                     <BannerTopBar logoDisplay={false} custStyle='section1' />
                     {seeProducts}
                     <div className={styles.logoBox}>
@@ -121,7 +105,7 @@ class MainSection1 extends Component {
                         <img className={styles.sampleProduct} src={sample_product} alt="Sample product" />
                     </div>
                     <div className={[styles.buttonBox, 'buttonBox'].join(' ')}>
-                        {scrollDown}
+                        <ScrollButton smallText='Ready to see?' animation={onLeaveSection1Handler} />
                     </div>
                     <div className={[styles.leftBox, 'sec1left'].join(' ')}>
                         <img src={left_image__1} alt="Canna" />

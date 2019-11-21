@@ -9,6 +9,7 @@ import { withRouter } from "react-router";
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
 
+
 let debounce = false
 
 class MainBanner extends Component {
@@ -50,7 +51,7 @@ class MainBanner extends Component {
         return (
             <Swipe onSwipeUp={this.onSwipeUp}>
                 <section className={styles.start} id={styles.start}>
-                    {/* <BannerVideo videos={this.props.videos} type={1} /> */}
+                    <BannerVideo videos={this.props.videos} type={1} />
 
                     <BannerTopBar logo={this.props.logo} textDisplay={true} />
                     <CarouselMenu />

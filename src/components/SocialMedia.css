@@ -7,7 +7,7 @@
 }
 
 .socialBox>a {
-    border: 1px solid #000;
+    border: 1px solid #fff;
     border-radius: 50%;
     width: 36px;
     height: 36px;
@@ -28,7 +28,7 @@
 }
 
 .socialBox>a path {
-    color: #000;
+    color: #fff;
 
 }
 

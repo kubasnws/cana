@@ -4,6 +4,7 @@ import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
 import Swiper from 'swiper/js/swiper.esm.bundle';
 import { withRouter } from "react-router";
+import { routes } from "../routes";
 
 let debounce = false
 
@@ -34,7 +35,7 @@ class Products2 extends Component {
         if (e.deltaY < 0 && !debounce) { //Up
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/products/section1')
+                this.props.history.push(routes.productsHome)
                 debounce = false
             }, 500);
         }
@@ -42,7 +43,7 @@ class Products2 extends Component {
             // onLeaveSection2Handler()
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/products/section3')
+                this.props.history.push(routes.productsInsta)
                 debounce = false
             }, 500);
         }
@@ -68,7 +69,7 @@ class Products2 extends Component {
                 <div className={s.bottomButtons}>
                     <div className={[s.button, s.leftButton].join(' ')}>
                         <DelayLink
-                            to='/products/section1'
+                            to={routes.productsHome}
                             delay={0}
                             onDelayStart={() => { }}
                             onDelayEnd={() => { }}>
@@ -78,7 +79,7 @@ class Products2 extends Component {
                     </div>
                     <div className={[s.button, s.rightButton].join(' ')}>
                         <DelayLink
-                            to='/products/section3'
+                            to={routes.productsInsta}
                             delay={0}
                             onDelayStart={() => { }}
                             onDelayEnd={() => { }}>

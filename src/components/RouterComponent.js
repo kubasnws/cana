@@ -4,16 +4,10 @@ import {
 } from 'react-router-dom';
 
 
-
-
-
-
 class RouterComponent extends Component {
     state = {
 
     }
-
-
     render() {
 
         if (localStorage.getItem('isAgeOk') !== 'true') {

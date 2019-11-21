@@ -235,20 +235,23 @@ class App extends Component {
                 component={() => <Footer
                   images={this.state.images}
                   section={this.state.footer}
-                  logo={this.state.logo}
-                  socialMedia={this.state.social_media} />}
+                />}
               />
               <Route path={routes.products}
                 component={() => <Products
                   images={this.state.images}
                   social={this.state.social_media}
                   footer={this.state.footer}
+                  footerImages={this.state.images}
+                  section={this.state.footer}
                 />} />
               <Route path={routes.news}
                 component={() => <News
                   images={this.state.images}
                   social={this.state.social_media}
                   footer={this.state.footer}
+                  footerImages={this.state.images}
+                  section={this.state.footer}
                 />} />
               <Route
                 path={routes.age}

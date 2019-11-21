@@ -5,11 +5,15 @@
 
 .leftSection {
     width: 76%;
+    height: 100vh;
+    background-color: hsl(0, 0%, 14%);
 }
+
+
 
 .rightSection {
     width: 24%;
-    background-color: #242424;
+    background-color: hsl(0, 0%, 14%);
     background-position-x: 6vw;
     background-repeat: no-repeat;
     height: 500vh;

@@ -61,7 +61,8 @@
     font-size: 68px;
     letter-spacing: 2px;
     line-height: 82px;
-    color: #242424;
+    color: #fff;
+    ;
     font-family: "Roboto Slab";
     font-weight: 300;
     text-align: right;
@@ -111,7 +112,7 @@
 .activeDescription {
     font-size: 10px;
     letter-spacing: 1px;
-    color: #565656;
+    color: hsl(0, 0%, 54%);
     font-family: "Roboto Slab";
     font-weight: 400;
     margin-top: 20px;
@@ -131,6 +132,7 @@
 .swiper {
     width: calc(100% - 120px);
     position: relative;
+    margin: 0 auto;
 }
 
 .swiperContainer {
@@ -151,8 +153,7 @@
     filter: grayscale(1)
 }
 
-.swiperSlide>img:hover {
-    /* transform: scale(.98); */
+.swiperSlide>img.active {
     filter: grayscale(0)
 }
 
@@ -170,10 +171,11 @@
 .swiperButton {
     background: none;
     font-size: 30px;
+    outline: none;
 }
 
 .swiperButton>svg>path {
-    color: #000
+    color: hsl(0, 0%, 54%);
 }
 
 .swiperButtonNext {

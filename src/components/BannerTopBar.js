@@ -1,19 +1,18 @@
 import React from 'react';
-import styles from './BannerTopBar.css';
+import s from './BannerTopBar.css';
+import { withRouter } from "react-router";
 import Logo from './Logo';
-import Languages from './Languages';
 import BurgerMenu from './BurgerMenu';
 import CSSModules from 'react-css-modules';
 
-const BannerTopBar = (props) => {
+const BannerTopBar = ({ custStyle, logo, logoDisplay, textDisplay, location }) => {
     return (
-        <div className={styles.topBar} styleName={props.custStyle}>
-            {props.logoDisplay !== false ? <Logo logo={props.logo} /> : null}
-            <Languages />
-            {props.location !== '/age' ? <BurgerMenu textDisplay={props.textDisplay} /> : null}
+        <div className={s.topBar} styleName={custStyle}>
+            {logoDisplay !== false ? <Logo logo={logo} /> : null}
+            {location !== '/age' ? <BurgerMenu textDisplay={textDisplay} /> : null}
             <div></div>
         </div>
     );
 }
 
-export default CSSModules(BannerTopBar, styles);
+export default withRouter(CSSModules(BannerTopBar, s));

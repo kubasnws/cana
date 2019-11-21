@@ -5,8 +5,8 @@ import Logo from './Logo'
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft } from './Icons'
 import Swiper from 'swiper/js/swiper.esm.bundle';
-import SocialMedia from './SocialMedia'
 import { withRouter } from "react-router";
+import { routes } from '../routes';
 
 let debounce = false
 
@@ -17,6 +17,8 @@ class Products1 extends Component {
         bigDescription: String,
     }
     componentDidMount() {
+
+
         new Swiper('.swiper-container', {
             navigation: {
                 nextEl: '.swiper-button-next',
@@ -37,6 +39,7 @@ class Products1 extends Component {
                 }
             }
         })
+
         if (this.props.isLoaded)
             this.displayBig()
 
@@ -61,7 +64,12 @@ class Products1 extends Component {
 
     productHoverHandler = (e) => {
         const prod = e.target
+        const active = document.querySelectorAll(`.${s.swiperSlide}>img`);
 
+        active.forEach(item => {
+            item.classList.remove(s.active);
+        });
+        prod.classList.add(s.active)
         const description = prod.getAttribute('data-description')
         const image = prod.getAttribute('src')
 
@@ -79,10 +87,9 @@ class Products1 extends Component {
         }
         else if (e.deltaY > 0 && !debounce) { //Down
             // onLeaveSection2Handler()
-            console.log('dzoala')
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/products/section2')
+                this.props.history.push(routes.productsSingle)
                 debounce = false
             }, 500);
         }
@@ -93,18 +100,17 @@ class Products1 extends Component {
     }
 
     render() {
-        const { horse, bannerPhoto, socialBar } = this.props.sectionApi
-        const { dark_logo } = this.props.images
+        const { horse, bannerPhoto } = this.props.sectionApi
         const { width } = this.props
 
         const seeProducts = (
             <div className={s.titleLink}>
                 <DelayLink
-                    to='/products/section2'
+                    to={routes.newsHome}
                     delay={0}
                     onDelayStart={() => { }}
                     onDelayEnd={() => { }}>
-                    <div className={s.nextButton}><span>Check the amazing products</span><LongArrowRight /></div>
+                    <div className={s.nextButton}><span>Or keep up with latest news</span><LongArrowRight /></div>
                 </DelayLink>
             </div>
         )
@@ -113,22 +119,16 @@ class Products1 extends Component {
                 <img src={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.url} alt={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.name} />
             </div>
         )
-        const social = (
-            <div className={s.imageWrapper}>
-                <SocialMedia isWhite={true} fontSize="22px" boxSize='42px' marginBottom={false} />
-                <img className={s.socialImage} src={typeof socialBar === 'undefined' ? null : socialBar.url} alt={typeof socialBar === 'undefined' ? null : socialBar.name} />
-            </div>
-        )
 
         return (
             <div className={s.mainBox}>
                 <img className={s.backgroundImage} src={typeof horse === 'undefined' ? null : horse.url} alt={typeof horse === 'undefined' ? null : horse.name} />
                 <div className={s.topBox}>
                     <div className={s.languageBox}>
-                        <Languages color='dark' />
+                        <Languages />
                     </div>
                     <div className={s.logoBox}>
-                        <Logo logo={dark_logo} color='dark' />
+                        <Logo />
                     </div>
                 </div>
                 <div className={s.middleBox}>
@@ -155,7 +155,6 @@ class Products1 extends Component {
                         <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
                     </div>
                 </div>
-                {width >= 550 ? social : null}
             </div>
 
         );
@@ -165,7 +164,7 @@ class Products1 extends Component {
 const SwiperElements = props => {
 
     const products = props.products
-    const result = products.map(item => <SwiperElement key={item.id} element={item} hover={props.hover} click={props.click} />)
+    const result = products.map((item, index) => <SwiperElement key={item.id} index={index} element={item} hover={props.hover} click={props.click} />)
     return (
         <>
             {result}
@@ -173,9 +172,9 @@ const SwiperElements = props => {
     )
 }
 
-const SwiperElement = props => {
-    const { url, name } = props.element.acf.images[0]
-    const currentProductLink = `/products/section2#${props.element.id}`
+const SwiperElement = ({ element, hover, click, index }) => {
+    const { url, name } = element.acf.images[0]
+    const currentProductLink = `${routes.productsSingle}#${element.id}`
     return (
         <div className={[s.swiperSlide, 'swiper-slide'].join(' ')}>
             {/* <DelayLink
@@ -184,7 +183,7 @@ const SwiperElement = props => {
                 onDelayStart={() => { }}
                 onDelayEnd={() => { }}>
             </DelayLink> */}
-            <img src={url} alt={name} data-description={props.element.title.rendered} onMouseEnter={e => props.hover(e)} onClick={() => props.click(currentProductLink)} />
+            <img src={url} alt={name} className={index === 0 && s.active} data-description={element.title.rendered} onMouseEnter={e => hover(e)} onClick={() => click(currentProductLink)} />
         </div>
     )
 

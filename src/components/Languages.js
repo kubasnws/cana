@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Languages.css';
 // import {
 //     Link
-// } from 'react-router-dom';
+// } from 'react-router-dom'; 
 
 const Languages = props => {
     const fixed = {

@@ -1,30 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import s from './SocialMedia.css'
 import { Facebook, Twitter, Instagram } from './Icons'
-import { socialLinks } from './App'
+import { socialLinks } from './App';
+import { onLoadSideSocialHandler } from './Animations'
 
-const SocialMedia = props => {
+class SocialMedia extends Component {
+    state = {}
 
-    const { isWhite, fontSize, boxSize, marginBottom, isHorizontal } = props
-    const socialSize = {
-        fontSize: fontSize,
-        width: boxSize,
-        height: boxSize,
-        borderColor: isWhite === true ? 'white' : null,
-        margin: isHorizontal === true ? '0 12px 0 0' : null,
-    }
-    const socialStyles = {
-        flexDirection: isHorizontal === true ? 'row' : 'column',
-        width: isHorizontal === true ? 'auto' : null,
-        margin: marginBottom === false ? 0 : null,
+    componentDidMount() {
+        onLoadSideSocialHandler(.5)
     }
 
-    return (
+    render() {
+        const { isWhite, fontSize, boxSize, marginBottom, isHorizontal } = this.props
 
-        <div className={[s.socialBox, 'socialBox'].join(' ')} style={socialStyles} >
-            <SocialElement socialSize={socialSize} isWhite={isWhite} />
-        </div>
-    );
+        const socialSize = {
+            fontSize: fontSize,
+            width: boxSize,
+            height: boxSize,
+            borderColor: isWhite === true ? 'white' : null,
+            margin: isHorizontal === true ? '0 12px 0 0' : null,
+        }
+        const socialStyles = {
+            flexDirection: isHorizontal === true ? 'row' : 'column',
+            width: isHorizontal === true ? 'auto' : null,
+            margin: marginBottom === false ? 0 : null,
+        }
+
+        return (
+            <div className={[s.socialBox, 'socialBox'].join(' ')} style={socialStyles} >
+                <SocialElement socialSize={socialSize} isWhite={isWhite} />
+            </div>
+        );
+    }
 }
 
 const SocialElement = ({ isWhite, socialSize }) => {
@@ -42,6 +50,5 @@ const SocialElement = ({ isWhite, socialSize }) => {
         </>
     );
 }
-
 
 export default SocialMedia;

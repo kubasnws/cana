@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import s from './Products.css'
 import { Route } from 'react-router-dom';
+import { withRouter } from "react-router";
 import Products1 from './Products1'
 import Products2 from './Products2'
 import Products3 from './Products3'
-import FooterWhite from './FooterWhite'
+import Footer from './Footer'
 import BurgerMenu from './BurgerMenu'
 import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
-import { withRouter } from "react-router";
+import { instaToken } from './usefullVariables'
 import { routes } from '../routes';
+import { backendBaseUrl } from './usefullVariables';
+import WhiteElement from './WhiteElement'
 
-const APISite = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/146';
-const APIProducts = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/products';
+const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
+const APIProducts = `${backendBaseUrl}/wp-json/wp/v2/products`
 
 class Products extends Component {
     state = {
@@ -86,25 +89,26 @@ class Products extends Component {
             })
             .catch(error => console.log(error + " coś poszło nie tak!"))
 
-        // pobieranie api z insta
-        const token = '4684109970.1677ed0.0dfef633bc6a4f52881cc3c780ca6464'
-        const num_photos = 6;
-        fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${token}&count=${num_photos}`)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const posts = data.data;
+        this.getInstaPosts()
+    }
 
-                this.setState(() => ({
-                    instaPosts: posts
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
+    getInstaPosts = async () => {
+        // pobieranie api z insta
+        const num_photos = 6;
+        const apiLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
+
+        try {
+            const response = await fetch(apiLink)
+            const data = await response.json()
+
+            const posts = data.data;
+
+            this.setState(() => ({
+                instaPosts: posts
+            }));
+        } catch (err) {
+            console.log(err + " coś poszło nie tak!")
+        }
 
     }
 
@@ -115,25 +119,20 @@ class Products extends Component {
     render() {
         window.addEventListener('resize', this.widthChange)
 
-        const path = window.location.pathname
         const { productsPage, width, isLoaded, products, section1, section2, section3, footer, instaPosts } = this.state
-        const { images, social, footer: footerApi } = this.props
-        const { sideBackgroundText, kitImage } = this.state.productsPage
-        const backgroundText = {
-            backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? null : sideBackgroundText.url})`,
-            overflow: path === routes.productsFooter ? 'hidden' : 'unset'
+        const { images, social, section: footerContent, footerImages } = this.props
+        const path = window.location.pathname
+
+        const custStyles = {
+            display: "none",
         }
-        const sideBarText = (
-            <div className={s.rightSection} style={backgroundText}>
-                <Route path={routes.products} component={() => <SideBarTextElement api={productsPage} />} />
-                {path === routes.productsInsta && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
-                {path === routes.productsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
-            </div>
-        )
+
         return (
             <section className={s.mainSection}>
-                <BurgerMenu fixed={true} y={width > 950 ? null : '230px'} />
-                <div className={s.leftSection}>
+
+                {path !== routes.productsFooter && <BurgerMenu fixed={true} y={width > 950 ? null : '230px'} />}
+                <div className={s.leftSection} style={path === routes.productsFooter ? custStyles : {}}>
+                    <WhiteElement />
                     <Route path={routes.productsHome}
                         component={() => <Products1
                             sectionApi={section1}
@@ -156,20 +155,38 @@ class Products extends Component {
                             social={social}
                         />}
                     />
-                    <Route path={routes.productsFooter}
-                        component={() => <FooterWhite
-                            sectionApi={footer}
-                            images={images}
-                            width={width}
-                            footer={footerApi}
-                        />}
-                    />
-                </div>
 
-                {width > 950 ? sideBarText : null}
+                </div>
+                <Route path={routes.productsFooter}
+                    component={() => <Footer
+                        images={footerImages}
+                        section={footerContent}
+                    />}
+                />
+
+                {width > 950 ? <SideBarText productsPage={productsPage} footer={footer} /> : null}
             </section>
         );
     }
+}
+
+const SideBarText = ({ productsPage, footer }) => {
+
+    const { sideBackgroundText, kitImage } = productsPage
+    const path = window.location.pathname
+
+    const backgroundText = {
+        backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? null : sideBackgroundText.url})`,
+        overflow: path === routes.productsFooter ? 'hidden' : 'unset'
+    }
+
+    return (
+        <div className={s.rightSection} style={backgroundText}>
+            <Route path={routes.products} component={() => <SideBarTextElement api={productsPage} />} />
+            {path === routes.productsInsta && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
+            {path === routes.productsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
+        </div>
+    )
 }
 
 class SideBarTextElement extends Component {

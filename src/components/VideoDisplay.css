@@ -2,7 +2,6 @@
     position: relative;
     max-width: 320px;
     height: 564px;
-    /* overflow: hidden; */
 }
 
 .backVid {
@@ -20,7 +19,7 @@
     left: 0;
     flex-direction: column;
     justify-content: flex-end;
-    z-index: 10;
+    z-index: 11;
     width: 100%;
     height: 100%;
     transition: .3s ease-in-out;
@@ -28,7 +27,8 @@
     opacity: 0;
 }
 
-.videoControls:hover {
+.videoControls:hover,
+.mainConnected:hover+.videoControls {
     opacity: 1;
 }
 
@@ -83,10 +83,10 @@
     font-weight: 300;
 }
 
-.muteBox {
+.muteBox,
+.notifications {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    bottom: 20px;
     width: 30px;
     height: 30px;
     display: grid;
@@ -95,31 +95,57 @@
     font-size: 22px;
 }
 
+.muteBox {
+    right: 20px;
+}
+
+.notifications {
+    right: 70px;
+}
+
 .mainConnected {
-    position: fixed;
-    right: 4vw;
-    top: 16vh;
+    position: absolute;
+    left: 50%;
+    top: 2px;
+    width: 96%;
+    height: 100%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     flex-direction: column;
-    z-index: 10;
+    z-index: 11;
+    overflow: hidden;
+    pointer-events: none;
 }
 
+
 .connectedBox {
-    position: relative;
+    position: absolute;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px 24px;
+    top: 0;
+    left: 0;
     background-color: #fff;
-    max-width: 26vw;
-    width: 420px;
+    width: 100%;
     border-radius: 6px;
-    margin-bottom: 16px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 17;
+    padding: 6px 10px;
     opacity: 0;
-    transform: scale(.3);
-    transition: .3s ease-in-out;
-    overflow: hidden;
+    transform: translateY(400px);
+    pointer-events: auto;
+}
+
+.connectedBox>* {
+    backface-visibility: hidden;
+}
+
+.connectedHide {
+    display: none;
 }
 
 .connectedBox::after {
@@ -131,12 +157,12 @@
     width: 100%;
     transform: translateX(-100%);
     background-color: rgba(119, 146, 74, 0.21);
-    transition: transform .3s ease-in-out;
+    /* transition: transform .3s ease-in-out; */
     z-index: -1;
 }
 
 .connectedBox:hover::after {
-    transform: translateX(0)
+    /* transform: translateX(0) */
 }
 
 .connectedBox>a {
@@ -150,7 +176,7 @@
 }
 
 .prodImage {
-    width: 40%;
+    width: 26%;
     display: grid;
     place-items: center;
     margin-right: 22px;
@@ -158,35 +184,45 @@
 
 .prodImage>img {
     max-width: 96%;
-    max-height: 140px;
+    max-height: 30px;
 }
 
 .prodText {
     display: flex;
-    flex-direction: column;
-    width: 60%;
+    align-items: center;
+    width: 74%;
 }
 
-.prodText>h2,
+.prodText>h5,
 .prodText>div {
     color: black;
     margin-top: 0;
 }
 
-.prodText>h2 {
+.prodText>h5 {
     text-transform: uppercase;
+    margin: 0;
 }
 
 .connectedVisible:hover {
     cursor: pointer;
 }
 
-.connectedVisible {
-    opacity: 1;
-    transform: scale(1)
+.productMainInfos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.connectedHide {
-    transform: translateX(600px);
-    opacity: 0;
+.productMoreContent {
+    width: 100%;
+    color: #000;
+    font-size: 12px;
+    margin-top: 8px;
+    padding: 0 10px;
+}
+
+.connectedBox:hover {
+    opacity: 1 !important;
 }

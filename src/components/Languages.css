@@ -10,7 +10,7 @@
 
 .languages ul li {
     text-transform: uppercase;
-    color: #000;
+    /* color: #000; */
 }
 
 .languages ul li:last-of-type {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas, faChevronDown, faChevronUp, faLongArrowAltRight, faLongArrowAltLeft, faTimes, faPlay, faPause, faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons'
+import { fas, faBellSlash, faBell, faChevronDown, faChevronUp, faLongArrowAltRight, faLongArrowAltLeft, faTimes, faPlay, faPause, faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -14,6 +14,8 @@ export const PlayButton = () => <FontAwesomeIcon icon={faPlay} />
 export const PauseButton = () => <FontAwesomeIcon icon={faPause} />
 export const VolumeOn = () => <FontAwesomeIcon icon={faVolumeUp} />
 export const VolumeOff = () => <FontAwesomeIcon icon={faVolumeMute} />
+export const BellSlash = () => <FontAwesomeIcon icon={faBellSlash} />
+export const Bell = () => <FontAwesomeIcon icon={faBell} />
 
 export const ChevronDown = () => <FontAwesomeIcon icon={faChevronDown} />
 export const ChevronUp = () => <FontAwesomeIcon icon={faChevronUp} />
