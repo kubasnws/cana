@@ -41,7 +41,15 @@
 .leftImage {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 50%;
+    position: relative;
+}
+
+.scrollWrapperBox {
+    position: absolute;
+    bottom: 0;
+    right: 30px;
 }
 
 .titleBox {

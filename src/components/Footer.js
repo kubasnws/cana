@@ -9,14 +9,14 @@ import BurgerMenu from './BurgerMenu'
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes'
 
-const path = window.location.pathname
-
 class Footer extends Component {
     state = {
-        width: Number
+        width: Number,
+        path: String,
     }
     componentDidMount() {
         onLoadFooterHandler()
+        this.setState({ path: this.props.location.pathname });
         // burgerMenuAnimation()
         this.widthChange()
         window.addEventListener('wheel', this.onScroll, false);
@@ -26,23 +26,46 @@ class Footer extends Component {
         window.removeEventListener('wheel', this.onScroll, false);
     }
 
+    debounce(func, wait, immediate) {
+        var timeout;
+        return function () {
+            var context = this, args = arguments;
+            var later = function () {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+    test = () => {
+        console.log('test');
+    }
     onSwipeDown = () => {
-        onLeaveFooterHandler()
-        setTimeout(() => {
-            if (path === routes.mainFooter) {
-                this.props.history.push(routes.mainVideo)
-            } else if (path === routes.productsFooter) {
-                this.props.history.push(routes.productsInsta)
-            } else if (path === routes.newsFooter) {
-                this.props.history.push(routes.newsInsta)
-            }
-        }, 500);
+        // onLeaveFooterHandler()
+
+        // const { path } = this.state
+        // setTimeout(() => {
+        //     if (path === routes.mainFooter) {
+        //         this.props.history.push(routes.mainVideo)
+        //     } else if (path === routes.productsFooter) {
+        //         this.props.history.push(routes.productsInsta)
+        //     } else if (path === routes.newsFooter) {
+        //         this.props.history.push(routes.newsInsta)
+        //     }
+        // }, 500);
     }
 
     onScroll = e => {
 
         if (e.deltaY < 0) { //Up
+
+            window.removeEventListener('wheel', scrollDirectionDetect, true)
+            console.log('to');
             onLeaveFooterHandler()
+            const { path } = this.state
             setTimeout(() => {
                 if (path === routes.mainFooter) {
                     this.props.history.push(routes.mainVideo)
@@ -51,12 +74,13 @@ class Footer extends Component {
                 } else if (path === routes.newsFooter) {
                     this.props.history.push(routes.newsInsta)
                 }
-
             }, 500);
         }
         else if (e.deltaY > 0) { //Down
             return
         }
+
+
     }
 
     widthChange = () => {

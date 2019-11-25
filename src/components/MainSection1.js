@@ -10,7 +10,7 @@ import { withRouter } from "react-router";
 import { LongArrowRight } from './Icons'
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
-import ScrollButton from './ScrollItButton/ScrollItButton'
+import ScrollItButton from './ScrollItButton/ScrollItButton'
 
 let debounce = false
 
@@ -105,7 +105,7 @@ class MainSection1 extends Component {
                         <img className={styles.sampleProduct} src={sample_product} alt="Sample product" />
                     </div>
                     <div className={[styles.buttonBox, 'buttonBox'].join(' ')}>
-                        <ScrollButton smallText='Ready to see?' animation={onLeaveSection1Handler} />
+                        <ScrollItButton smallText='Ready to see?' animation={onLeaveSection1Handler} />
                     </div>
                     <div className={[styles.leftBox, 'sec1left'].join(' ')}>
                         <img src={left_image__1} alt="Canna" />

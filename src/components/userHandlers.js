@@ -3,7 +3,7 @@ import React from 'react';
 // import * as animation from './Animations'
 // import { onLeaveBannerHandler } from './Animations'
 
-let scrollFlag = false
+// let scrollFlag = false
 
 // const mainObjectArray = [
 //     {
@@ -46,32 +46,32 @@ let scrollFlag = false
 
 export const scrollDirectionDetect = (e, p) => {
 
-    if (!scrollFlag) {
+    // if (!scrollFlag) {
 
-        // const l = window.location.pathname
-        // const secArrayLength = mainSecArray.length
-        // const actualIndex = mainSecArray.indexOf(l)
-        // const nextIndex = parseInt(actualIndex + 1)
-        // const prevIndex = parseInt(actualIndex - 1)
-        // // const animationTime = mainObjectArray[actualIndex].animationTime
-        // if (e.deltaY < 0 && actualIndex !== 0) {
-        //     scrollFlag = true
-        //     console.log('scrolling up');
-        //     // p.push(mainSecArray[prevIndex])
-        // }
-        // else if (e.deltaY > 0 && actualIndex !== secArrayLength) {
-        //     scrollFlag = true
-        //     // onLeaveBannerHandler()
-        //     runAnimation(actualIndex)
-        //     setTimeout(() => {
-        //         console.log('scrolling down');
-        //         // p.push(mainSecArray[nextIndex])
-        //     }, 1000);
+    // const l = window.location.pathname
+    // const secArrayLength = mainSecArray.length
+    // const actualIndex = mainSecArray.indexOf(l)
+    // const nextIndex = parseInt(actualIndex + 1)
+    // const prevIndex = parseInt(actualIndex - 1)
+    // // const animationTime = mainObjectArray[actualIndex].animationTime
+    // if (e.deltaY < 0 && actualIndex !== 0) {
+    //     scrollFlag = true
+    //     console.log('scrolling up');
+    //     // p.push(mainSecArray[prevIndex])
+    // }
+    // else if (e.deltaY > 0 && actualIndex !== secArrayLength) {
+    //     scrollFlag = true
+    //     // onLeaveBannerHandler()
+    //     runAnimation(actualIndex)
+    //     setTimeout(() => {
+    //         console.log('scrolling down');
+    //         // p.push(mainSecArray[nextIndex])
+    //     }, 1000);
 
-        // }
+    // }
 
 
-    }
+    // }
 }
 
 export const lettersSplit = (text) => {

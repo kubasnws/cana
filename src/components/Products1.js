@@ -7,6 +7,8 @@ import { LongArrowRight, LongArrowLeft } from './Icons'
 import Swiper from 'swiper/js/swiper.esm.bundle';
 import { withRouter } from "react-router";
 import { routes } from '../routes';
+import ScrollItButton from './ScrollItButton/ScrollItButton';
+import { onLeaveSection1Handler } from './Animations'
 
 let debounce = false
 
@@ -62,7 +64,7 @@ class Products1 extends Component {
         });
     }
 
-    productHoverHandler = (e) => {
+    productHoverHandler = e => {
         const prod = e.target
         const active = document.querySelectorAll(`.${s.swiperSlide}>img`);
 
@@ -117,6 +119,9 @@ class Products1 extends Component {
         const leftImage = (
             <div className={s.leftImage}>
                 <img src={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.url} alt={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.name} />
+                <div className={s.scrollWrapperBox}>
+                    <ScrollItButton smallText='Interested?' location={routes.productsSingle} animation={onLeaveSection1Handler} />
+                </div>
             </div>
         )
 

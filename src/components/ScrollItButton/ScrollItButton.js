@@ -26,7 +26,7 @@ const ScrollItButton = ({ smallText, bigText = 'scroll it!', animation = null, l
     }
     return (
 
-        <div className={s.buttonWrapper}>
+        <div className={[s.buttonWrapper, 'buttonWrapper'].join(' ')}>
             {smallText && <p>{smallText}</p>}
             <DelayLink
                 to={getCurrentPathname()}

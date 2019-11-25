@@ -3,7 +3,8 @@ import s from './Products3.css'
 import { instaSection } from './Animations';
 import { LongArrowRight } from './Icons'
 import { withRouter } from "react-router";
-import { dateFormatted } from './userHandlers'
+import { dateFormatted } from './userHandlers';
+import { routes } from '../routes'
 
 let debounce = false
 
@@ -18,15 +19,12 @@ class Products3 extends Component {
     componentDidMount() {
 
         window.addEventListener('wheel', this.onScroll, false);
-
         this.getDimensions()
         instaSection('enter')
     }
 
     componentWillUnmount() {
-
         window.removeEventListener('wheel', this.onScroll, false);
-
     }
 
     getDimensions = () => {
@@ -50,7 +48,7 @@ class Products3 extends Component {
             instaSection('leave')
             debounce = true
             setTimeout(() => {
-                localization === 'news' ? this.props.history.push('/news/section3') : this.props.history.push('/products/section2')
+                localization === 'news' ? this.props.history.push(routes.newsImages) : this.props.history.push('/products/section2')
                 debounce = false
             }, delay);
         }
