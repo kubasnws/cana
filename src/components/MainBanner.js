@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './MainBanner.css';
-import BannerVideo from './BannerVideo';
+// import BannerVideo from './BannerVideo';
 import BannerTopBar from "./BannerTopBar";
 import CarouselMenu from './CarouselMenu';
 import BannerBottomBar from './BannerBottomBar'

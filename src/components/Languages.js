@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './Languages.css';
-// import {
-//     Link
-// } from 'react-router-dom'; 
+import { handlerLanguageChange } from './ChangeLanguage';
 
 const Languages = props => {
     const fixed = {
@@ -10,16 +8,19 @@ const Languages = props => {
         top: props.x,
         left: props.y
     }
-    const dark = {
-        color: '#242424'
+    const isActive = {
+        fontWeight: '900',
     }
+
+    const hand = e => {
+        console.log(e.target.getAttribute('lang'));
+    }
+    const lang = localStorage.getItem('lang');
     return (
         <div className={`${styles.languages} languages`} style={props.fixed === true ? fixed : null}>
             <ul>
-                {/* <Link to="/age"><li>pl</li></Link>
-                <Link to="/"><li>en</li></Link> */}
-                <li style={props.color === 'dark' ? dark : null}>pl</li>
-                <li style={props.color === 'dark' ? dark : null}>en</li>
+                <li onClick={e => handlerLanguageChange(e)} lang="pl" style={lang === 'pl' ? isActive : {}}>pl</li>
+                <li onClick={e => handlerLanguageChange(e)} lang="en" style={lang === 'en' ? isActive : {}}>en</li>
             </ul>
         </div>
     );

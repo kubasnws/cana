@@ -7,10 +7,11 @@ import Logo from './Logo'
 import DelayLink from './DelayLink'
 import Typed from 'typed.js'
 import { withRouter } from "react-router";
-import { LongArrowRight } from './Icons'
+import { LongArrowRight } from './Icons';
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
-import ScrollItButton from './ScrollItButton/ScrollItButton'
+import ScrollItButton from './ScrollItButton/ScrollItButton';
+import { lang } from './usefullVariables';
 
 let debounce = false
 
@@ -105,7 +106,7 @@ class MainSection1 extends Component {
                         <img className={styles.sampleProduct} src={sample_product} alt="Sample product" />
                     </div>
                     <div className={[styles.buttonBox, 'buttonBox'].join(' ')}>
-                        <ScrollItButton smallText='Ready to see?' animation={onLeaveSection1Handler} />
+                        <ScrollItButton smallText={lang === 'en' ? 'How?' : 'Jak?'} bigText={lang === 'en' ? 'Just take it easy!' : 'Na luzie i bez stresu!'} animation={onLeaveSection1Handler} />
                     </div>
                     <div className={[styles.leftBox, 'sec1left'].join(' ')}>
                         <img src={left_image__1} alt="Canna" />

@@ -5,7 +5,9 @@ import { CloseButton } from './Icons'
 import { Link } from 'react-router-dom'
 import { lettersSplit } from './userHandlers'
 import Logo from './Logo'
-import { contactInfos } from './App'
+import { contactInfos } from './App';
+import { routes } from '../routes';
+import { lang } from './usefullVariables';
 
 
 class BurgerMenu extends Component {
@@ -25,7 +27,7 @@ class BurgerMenu extends Component {
     }
 
     render() {
-        const text = 'Where am i?'
+        const text = lang === 'en' ? 'Where am i?' : 'Gdzie jestem?'
         const res = lettersSplit(text)
         const { menuIsOpen } = this.state
         const { x: custX, y: custY } = this.props
@@ -70,18 +72,18 @@ class MenuContentBox extends Component {
                     </div>
                     <div className={s.menuCenter}>
                         <div className={[s.infos, 'infos'].join(' ')}>
-                            <div className={[s.element, 'element'].join(' ')}><span>Call us: </span>{contactInfos.phone}</div>
-                            <div className={[s.element, 'element'].join(' ')}><span>Send an e-mail: </span>{contactInfos.mail}</div>
+                            {/* <div className={[s.element, 'element'].join(' ')}><span>Call us: </span>{contactInfos.phone}</div>
+                            <div className={[s.element, 'element'].join(' ')}><span>Send an e-mail: </span>{contactInfos.mail}</div> */}
                         </div>
                         <div className={[s.navigation, 'navigation'].join(' ')}>
                             <div className={[s.navElement, 'navElement'].join(' ')}>
-                                <h2><Link to='/products/section1'>products</Link></h2>
+                                <h2><Link to={routes.productsHome}>{lang === 'en' ? 'products' : 'produkty'}</Link></h2>
                             </div>
                             <div className={[s.navElement, 'navElement'].join(' ')}>
-                                <h2><Link to='/news/section1'>canna life</Link></h2>
+                                <h2><Link to={routes.newsHome}>canna life</Link></h2>
                             </div>
                             <div className={[s.navElement, 'navElement'].join(' ')}>
-                                <h2><Link to='/footer'>contact</Link></h2>
+                                <h2><Link to={routes.mainFooter}>{lang === 'en' ? 'contact' : 'kontakt'}</Link></h2>
                             </div>
                         </div>
                     </div>

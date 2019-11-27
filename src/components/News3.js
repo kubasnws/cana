@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import s from './News3.css'
-import { news3 } from './Animations'
+import s from './News3.css';
+import { news3 } from './Animations';
+import { routes } from '../routes';
 
 let debounce = false
 
@@ -25,7 +26,7 @@ class News3 extends Component {
             news3('leave')
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/news/section2')
+                this.props.history.push(routes.newsVideos)
                 debounce = false
             }, delay);
         }
@@ -33,7 +34,7 @@ class News3 extends Component {
             news3('leave')
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/news/section4')
+                this.props.history.push(routes.newsInsta)
                 debounce = false
             }, delay);
             return

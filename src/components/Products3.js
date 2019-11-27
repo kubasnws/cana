@@ -48,7 +48,7 @@ class Products3 extends Component {
             instaSection('leave')
             debounce = true
             setTimeout(() => {
-                localization === 'news' ? this.props.history.push(routes.newsImages) : this.props.history.push('/products/section2')
+                localization === 'news' ? this.props.history.push(routes.newsImages) : this.props.history.push(routes.productsSingle)
                 debounce = false
             }, delay);
         }
@@ -56,7 +56,7 @@ class Products3 extends Component {
             instaSection('leave')
             debounce = true
             setTimeout(() => {
-                localization === 'news' ? this.props.history.push('/news/footer') : this.props.history.push('/products/footer')
+                localization === 'news' ? this.props.history.push(routes.newsFooter) : this.props.history.push(routes.productsFooter)
                 debounce = false
             }, delay);
         }

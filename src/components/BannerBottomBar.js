@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './BannerBottomBar.css'
-import { Facebook, Instagram, Twitter } from './Icons'
+import { Instagram } from './Icons'
 import ScrollButton from './ScrollItButton/ScrollItButton';
 import Languages from './Languages';
 

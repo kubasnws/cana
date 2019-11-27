@@ -15,14 +15,25 @@ import MainSection3 from './MainSection3'
 import Footer from './Footer'
 import Products from './Products'
 import News from './News';
-import { routes } from '../routes'
+import { routes } from '../routes';
+import Test from './Test'
 
 
 
 // import RouterComponent from './RouterComponent';
+let postNumber;
+switch (localStorage.getItem('lang')) {
+  case 'pl':
+    postNumber = '2'
+    break;
+  case 'en':
+    postNumber = '292';
+    break;
+  default:
+    break;
+}
 
-
-const API = 'http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/2';
+const API = `http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/${postNumber}`;
 export let socialLinks = Object
 export let menuItems = Object
 export let contactInfos = Object
@@ -60,7 +71,16 @@ class App extends Component {
     },
   }
 
+
+  setLanguage = () => {
+    console.log('reState');
+    if (localStorage.getItem('lang') === null) {
+      localStorage.setItem('lang', 'pl');
+    }
+  }
+
   componentDidMount() {
+    this.setLanguage()
 
     fetch(API)
       .then(response => {
@@ -178,7 +198,9 @@ class App extends Component {
   }
 
 
+
   render() {
+
 
     // window.addEventListener('wheel', (e) => scrollDirectionDetect(e));
 
@@ -212,6 +234,7 @@ class App extends Component {
         <>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
+              <Route path='/test' component={() => <Test />} />
               <Route exact path={routes.home} component={() => <MainBanner
                 logo={this.state.logo}
                 socialMedia={this.state.social_media}

@@ -4,7 +4,7 @@ import Player from 'react-player'
 import { PlayButton, PauseButton, VolumeOn, VolumeOff, Bell, BellSlash } from './Icons'
 import DelayLink from './DelayLink';
 import { routes } from '../routes';
-import { TimelineMax, Power2 } from 'gsap';
+import { TimelineMax } from 'gsap';
 
 class VideoDisplay extends Component {
     state = {

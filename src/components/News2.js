@@ -3,7 +3,8 @@ import s from './News2.css'
 import { news2 } from './Animations';
 import { } from './Icons'
 import { withRouter } from "react-router";
-import VideoDisplay from './VideoDisplay'
+import VideoDisplay from './VideoDisplay';
+import { routes } from '../routes';
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
 let debounce = false
@@ -58,7 +59,7 @@ class News2 extends Component {
             news2('leave')
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/news/section1')
+                this.props.history.push(routes.newsHome)
                 debounce = false
             }, delay);
         }
@@ -66,7 +67,7 @@ class News2 extends Component {
             news2('leave')
             debounce = true
             setTimeout(() => {
-                this.props.history.push('/news/section3')
+                this.props.history.push(routes.newsImages)
                 debounce = false
             }, delay);
         }
@@ -77,7 +78,10 @@ class News2 extends Component {
         const { topBanner, videoBackground } = this.props.sectionApi
         const { firstVideoPost, videoAPILoaded } = this.state
         const { videoTitle, videoDescription } = firstVideoPost
-        const { width } = this.props
+        const { screenSize: {
+            width,
+            // height,
+        } } = this.props
 
         const description = (
             <div className={[s.left, 'left'].join(' ')}>

@@ -30,13 +30,16 @@ class News extends Component {
         products: [],
         instaPosts: [],
         isLoaded: false,
-        width: Number,
+        screenSize: {
+            height: Number,
+            width: Number,
+        },
         sImages: {},
         firstPost: {},
     }
 
     componentDidMount() {
-        this.widthChange()
+        this.screenSize()
         // pobieranie api strony
         fetch(APISite)
             .then(response => {
@@ -140,15 +143,20 @@ class News extends Component {
 
     }
 
-    widthChange = () => {
-        this.setState({ width: window.innerWidth });
+    screenSize = () => {
+        this.setState({
+            screenSize: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+            },
+        });
     }
 
     render() {
-        window.addEventListener('resize', this.widthChange)
+        window.addEventListener('resize', this.screenSize)
 
         const path = window.location.pathname
-        const { productsPage, width, isLoaded, products, section1, section2, firstPost, section4, footer, instaPosts, sImages } = this.state
+        const { productsPage, screenSize, isLoaded, products, section1, section2, firstPost, section4, footer, instaPosts, sImages } = this.state
         const { images, social, section: footerContent, footerImages } = this.props
         const { sideBackgroundText, kitImage } = this.state.productsPage
         const backgroundText = {
@@ -177,7 +185,7 @@ class News extends Component {
                             images={images}
                             products={products}
                             isLoaded={isLoaded}
-                            width={width} />}
+                            screenSize={screenSize} />}
                     />
                     <Route path={routes.newsVideos}
                         component={() => <News2
@@ -185,7 +193,7 @@ class News extends Component {
                             images={images}
                             products={products}
                             isLoaded={isLoaded}
-                            width={width} />}
+                            screenSize={screenSize} />}
                     />
                     <Route path={routes.newsImages}
                         component={() => <News3
@@ -193,14 +201,14 @@ class News extends Component {
                             images={images}
                             products={products}
                             isLoaded={isLoaded}
-                            width={width}
+                            screenSize={screenSize}
                             firstPost={firstPost}
                         />}
                     />
                     <Route path={routes.newsInsta}
                         component={() => <Products3
                             sectionApi={section4}
-                            width={width}
+                            screenSize={screenSize}
                             instaPosts={instaPosts}
                             social={social}
                             localization='news'
@@ -214,7 +222,7 @@ class News extends Component {
                         section={footerContent}
                     />}
                 />
-                {width > 950 ? sideBarText : null}
+                {screenSize.width > 950 ? sideBarText : null}
             </section>
         );
     }

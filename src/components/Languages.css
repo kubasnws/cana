@@ -10,11 +10,16 @@
 
 .languages ul li {
     text-transform: uppercase;
+    backface-visibility: hidden;
     /* color: #000; */
 }
 
+.languages li:hover {
+    cursor: pointer;
+}
+
 .languages ul li:last-of-type {
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-left: 10px;
 }
 
