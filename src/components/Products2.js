@@ -5,6 +5,7 @@ import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
 import Swiper from 'swiper/js/swiper.esm.bundle';
 import { withRouter } from "react-router";
 import { routes } from "../routes";
+import { lang } from './usefullVariables';
 
 let debounce = false
 
@@ -73,7 +74,7 @@ class Products2 extends Component {
                             delay={0}
                             onDelayStart={() => { }}
                             onDelayEnd={() => { }}>
-                            <div><ChevronUp /><span>See all products</span></div>
+                            <div><ChevronUp /><span>{lang === 'en' ? 'See all products' : 'Zobacz wszystkie produkty'}</span></div>
                         </DelayLink>
 
                     </div>

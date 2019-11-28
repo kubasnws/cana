@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './MainBanner.css';
-// import BannerVideo from './BannerVideo';
+import BannerVideo from './BannerVideo';
 import BannerTopBar from "./BannerTopBar";
 import CarouselMenu from './CarouselMenu';
 import BannerBottomBar from './BannerBottomBar'
@@ -51,7 +51,7 @@ class MainBanner extends Component {
         return (
             <Swipe onSwipeUp={this.onSwipeUp}>
                 <section className={styles.start} id={styles.start}>
-                    {/* <BannerVideo videos={this.props.videos} type={1} /> */}
+                    <BannerVideo videos={this.props.videos} type={1} />
 
                     <BannerTopBar logo={this.props.logo} textDisplay={true} />
                     <CarouselMenu />

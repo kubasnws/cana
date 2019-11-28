@@ -4,7 +4,9 @@ import { instaSection } from './Animations';
 import { LongArrowRight } from './Icons'
 import { withRouter } from "react-router";
 import { dateFormatted } from './userHandlers';
-import { routes } from '../routes'
+import { routes } from '../routes';
+import { lang } from './usefullVariables';
+
 
 let debounce = false
 
@@ -113,7 +115,7 @@ class Products3 extends Component {
                 </div>
                 <div className={[s.bottomButtons, 'bottomButtonBox'].join(' ')}>
                     <div className={[s.button, s.rightButton].join(' ')}>
-                        <a href={social.instagram} target='_blank' rel="noopener noreferrer"><div><span>See more</span><LongArrowRight /></div></a>
+                        <a href={social.instagram} target='_blank' rel="noopener noreferrer"><div><span>{lang === 'en' ? 'See more' : 'Zobacz więcej'}</span><LongArrowRight /></div></a>
                     </div>
                 </div>
             </div>
