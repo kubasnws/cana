@@ -11,6 +11,7 @@ import BurgerMenu from './BurgerMenu';
 import VideoDisplay from './VideoDisplay';
 import { routes } from '../routes';
 import Logo from './Logo';
+import { lang } from "./usefullVariables";
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
 let debounce = false
@@ -145,13 +146,13 @@ class MainSection3 extends Component {
                     <div className={s.leftSection}>
                         <div className={s.content}>
                             <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
-                                <p>It is so easy</p>
+                                <p>{lang === 'en' ? 'It is so easy' : 'To jest naprawdę proste'}</p>
                                 <DelayLink
                                     to={routes.mainProd}
                                     delay={0}
                                     onDelayStart={() => { }}
                                     onDelayEnd={() => { }}>
-                                    <button type='button'>Just find out</button>
+                                    <button type='button'>{lang === 'en' ? 'Just find out' : 'Przekonaj się'}</button>
                                     <div className={s.nextButton}><span>Click</span><LongArrowRight /></div>
                                 </DelayLink>
                             </div>

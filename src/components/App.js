@@ -34,6 +34,7 @@ switch (localStorage.getItem('lang')) {
 }
 
 const API = `http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/${postNumber}`;
+// console.log(API);
 export let socialLinks = Object
 export let menuItems = Object
 export let contactInfos = Object

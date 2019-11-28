@@ -13,9 +13,20 @@ import { instaToken } from './usefullVariables'
 import { routes } from '../routes';
 import { backendBaseUrl } from './usefullVariables';
 import WhiteElement from './WhiteElement'
+import { lang } from './usefullVariables';
 
 const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
-const APIProducts = `${backendBaseUrl}/wp-json/wp/v2/products`
+let APIProducts;
+switch (lang) {
+    case 'pl':
+        APIProducts = `${backendBaseUrl}/wp-json/wp/v2/products`;
+        break;
+    case 'en':
+        APIProducts = `${backendBaseUrl}/en/wp-json/wp/v2/products`;
+        break;
+    default:
+        break;
+}
 
 class Products extends Component {
     state = {
