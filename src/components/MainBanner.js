@@ -44,14 +44,17 @@ class MainBanner extends Component {
                 debounce = false
             }, 1000);
         }
+        e.preventDefault();
     }
 
     render() {
 
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
         return (
             <Swipe onSwipeUp={this.onSwipeUp}>
                 <section className={styles.start} id={styles.start}>
-                    <BannerVideo videos={this.props.videos} type={1} />
+                    {iOS ? null : <BannerVideo videos={this.props.videos} type={1} />}
 
                     <BannerTopBar logo={this.props.logo} textDisplay={true} />
                     <CarouselMenu />

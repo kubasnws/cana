@@ -7,7 +7,7 @@ import { withRouter } from "react-router";
 import { routes } from "../routes";
 import { lang } from './usefullVariables';
 
-let debounce = false
+let debounce = true
 
 class Products2 extends Component {
     state = {
@@ -34,23 +34,20 @@ class Products2 extends Component {
 
     onScroll = e => {
         if (e.deltaY < 0 && !debounce) { //Up
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.productsHome)
-                debounce = false
-            }, 500);
+            this.props.history.push(routes.productsHome)
         }
         else if (e.deltaY > 0 && !debounce) { //Down
-            // onLeaveSection2Handler()
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.productsInsta)
-                debounce = false
-            }, 500);
+            this.props.history.push(routes.productsInsta)
         }
     }
 
     render() {
+
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 2000);
+
         const { topBanner } = this.props.sectionApi
         return (
             <div className={s.mainBox}>

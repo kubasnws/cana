@@ -4,8 +4,6 @@ import Logo from './Logo'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
 
-let debounce = false
-
 class News1 extends Component {
     state = {
         bigImage: String,
@@ -19,7 +17,7 @@ class News1 extends Component {
         window.removeEventListener('wheel', this.onScroll, false);
     }
 
-    productHoverHandler = (e) => {
+    productHoverHandler = e => {
         const prod = e.target
 
         const description = prod.getAttribute('data-description')
@@ -37,14 +35,8 @@ class News1 extends Component {
         if (e.deltaY < 0) { //Up
             return
         }
-        else if (e.deltaY > 0 && !debounce) { //Down
-            // onLeaveSection2Handler()
-            console.log('dzoala')
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.newsVideos)
-                debounce = false
-            }, 500);
+        else if (e.deltaY > 0) { //Down
+            this.props.history.push(routes.newsVideos)
         }
     }
 

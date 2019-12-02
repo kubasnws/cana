@@ -23,7 +23,7 @@ class VideoDisplay extends Component {
 
     loadApiHandler = () => {
         const { videoPostsConnection } = this.props.firstVideoPost
-        if (videoPostsConnection.length !== 0 && !this.state.isApiLoaded) {
+        if (videoPostsConnection.length > 0 && !this.state.isApiLoaded) {
             let prodArray = []
             videoPostsConnection.forEach(item => {
                 const productId = item.chose_product

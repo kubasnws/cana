@@ -9,7 +9,6 @@ import Footer from './Footer'
 import BurgerMenu from './BurgerMenu'
 import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
-import { instaToken } from './usefullVariables'
 import { routes } from '../routes';
 import { backendBaseUrl } from './usefullVariables';
 import WhiteElement from './WhiteElement'
@@ -99,28 +98,6 @@ class Products extends Component {
                 }));
             })
             .catch(error => console.log(error + " coś poszło nie tak!"))
-
-        this.getInstaPosts()
-    }
-
-    getInstaPosts = async () => {
-        // pobieranie api z insta
-        const num_photos = 6;
-        const apiLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
-
-        try {
-            const response = await fetch(apiLink)
-            const data = await response.json()
-
-            const posts = data.data;
-
-            this.setState(() => ({
-                instaPosts: posts
-            }));
-        } catch (err) {
-            console.log(err + " coś poszło nie tak!")
-        }
-
     }
 
     widthChange = () => {
@@ -130,7 +107,7 @@ class Products extends Component {
     render() {
         window.addEventListener('resize', this.widthChange)
 
-        const { productsPage, width, isLoaded, products, section1, section2, section3, footer, instaPosts } = this.state
+        const { productsPage, width, isLoaded, products, section1, section2, section3, footer } = this.state
         const { images, social, section: footerContent, footerImages } = this.props
         const path = window.location.pathname
 
@@ -162,7 +139,6 @@ class Products extends Component {
                         component={() => <Products3
                             sectionApi={section3}
                             width={width}
-                            instaPosts={instaPosts}
                             social={social}
                         />}
                     />

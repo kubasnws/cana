@@ -19,9 +19,8 @@ import { routes } from '../routes';
 import Test from './Test'
 
 
-
 // import RouterComponent from './RouterComponent';
-let postNumber;
+let postNumber = '2';
 switch (localStorage.getItem('lang')) {
   case 'pl':
     postNumber = '2'

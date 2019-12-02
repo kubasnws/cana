@@ -6,9 +6,11 @@ import { withRouter } from "react-router";
 import { dateFormatted } from './userHandlers';
 import { routes } from '../routes';
 import { lang } from './usefullVariables';
+// import Swipe from 'react-easy-swipe';
+import { instaToken } from './usefullVariables';
 
 
-let debounce = false
+let debounce = true
 
 class Products3 extends Component {
     state = {
@@ -17,16 +19,33 @@ class Products3 extends Component {
         instaWrapperWidth2: Number,
         instaWrapperWidth: Number,
         width: Number,
+        instagramData: [],
     }
     componentDidMount() {
+        console.log('first mount');
+        this.getInstaApi()
 
         window.addEventListener('wheel', this.onScroll, false);
         this.getDimensions()
-        instaSection('enter')
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('wheel', this.onScroll, false);
+    getInstaApi = async () => {
+
+        const num_photos = 6;
+        const instaLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
+
+        try {
+
+            const response = await fetch(instaLink);
+            const data = await response.json();
+
+            this.setState({ instagramData: data.data });
+            instaSection('enter');
+        } catch (err) {
+
+            console.log(`${err}, coś poszło nie tak!`)
+        }
+
     }
 
     getDimensions = () => {
@@ -45,30 +64,29 @@ class Products3 extends Component {
 
     onScroll = e => {
         const { localization } = this.props
-        const delay = 700
         if (e.deltaY < 0 && !debounce) { //Up
-            instaSection('leave')
-            debounce = true
-            setTimeout(() => {
-                localization === 'news' ? this.props.history.push(routes.newsImages) : this.props.history.push(routes.productsSingle)
-                debounce = false
-            }, delay);
+            localization === 'news' ? this.props.history.push(routes.newsImages) : this.props.history.push(routes.productsSingle)
         }
         else if (e.deltaY > 0 && !debounce) { //Down
-            instaSection('leave')
-            debounce = true
-            setTimeout(() => {
-                localization === 'news' ? this.props.history.push(routes.newsFooter) : this.props.history.push(routes.productsFooter)
-                debounce = false
-            }, delay);
+            localization === 'news' ? this.props.history.push(routes.newsFooter) : this.props.history.push(routes.productsFooter)
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('wheel', this.onScroll, false);
     }
 
     render() {
 
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 2000);
+
         const { topBanner } = this.props.sectionApi
-        const { instaBoxHeight, instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
-        const { instaPosts, social } = this.props
+        const { instagramData, instaBoxHeight, instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
+        const { social } = this.props
+
         const instaHeight = {
             height: `${instaBoxHeight}px`
         }
@@ -91,15 +109,11 @@ class Products3 extends Component {
             }
         }
 
-        const generateElement = instaPosts.map(item => (
+        const generateElement = instagramData.length > 0 && instagramData.map(item => (
             <InstaElement
                 key={item.id}
+                data={item}
                 custStyle={instaElement}
-                link={item.link}
-                image={item.images.standard_resolution.url}
-                time={item.created_time}
-                description={item.caption === null ? null : item.caption.text}
-                tags={item.tags}
             />))
 
         return (
@@ -125,11 +139,11 @@ class Products3 extends Component {
 }
 
 
-const InstaElement = props => {
-    const { image, link, time, description } = props
-    const truncate = (input) => input.length > 60 ? `${input.substring(0, 60)}...` : input;
+const InstaElement = ({ custStyle, data, data: { link, created_time: time, tags, caption: { text: description } = null, images: { standard_resolution: { url: image } } } }) => {
+
+    const truncate = input => input.length > 60 ? `${input.substring(0, 60)}...` : input;
     return (
-        <div className={[s.instaElement, 'instaElement'].join(' ')} style={props.custStyle()}>
+        <div className={[s.instaElement, 'instaElement'].join(' ')} style={custStyle()}>
             <img src={image} alt="Insta img" />
             <a href={link} target='_blank' rel="noopener noreferrer">a</a>
             <div className={s.elementDescription}>

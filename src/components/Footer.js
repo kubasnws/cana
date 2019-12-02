@@ -7,7 +7,9 @@ import { scrollDirectionDetect, lettersSplit } from './userHandlers'
 import { withRouter } from "react-router";
 import BurgerMenu from './BurgerMenu'
 import Swipe from 'react-easy-swipe';
-import { routes } from '../routes'
+import { routes } from '../routes';
+import { lang } from './usefullVariables';
+
 
 class Footer extends Component {
     state = {
@@ -44,18 +46,18 @@ class Footer extends Component {
         console.log('test');
     }
     onSwipeDown = () => {
-        // onLeaveFooterHandler()
+        onLeaveFooterHandler()
 
-        // const { path } = this.state
-        // setTimeout(() => {
-        //     if (path === routes.mainFooter) {
-        //         this.props.history.push(routes.mainVideo)
-        //     } else if (path === routes.productsFooter) {
-        //         this.props.history.push(routes.productsInsta)
-        //     } else if (path === routes.newsFooter) {
-        //         this.props.history.push(routes.newsInsta)
-        //     }
-        // }, 500);
+        const { path } = this.state
+        setTimeout(() => {
+            if (path === routes.mainFooter) {
+                this.props.history.push(routes.mainVideo)
+            } else if (path === routes.productsFooter) {
+                this.props.history.push(routes.productsInsta)
+            } else if (path === routes.newsFooter) {
+                this.props.history.push(routes.newsInsta)
+            }
+        }, 500);
     }
 
     onScroll = e => {
@@ -124,7 +126,7 @@ class Footer extends Component {
                     {width <= 650 ? null : side}
                     <div className={s.bottom}>
                         <div className={s.copy}>
-                            <p>{`copyright 2018 ${width <= 1000 ? '' : '/ interactive agency'}`}</p>
+                            <p>{`copyright 2019 ${width <= 1000 ? '' : '/ interactive agency'}`}</p>
                             <a href='https://www.snws.pl' target="_blank" rel="noopener noreferrer"><img src={process.env.PUBLIC_URL + '/images/snwsLogo.png'} alt='Logo SNWS' /></a>
                         </div>
                         <img src={img.bottom_big.url} alt={img.bottom_big.name} />
@@ -139,7 +141,7 @@ const Localization = (props) => {
     const { name, street, city } = props.data
     return (
         <div className='contactElement'>
-            <h3>localization</h3>
+            <h3>{lang === 'en' ? 'localization' : 'Lokalizacja'}</h3>
             <p>{name}</p>
             <p>{street}</p>
             <p>{city}</p>
@@ -151,7 +153,7 @@ const EasyContact = (props) => {
     const { phone, fax, mail } = props.data
     return (
         <div className='contactElement'>
-            <h3>easy contact</h3>
+            <h3>{lang === 'en' ? 'easy contact' : 'łatwy kontakt'}</h3>
             <p>t. {phone}</p>
             <p>f. {fax}</p>
             <p>e-mail: {mail}</p>

@@ -35,7 +35,6 @@ class News extends Component {
             width: Number,
         },
         sImages: {},
-        firstPost: {},
     }
 
     componentDidMount() {
@@ -98,27 +97,6 @@ class News extends Component {
             })
             .catch(error => console.log(error + " coś poszło nie tak!"))
 
-        //pobieranie api pierwszego postu ze zdjeciem
-        fetch(APIFirstImagePost)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const item = data[0]
-                this.setState(() => ({
-                    firstPost: {
-                        image: item.acf.image,
-                        title: item.title.rendered,
-                        description: item.acf.description,
-                    }
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
-
         this.getInstaPosts()
 
     }
@@ -156,7 +134,7 @@ class News extends Component {
         window.addEventListener('resize', this.screenSize)
 
         const path = window.location.pathname
-        const { productsPage, screenSize, isLoaded, products, section1, section2, firstPost, section4, footer, instaPosts, sImages } = this.state
+        const { productsPage, screenSize, isLoaded, products, section1, section2, section4, footer, instaPosts, sImages } = this.state
         const { images, social, section: footerContent, footerImages } = this.props
         const { sideBackgroundText, kitImage } = this.state.productsPage
         const backgroundText = {
@@ -202,7 +180,6 @@ class News extends Component {
                             products={products}
                             isLoaded={isLoaded}
                             screenSize={screenSize}
-                            firstPost={firstPost}
                         />}
                     />
                     <Route path={routes.newsInsta}
@@ -222,7 +199,7 @@ class News extends Component {
                         section={footerContent}
                     />}
                 />
-                {screenSize.width > 950 ? sideBarText : null}
+                {sideBarText}
             </section>
         );
     }

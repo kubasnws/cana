@@ -14,7 +14,7 @@ import Logo from './Logo';
 import { lang } from "./usefullVariables";
 
 const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
-let debounce = false
+let debounce = true;
 
 class MainSection3 extends Component {
     state = {
@@ -74,21 +74,17 @@ class MainSection3 extends Component {
     onScroll = e => {
         if (e.deltaY < 0 && !debounce) { //Up
             onLeaveSection3Handler()
-            debounce = true
             setTimeout(() => {
-                '/news/section1'
                 this.props.history.push(routes.mainImage)
-                debounce = false
             }, 500);
         }
         else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveSection3Handler()
-            debounce = true
             setTimeout(() => {
                 this.props.history.push(routes.mainFooter)
-                debounce = false
             }, 500);
         }
+        e.preventDefault();
     }
 
     widthChange = () => {
@@ -96,6 +92,10 @@ class MainSection3 extends Component {
     }
 
     render() {
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 1400);
         window.addEventListener('resize', this.widthChange)
         // window.addEventListener('wheel', (e) => scrollDirectionDetect(e, this.props.history));
 

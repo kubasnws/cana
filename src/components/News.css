@@ -20,6 +20,12 @@
     position: relative;
 }
 
+@media(max-width: 950px) {
+    .rightSection {
+        display: none;
+    }
+}
+
 .sideText {
     text-transform: uppercase;
     font-family: "bannerBig";

@@ -4,17 +4,17 @@
     height: 100vh;
 }
 
-.imageBox {
-    min-height: 80vh;
-    max-height: 90vh;
-    position: relative;
+.swiperSlide {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    position: relative;
+    min-height: 80vh;
+    max-height: 90vh;
     padding-bottom: 14vh;
 }
 
-.imageBox>img {
+.swiperSlide>img {
     position: absolute;
     top: 0;
     left: 0;
@@ -30,6 +30,18 @@
     z-index: 3;
     width: 96%;
     max-width: 800px;
+}
+
+@media(max-width: 1200px) {
+    .textBox {
+        padding-left: 5vw;
+    }
+}
+
+@media(max-width: 800px) {
+    .textBox {
+        padding-left: 50px;
+    }
 }
 
 .photoTitle {

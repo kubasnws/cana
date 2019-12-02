@@ -5,9 +5,24 @@ import { } from './Icons'
 import { withRouter } from "react-router";
 import VideoDisplay from './VideoDisplay';
 import { routes } from '../routes';
+import { lang } from './usefullVariables';
+// import Swiper from 'swiper/js/swiper.esm.bundle';
 
-const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
-let debounce = false
+
+let firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts?per_page=1';
+
+switch (lang) {
+    case 'pl':
+        firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts?per_page=1';
+        break;
+    case 'en':
+        firstPostAPI = 'http://cana.snwsprodukcja71.pl/en/wp-json/wp/v2/video_posts?per_page=1';
+        break;
+    default:
+        break;
+}
+
+let debounce = true
 
 class News2 extends Component {
     state = {
@@ -34,7 +49,8 @@ class News2 extends Component {
             })
             .then(response => response.json())
             .then(data => {
-                const d = data;
+                const d = data[0];
+                // console.log(d);
                 this.setState(() => ({
                     firstVideoPost: {
                         videoLink: d.acf.video.url,
@@ -56,25 +72,21 @@ class News2 extends Component {
     onScroll = e => {
         const delay = 700
         if (e.deltaY < 0 && !debounce) { //Up
-            news2('leave')
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.newsHome)
-                debounce = false
-            }, delay);
+            this.props.history.push(routes.newsHome)
         }
         else if (e.deltaY > 0 && !debounce) { //Down
-            news2('leave')
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.newsImages)
-                debounce = false
-            }, delay);
+            this.props.history.push(routes.newsImages)
         }
     }
 
 
     render() {
+
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 2000);
+
         const { topBanner, videoBackground } = this.props.sectionApi
         const { firstVideoPost, videoAPILoaded } = this.state
         const { videoTitle, videoDescription } = firstVideoPost

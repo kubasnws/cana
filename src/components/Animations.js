@@ -222,7 +222,7 @@ export const burgerMenuAnimation = (reset) => {
 
 export const productSideText = (delay, location) => {
     const e = new TimelineMax({ delay: delay })
-    if (location === '/products/section1' || location === '/news/section1') {
+    if (location === routes.productsHome || location === routes.newsHome) {
         e.addLabel('start')
             .staggerFromTo('.productSideText > span', .8, { opacity: 0, y: 300 }, { rotation: 90, transformOrigin: "center center", opacity: 1, y: 0, ease: elasticEase }, .08)
     } else if (location === routes.productsSingle || location === routes.newsVideos) {

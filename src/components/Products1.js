@@ -21,7 +21,7 @@ class Products1 extends Component {
     componentDidMount() {
 
 
-        new Swiper('.swiper-container', {
+        new Swiper('.swiper-prod', {
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -151,7 +151,7 @@ class Products1 extends Component {
                 </div>
                 <div className={s.bottomBox}>
                     <div className={s.swiper}>
-                        <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
+                        <div className={[s.swiperContainer, 'swiper-container swiper-prod'].join(' ')}>
                             <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
                                 <SwiperElements products={this.props.products} hover={this.productHoverHandler} click={this.productClickHandler} />
                             </div>

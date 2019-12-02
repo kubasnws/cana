@@ -13,7 +13,7 @@ import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
 import { lang } from './usefullVariables';
 
-let debounce = false
+let debounce = true
 
 class MainSection1 extends Component {
     state = {
@@ -24,6 +24,8 @@ class MainSection1 extends Component {
         this.widthChange()
 
         window.addEventListener('wheel', this.onScroll, false);
+
+
 
         const strings = ['Follow <br /> the <strong>Dark Horse</strong>', 'Follow <br /> the Dark Horse']
         const options = {
@@ -51,28 +53,32 @@ class MainSection1 extends Component {
     }
 
     onScroll = e => {
-        if (e.deltaY < 0 && !debounce) { //Up
+
+        if (e.wheelDeltaY > 0 && !debounce) { //Up
+
             onLeaveSection1Handler()
-            debounce = true
+            // debounce = true
             setTimeout(() => {
                 this.props.history.push(routes.home)
-                debounce = false
             }, 500);
         }
-        else if (e.deltaY > 0 && !debounce) { //Down
+        else if (e.wheelDeltaY < 0 && !debounce) { //Down
             onLeaveSection1Handler()
-            debounce = true
             setTimeout(() => {
                 this.props.history.push(routes.mainImage)
-                debounce = false
             }, 500);
         }
+        e.preventDefault();
     }
 
     widthChange = () => {
         this.setState({ width: window.innerWidth });
     }
     render() {
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 1400);
         window.addEventListener("resize", this.widthChange);
         const { images } = this.props
         const { sideTextSection__1, left_image__1, sample_product } = images
@@ -84,7 +90,7 @@ class MainSection1 extends Component {
                     to={routes.mainProd}
                     delay={500}
                     onDelayStart={onLeaveSection1Handler}>
-                    <div className={[styles.nextButton, 'prodButton'].join(' ')}><span>Check the amazing products</span><LongArrowRight /></div>
+                    <div className={[styles.nextButton, 'prodButton'].join(' ')}><span>{lang === 'en' ? 'Check the amazing products' : 'Zobacz niesamowite produkty'}</span><LongArrowRight /></div>
                 </DelayLink>
             </div>
         )

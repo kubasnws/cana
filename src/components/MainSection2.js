@@ -11,7 +11,7 @@ import Swipe from 'react-easy-swipe';
 import Logo from './Logo'
 import { routes } from '../routes';
 
-let debounce = false
+let debounce = true
 
 class MainSection2 extends Component {
     state = {
@@ -39,26 +39,27 @@ class MainSection2 extends Component {
     onScroll = e => {
         if (e.deltaY < 0 && !debounce) { //Up
             onLeaveSection2Handler()
-            debounce = true
             setTimeout(() => {
                 this.props.history.push(routes.mainProd)
-                debounce = false
             }, 500);
         }
         else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveSection2Handler()
-            debounce = true
             setTimeout(() => {
                 this.props.history.push(routes.mainVideo)
-                debounce = false
             }, 500);
         }
+        e.preventDefault();
     }
 
     widthChange = () => {
         this.setState({ width: window.innerWidth });
     }
     render() {
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 1400);
         window.addEventListener('resize', this.widthChange)
         // window.addEventListener('wheel', (e) => scrollDirectionDetect(e, this.props.history));
 

@@ -2,17 +2,25 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import s from './News3.css';
 import { news3 } from './Animations';
+import { backendBaseUrl } from './usefullVariables';
 import { routes } from '../routes';
+import Swiper from 'swiper/js/swiper.esm.bundle';
 
-let debounce = false
+
+let debounce = true;
+
 
 class News3 extends Component {
     state = {
-
+        imagesArray: [],
     }
     componentDidMount() {
         news3('enter')
         window.addEventListener('wheel', this.onScroll, false);
+
+        this.getImagesApi()
+
+
     }
 
     componentWillUnmount() {
@@ -20,44 +28,79 @@ class News3 extends Component {
         window.removeEventListener('wheel', this.onScroll, false);
     }
 
+    getImagesApi = async () => {
+        const numPosts = 3;
+        const imagesLink = `${backendBaseUrl}/wp-json/wp/v2/photo_posts?per_page=${numPosts}`;
+
+        try {
+            const response = await fetch(imagesLink);
+            const data = await response.json();
+
+            this.setState({
+                imagesArray: data,
+            });
+
+            this.swiperInit()
+
+        } catch (err) {
+            console.log(`${err}, Coś poszło nie tak!`);
+        }
+    }
+
+    swiperInit = () => {
+
+        new Swiper('.swiper-image', {
+            slidesPerView: 1,
+        })
+    }
+
     onScroll = e => {
         const delay = 700
         if (e.deltaY < 0 && !debounce) { //Up
-            news3('leave')
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.newsVideos)
-                debounce = false
-            }, delay);
+            this.props.history.push(routes.newsVideos)
         }
         else if (e.deltaY > 0 && !debounce) { //Down
-            news3('leave')
-            debounce = true
-            setTimeout(() => {
-                this.props.history.push(routes.newsInsta)
-                debounce = false
-            }, delay);
+            this.props.history.push(routes.newsInsta)
             return
         }
     }
 
     render() {
 
-        const { firstPost } = this.props
+        debounce = true;
+        setTimeout(() => {
+            debounce = false
+        }, 2000);
+
+        const { imagesArray } = this.state;
+        const elements = imagesArray.length > 0 && imagesArray.map(item => <ImageElement key={item.id} data={item} />)
 
         return (
             <div className={s.mainBox}>
                 <div className={s.imageBox}>
-                    <img className={[s.mainImage, 'mainImage'].join(' ')} src={typeof firstPost.image === 'undefined' ? null : firstPost.image.url} alt={typeof firstPost.image === 'undefined' ? null : firstPost.image.name} />
-                    <div className={s.textBox}>
-                        <h2 className={[s.photoTitle, 'photoTitle'].join(' ')}>{firstPost.title}</h2>
-                        <div className={[s.photoDescription, 'photoDescription'].join(' ')}>{firstPost.description}</div>
+                    <div className={[s.swiperContainer, 'swiper-container swiper-image'].join(' ')}>
+                        <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
+                            {elements}
+                        </div>
                     </div>
+
                 </div>
             </div>
 
         );
     }
+}
+
+const ImageElement = ({ data: { acf: { description, image: { url, name } }, title: { rendered: title } } }) => {
+    return (
+        <div className={[s.swiperSlide, 'swiper-slide'].join(' ')}>
+            <img className={[s.mainImage, 'mainImage'].join(' ')} src={url} alt={name} />
+            <div className={s.textBox}>
+                <h2 className={[s.photoTitle, 'photoTitle'].join(' ')}>{title}</h2>
+                <div className={[s.photoDescription, 'photoDescription'].join(' ')}>{description}</div>
+            </div>
+        </div>
+    );
 }
 
 export default withRouter(News3);
