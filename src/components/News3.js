@@ -5,6 +5,7 @@ import { news3 } from './Animations';
 import { backendBaseUrl } from './usefullVariables';
 import { routes } from '../routes';
 import Swiper from 'swiper/js/swiper.esm.bundle';
+import { lang } from './usefullVariables';
 
 
 let debounce = true;
@@ -24,13 +25,23 @@ class News3 extends Component {
     }
 
     componentWillUnmount() {
-
         window.removeEventListener('wheel', this.onScroll, false);
     }
 
     getImagesApi = async () => {
         const numPosts = 3;
-        const imagesLink = `${backendBaseUrl}/wp-json/wp/v2/photo_posts?per_page=${numPosts}`;
+        let language = 'pl'
+        switch (lang) {
+            case 'pl':
+                language = ''
+                break;
+            case 'en':
+                language = '/en'
+                break;
+            default:
+                break;
+        }
+        const imagesLink = `${backendBaseUrl}${language}/wp-json/wp/v2/photo_posts?per_page=${numPosts}`;
 
         try {
             const response = await fetch(imagesLink);
@@ -55,7 +66,6 @@ class News3 extends Component {
     }
 
     onScroll = e => {
-        const delay = 700
         if (e.deltaY < 0 && !debounce) { //Up
             this.props.history.push(routes.newsVideos)
         }

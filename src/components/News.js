@@ -17,7 +17,6 @@ import WhiteElement from './WhiteElement'
 
 const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/230`;
 const APISite_146 = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
-const APIFirstImagePost = `${backendBaseUrl}/wp-json/wp/v2/photo_posts?per_page=1`;
 
 class News extends Component {
     state = {

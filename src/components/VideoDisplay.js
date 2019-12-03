@@ -5,6 +5,7 @@ import { PlayButton, PauseButton, VolumeOn, VolumeOff, Bell, BellSlash } from '.
 import DelayLink from './DelayLink';
 import { routes } from '../routes';
 import { TimelineMax } from 'gsap';
+import { backendBaseUrl } from './usefullVariables';
 
 class VideoDisplay extends Component {
     state = {
@@ -13,21 +14,16 @@ class VideoDisplay extends Component {
         notifications: true,
         duration: 0,
         secondsElapsed: 0,
-        isApiLoaded: false,
         productsArray: [],
     }
 
-    componentDidUpdate() {
-
-    }
-
     loadApiHandler = () => {
-        const { videoPostsConnection } = this.props.firstVideoPost
-        if (videoPostsConnection.length > 0 && !this.state.isApiLoaded) {
+        const { videoData: { acf: { video_products_conection: videoPostsConnection } = Object } } = this.props
+        if (typeof videoPostsConnection !== 'undefined' && videoPostsConnection.length > 0) {
             let prodArray = []
             videoPostsConnection.forEach(item => {
                 const productId = item.chose_product
-                const videoApi = `http://cana.snwsprodukcja71.pl/wp-json/wp/v2/products/${productId}`
+                const videoApi = `${backendBaseUrl}/wp-json/wp/v2/products/${productId}`
 
                 fetch(videoApi)
                     .then(response => {
@@ -41,7 +37,6 @@ class VideoDisplay extends Component {
                         prodArray.push(data)
 
                         this.setState({
-                            isApiLoaded: true,
                             productsArray: prodArray,
                         })
 
@@ -84,9 +79,7 @@ class VideoDisplay extends Component {
     render() {
 
         const { isVideoPlaying, isVolumeOff, notifications, secondsElapsed, productsArray, duration } = this.state
-        const { videoBackground, width, videoAPILoaded } = this.props
-        const { videoLink, videoTitle, videoDescription, videoPostsConnection } = this.props.firstVideoPost
-
+        const { width, videoBackground, videoData: { acf: { video: { url: videoLink } = Object, video_description: videoTitle, video_title: videoDescription, video_products_conection: videoPostsConnection } = Object } = Object } = this.props
         const descriptionVideo = (
             <div className={[s.description, s.descriptionVid].join(' ')}>
                 <h1>{videoTitle}</h1>
@@ -111,7 +104,7 @@ class VideoDisplay extends Component {
                     </div>
                     <Player
                         className={[s.videoDev, 'videoDev'].join(' ')}
-                        url={videoAPILoaded ? videoLink : null}
+                        url={videoLink}
                         onDuration={this.onDuration}
                         onProgress={this.onProgress}
                         playing={isVideoPlaying}

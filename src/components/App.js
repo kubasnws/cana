@@ -33,7 +33,6 @@ switch (localStorage.getItem('lang')) {
 }
 
 const API = `http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/${postNumber}`;
-// console.log(API);
 export let socialLinks = Object
 export let menuItems = Object
 export let contactInfos = Object
@@ -73,7 +72,6 @@ class App extends Component {
 
 
   setLanguage = () => {
-    console.log('reState');
     if (localStorage.getItem('lang') === null) {
       localStorage.setItem('lang', 'pl');
     }
@@ -158,13 +156,7 @@ class App extends Component {
 
   }
 
-  isAgeAnimatedHandler = () => {
-    // this.setState({ isAgeAnimated: true });
-    // onLoadAgeHandler()
-  }
-
   selectHandler = (e, name) => {
-    console.log()
     this.setState({
       [name]: e.target.value
     })

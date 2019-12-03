@@ -12,50 +12,45 @@ import VideoDisplay from './VideoDisplay';
 import { routes } from '../routes';
 import Logo from './Logo';
 import { lang } from "./usefullVariables";
+import { backendBaseUrl } from './usefullVariables';
 
-const firstPostAPI = 'http://cana.snwsprodukcja71.pl/wp-json/wp/v2/video_posts/180'
 let debounce = true;
 
 class MainSection3 extends Component {
     state = {
         width: Number,
-        firstVideoPost: {
-            videoLink: String,
-            postTitle: String,
-            videoTitle: String,
-            videoDescription: String,
-            videoPostsConnection: [],
-        },
-        videoAPILoaded: false,
+        videoData: {},
     }
 
     componentDidMount() {
+        this.getVideoApi()
         onLoadSection3Handler()
         this.widthChange()
         window.addEventListener('wheel', this.onScroll, false);
-        fetch(firstPostAPI)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const d = data;
-                this.setState({
-                    firstVideoPost: {
-                        videoLink: d.acf.video.url,
-                        postTitle: d.title.rendered,
-                        videoTitle: d.acf.video_description,
-                        videoDescription: d.acf.video_title,
-                        videoPostsConnection: d.acf.video_products_conection
-                    },
-                    videoAPILoaded: true,
-                });
-            })
-            .catch(error => console.log(error + " coś nie tak"))
+    }
 
+    getVideoApi = async () => {
+        let language = '180'
+        switch (lang) {
+            case 'pl':
+                language = '180'
+                break;
+            case 'en':
+                language = '301'
+                break;
+            default:
+                break;
+        }
+        const firstPostAPI = `${backendBaseUrl}/wp-json/wp/v2/video_posts/${language}`
+
+        try {
+            const response = await fetch(firstPostAPI);
+            const data = await response.json();
+
+            this.setState({ videoData: data });
+        } catch (err) {
+            console.log(`${err}, coś poszło nie tak!`);
+        }
     }
 
     componentWillUnmount() {
@@ -97,13 +92,12 @@ class MainSection3 extends Component {
             debounce = false
         }, 1400);
         window.addEventListener('resize', this.widthChange)
-        // window.addEventListener('wheel', (e) => scrollDirectionDetect(e, this.props.history));
 
         const { sideTextSection__1 } = this.props.images
         const { leftImage, videoBackground } = this.props.section
-        const { width, firstVideoPost, videoAPILoaded } = this.state
-        const { videoTitle, videoDescription } = this.state.firstVideoPost
-
+        const { width, videoData } = this.state
+        const { acf: { video_description: videoTitle, video_title: videoDescription } = Object } = videoData
+        console.log(videoTitle);
         const scrollDown = (
             <div className={s.down}>
                 <DelayLink
@@ -131,9 +125,6 @@ class MainSection3 extends Component {
             </div>
         )
 
-
-
-
         return (
             <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
                 <div className={s.mainContainer}>
@@ -159,13 +150,12 @@ class MainSection3 extends Component {
                             {width <= 820 ? null : description}
                         </div>
                         <div className={[s.video, 'videoSec3'].join(' ')}>
-
                             <VideoDisplay
-                                firstVideoPost={firstVideoPost}
+                                videoData={videoData}
                                 width={width}
-                                videoAPILoaded={videoAPILoaded}
                                 videoBackground={videoBackground}
                             />
+
                         </div>
                     </div>
                     {width <= 1150 ? null : sideText}

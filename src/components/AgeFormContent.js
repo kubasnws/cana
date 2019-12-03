@@ -2,28 +2,29 @@ import React from 'react';
 import styles from './AgeChecker.css'
 import AgeVerificationForm from './AgeVerificationForm'
 import Logo from './Logo'
-import CopyrightSnws from './CopyrightSnws'
+import CopyrightSnws from './CopyrightSnws';
+import { lang } from './usefullVariables';
 
-const AgeFormContent = (props) => {
+const AgeFormContent = ({ comeBack, fail, selectHandler, day, month, year, ageVerificationHandler, logo }) => {
     return (
         <div className={styles.contentFormBox}>
             <div className={styles.titleContainer}>
                 <h1>Canna</h1>
-                <p>Age verification</p>
+                <p>{lang === 'en' ? 'Age verification' : 'Weryfikacja wieku'}</p>
             </div>
             <div className={styles.ageVerificationForm}>
                 <AgeVerificationForm
-                    comeBack={props.comeBack}
-                    fail={props.fail}
-                    selectHandler={props.selectHandler}
-                    day={props.day}
-                    month={props.month}
-                    year={props.year}
-                    ageVerificationHandler={props.ageVerificationHandler}
+                    comeBack={comeBack}
+                    fail={fail}
+                    selectHandler={selectHandler}
+                    day={day}
+                    month={month}
+                    year={year}
+                    ageVerificationHandler={ageVerificationHandler}
                 />
             </div>
             <div className={styles.bottomInformation}>
-                <Logo logo={props.logo} customStyles={{ width: 100 }} clicable={false} />
+                <Logo logo={logo} customStyles={{ width: 100 }} clicable={false} />
                 <CopyrightSnws />
             </div>
         </div>

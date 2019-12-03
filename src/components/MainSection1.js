@@ -87,7 +87,7 @@ class MainSection1 extends Component {
         const seeProducts = (
             <div className={styles.products}>
                 <DelayLink
-                    to={routes.mainProd}
+                    to={routes.productsHome}
                     delay={500}
                     onDelayStart={onLeaveSection1Handler}>
                     <div className={[styles.nextButton, 'prodButton'].join(' ')}><span>{lang === 'en' ? 'Check the amazing products' : 'Zobacz niesamowite produkty'}</span><LongArrowRight /></div>

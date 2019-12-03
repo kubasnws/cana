@@ -3,6 +3,7 @@ import s from './News1.css'
 import Logo from './Logo'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
+import Languages from './Languages';
 
 class News1 extends Component {
     state = {
@@ -45,10 +46,10 @@ class News1 extends Component {
 
         return (
             <div className={s.mainBox}>
-                {/* <img className={s.backgroundImage} src={typeof horse === 'undefined' ? null : horse.url} alt={typeof horse === 'undefined' ? null : horse.name} /> */}
                 <div>
                     <div className={s.topBox}>
                         <div className={s.languageBox}>
+                            <Languages />
                         </div>
                         <div className={s.logoBox}>
                             <Logo />

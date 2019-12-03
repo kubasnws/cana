@@ -12,9 +12,6 @@ const Languages = props => {
         fontWeight: '900',
     }
 
-    const hand = e => {
-        console.log(e.target.getAttribute('lang'));
-    }
     const lang = localStorage.getItem('lang');
     return (
         <div className={`${styles.languages} languages`} style={props.fixed === true ? fixed : null}>

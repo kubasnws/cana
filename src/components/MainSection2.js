@@ -10,6 +10,7 @@ import BurgerMenu from './BurgerMenu'
 import Swipe from 'react-easy-swipe';
 import Logo from './Logo'
 import { routes } from '../routes';
+import { lang } from './usefullVariables';
 
 let debounce = true
 
@@ -105,12 +106,12 @@ class MainSection2 extends Component {
                             <div className={s.text}>{apiText}</div>
                         </div>
                         <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
-                            <p>See how to roll</p>
+                            <p>{lang === 'en' ? 'See how to roll' : 'Zobacz jak zwijać'}</p>
                             <DelayLink
-                                to='/news/section3'
+                                to={routes.newsImages}
                                 delay={0}
                                 onDelayStart={() => { }}>
-                                <button type='button'>check it!</button>
+                                <button type='button'>{lang === 'en' ? 'check it!' : 'Sprawdź to!'}</button>
                                 <div className={s.nextButton}><span>Click</span><LongArrowRight /></div>
                             </DelayLink>
                         </div>

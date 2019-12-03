@@ -8,7 +8,8 @@ import Swiper from 'swiper/js/swiper.esm.bundle';
 import { withRouter } from "react-router";
 import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
-import { onLeaveSection1Handler } from './Animations'
+import { onLeaveSection1Handler } from './Animations';
+import { lang } from './usefullVariables';
 
 let debounce = false
 
@@ -112,7 +113,7 @@ class Products1 extends Component {
                     delay={0}
                     onDelayStart={() => { }}
                     onDelayEnd={() => { }}>
-                    <div className={s.nextButton}><span>Or keep up with latest news</span><LongArrowRight /></div>
+                    <div className={s.nextButton}><span>{lang === 'en' ? 'Or keep up with latest news' : 'Lub bądź na bieżąco z najnowszymi wiadomościami'}</span><LongArrowRight /></div>
                 </DelayLink>
             </div>
         )
@@ -120,9 +121,21 @@ class Products1 extends Component {
             <div className={s.leftImage}>
                 <img src={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.url} alt={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.name} />
                 <div className={s.scrollWrapperBox}>
-                    <ScrollItButton smallText='Interested?' location={routes.productsSingle} animation={onLeaveSection1Handler} />
+                    <ScrollItButton smallText={lang === 'en' ? 'Interested?' : 'Zainteresowany?'} location={routes.productsSingle} animation={onLeaveSection1Handler} />
                 </div>
             </div>
+        )
+
+        const titlePl = (
+            <>
+                Zobacz nasze <span>produkty!</span>
+            </>
+        )
+
+        const titleEn = (
+            <>
+                Check out the <span>products!</span>
+            </>
         )
 
         return (
@@ -140,7 +153,7 @@ class Products1 extends Component {
                     {width >= 800 ? leftImage : null}
                     <div className={s.rightProduct}>
                         <div className={s.titleBox}>
-                            <h1 className={s.title}>Check out the <span>products!</span></h1>
+                            <h1 className={s.title}>{lang === 'en' ? titleEn : titlePl}</h1>
                             {seeProducts}
                         </div>
                         <div className={s.activeProduct}>

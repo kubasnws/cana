@@ -3,10 +3,11 @@ import s from './ScrollItButton.css';
 import { withRouter } from "react-router";
 import DelayLink from '../DelayLink';
 import { navigation } from '../../routes';
+import { lang } from '../usefullVariables';
 
 
-const ScrollItButton = ({ smallText, bigText = 'scroll it!', animation = null, location }) => {
-
+const ScrollItButton = ({ smallText, bigText, animation = null, location }) => {
+    console.log(bigText);
     const getCurrentPathname = () => {
         const localPathname = location.pathname;
         const actualPosition = () => {
@@ -24,6 +25,15 @@ const ScrollItButton = ({ smallText, bigText = 'scroll it!', animation = null, l
 
         return nextIndex;
     }
+
+    const big = () => {
+        if (typeof bigText === 'undefined') {
+            return lang === 'en' ? 'Scroll It!' : 'Przewiń!'
+        } else {
+            return bigText;
+        }
+    }
+
     return (
 
         <div className={[s.buttonWrapper, 'buttonWrapper'].join(' ')}>
@@ -33,7 +43,7 @@ const ScrollItButton = ({ smallText, bigText = 'scroll it!', animation = null, l
                 delay={animation !== null && 500}
                 onDelayStart={animation !== null ? () => animation() : () => { }}
             >
-                <button>{bigText}</button>
+                <button>{big()}</button>
             </DelayLink>
         </div>
     );

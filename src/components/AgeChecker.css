@@ -25,6 +25,11 @@
     height: auto;
 }
 
+.langBox {
+    position: absolute;
+    bottom: 1vh;
+    left: 3vw;
+}
 
 .leftContent {
     position: relative;

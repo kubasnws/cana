@@ -5,7 +5,6 @@ import { CloseButton } from './Icons'
 import { Link } from 'react-router-dom'
 import { lettersSplit } from './userHandlers'
 import Logo from './Logo'
-import { contactInfos } from './App';
 import { routes } from '../routes';
 import { lang } from './usefullVariables';
 

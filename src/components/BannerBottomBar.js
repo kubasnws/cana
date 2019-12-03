@@ -31,7 +31,7 @@ const BannerBottomBar = ({ socialMedia }) => {
                 </div>
                 <Languages />
             </div>
-            <ScrollButton bigText='scroll it!' />
+            <ScrollButton />
         </div>
     );
 }

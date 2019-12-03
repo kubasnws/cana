@@ -55,6 +55,16 @@
     height: 270px;
 }
 
+.description h1 {
+    font-family: 'Impact';
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.description div {
+    font-family: 'Roboto Slab';
+}
+
 .video {
     width: 50%;
     position: relative;
@@ -77,11 +87,6 @@
     position: fixed;
     left: 5vw;
     bottom: 10vh;
-}
-
-
-.buttonWrapper {
-    /* transform: translateX(100%); */
 }
 
 .buttonWrapper p {
