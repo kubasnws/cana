@@ -7,11 +7,12 @@ import Logo from './Logo'
 import DelayLink from './DelayLink'
 import Typed from 'typed.js'
 import { withRouter } from "react-router";
-import { LongArrowRight } from './Icons';
+import { LongArrowRight, ChevronDown } from './Icons';
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
 import { lang } from './usefullVariables';
+
 
 let debounce = true
 
@@ -53,27 +54,27 @@ class MainSection1 extends Component {
     }
 
     onScroll = e => {
+        console.log('scroll');
 
-        if (e.wheelDeltaY > 0 && !debounce) { //Up
+        if (e.deltaY < 0 && !debounce) { //Up
 
             onLeaveSection1Handler()
-            // debounce = true
             setTimeout(() => {
                 this.props.history.push(routes.home)
             }, 500);
         }
-        else if (e.wheelDeltaY < 0 && !debounce) { //Down
+        else if (e.deltaY > 0 && !debounce) { //Down
             onLeaveSection1Handler()
             setTimeout(() => {
                 this.props.history.push(routes.mainImage)
             }, 500);
         }
-        e.preventDefault();
     }
 
     widthChange = () => {
         this.setState({ width: window.innerWidth });
     }
+
     render() {
         debounce = true;
         setTimeout(() => {
@@ -83,6 +84,15 @@ class MainSection1 extends Component {
         const { images } = this.props
         const { sideTextSection__1, left_image__1, sample_product } = images
         const { width } = this.state
+
+        const scrollDown = (
+            <div className={styles.down}>
+                <DelayLink
+                    to={routes.mainImage}>
+                    <ChevronDown />
+                </DelayLink>
+            </div>
+        )
 
         const seeProducts = (
             <div className={styles.products}>
@@ -117,6 +127,7 @@ class MainSection1 extends Component {
                     <div className={[styles.leftBox, 'sec1left'].join(' ')}>
                         <img src={left_image__1} alt="Canna" />
                     </div>
+                    {scrollDown}
                 </div>
             </Swipe>
         );

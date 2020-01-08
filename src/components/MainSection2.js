@@ -50,7 +50,6 @@ class MainSection2 extends Component {
                 this.props.history.push(routes.mainVideo)
             }, 500);
         }
-        e.preventDefault();
     }
 
     widthChange = () => {
@@ -96,7 +95,7 @@ class MainSection2 extends Component {
                     {/* <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} /> */}
                     <BurgerMenu fixed={true} />
                     <div className={s.cannaBox}>
-                        <div className={[s.number, 'sec_1_number'].join(' ')}>1.</div>
+                        <div className={[s.number, 'sec_1_number'].join(' ')}>3.</div>
                         <img className={[s.cannaCar, 'cannaCar'].join(' ')} src={cannaCar} alt='' />
                     </div>
                     {width <= 1150 ? null : sideText}
@@ -106,7 +105,7 @@ class MainSection2 extends Component {
                             <div className={s.text}>{apiText}</div>
                         </div>
                         <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
-                            <p>{lang === 'en' ? 'See how to roll' : 'Zobacz jak zwijać'}</p>
+                            <p>{lang === 'en' ? 'See how to roll' : 'Zobacz jak skręcać'}</p>
                             <DelayLink
                                 to={routes.newsImages}
                                 delay={0}

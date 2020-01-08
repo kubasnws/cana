@@ -65,6 +65,10 @@
     font-family: 'Roboto Slab';
 }
 
+.description>h1 {
+    text-transform: uppercase;
+}
+
 .video {
     width: 50%;
     position: relative;
@@ -204,5 +208,5 @@
 .logoBox {
     position: absolute;
     top: 4vh;
-    left: 8vw;
+    left: 16vw;
 }

@@ -6,6 +6,12 @@
     padding-left: 6%;
 }
 
+@media(max-width: 850px) {
+    .mainContainer {
+        padding-left: 50px;
+    }
+}
+
 .logoBox {
     max-width: 160px;
     width: fit-content;
@@ -132,9 +138,10 @@
 .nextButton span {
     text-decoration: none;
     color: #77924A;
-    font-weight: bold;
     margin-right: 10px;
     backface-visibility: hidden;
+    font-family: "Roboto Slab";
+    font-weight: 300;
 }
 
 .nextButton svg>path {

@@ -4,14 +4,12 @@
     list-style: none;
     font-size: 16px;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
 }
 
 .languages ul li {
     text-transform: uppercase;
     backface-visibility: hidden;
-    /* color: #000; */
 }
 
 .languages li:hover {
@@ -19,7 +17,6 @@
 }
 
 .languages ul li:last-of-type {
-    /* font-weight: bold; */
     margin-left: 10px;
 }
 
@@ -31,4 +28,15 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+@media(max-width: 1000px) {
+    .languages ul {
+        flex-direction: column;
+    }
+
+    .languages ul li:last-of-type {
+        margin-left: 0;
+        margin-top: 8px;
+    }
 }

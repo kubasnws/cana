@@ -6,8 +6,8 @@ import { withRouter } from "react-router";
 import { dateFormatted } from './userHandlers';
 import { routes } from '../routes';
 import { lang } from './usefullVariables';
-// import Swipe from 'react-easy-swipe';
 import { instaToken } from './usefullVariables';
+import Logo from './Logo';
 
 
 let debounce = true
@@ -119,6 +119,9 @@ class Products3 extends Component {
         return (
             <div className={s.mainBox}>
                 <div className={[s.topBanner, 'topBannerSec3'].join(' ')}>
+                    <div className={s.logoBox}>
+                        <Logo />
+                    </div>
                     <div>check us on: @catchthedarkhorse</div>
                     {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
                 </div>

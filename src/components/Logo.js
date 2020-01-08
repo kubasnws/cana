@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Logo.css';
 import { imageLogo } from './App'
-import {
-    Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { onLoadLogoHandler } from './Animations';
 
 

@@ -149,14 +149,13 @@ const Localization = (props) => {
     );
 }
 
-const EasyContact = (props) => {
-    const { phone, fax, mail } = props.data
+const EasyContact = ({ data: { phone, fax, mail } }) => {
     return (
         <div className='contactElement'>
-            <h3>{lang === 'en' ? 'easy contact' : 'łatwy kontakt'}</h3>
-            <p>t. {phone}</p>
-            <p>f. {fax}</p>
-            <p>e-mail: {mail}</p>
+            <h3>{lang === 'en' ? 'contact' : 'kontakt'}</h3>
+            {phone && <p>t. {phone}</p>}
+            {fax && <p>f. {fax}</p>}
+            {mail && <p>e-mail: {mail}</p>}
         </div>
     );
 }

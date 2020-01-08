@@ -2,6 +2,13 @@
     width: 100%;
     position: relative;
     height: 100vh;
+    padding-left: 6vh;
+}
+
+@media(max-width: 850px) {
+    .mainBox {
+        padding-left: 50px;
+    }
 }
 
 .swiperSlide {

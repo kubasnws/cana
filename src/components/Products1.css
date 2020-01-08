@@ -1,5 +1,12 @@
 .mainBox {
     position: relative;
+    padding-left: 6vh;
+}
+
+@media(max-width: 850px) {
+    .mainBox {
+        padding-left: 50px;
+    }
 }
 
 .topBox {
@@ -23,6 +30,7 @@
 .logoBox {
     justify-content: flex-start;
     margin-left: 10vw;
+    margin-top: 20px;
 }
 
 .backgroundImage {
@@ -90,6 +98,7 @@
     border-bottom: 1px solid #77924A;
     width: fit-content;
     z-index: 10;
+    white-space: nowrap;
 }
 
 .nextButton span {
@@ -98,6 +107,16 @@
     font-weight: bold;
     margin-right: 10px;
     white-space: nowrap;
+}
+
+@media(max-width: 550px) {
+    .nextButton {
+        border-bottom: none;
+    }
+
+    .nextButton span {
+        white-space: normal;
+    }
 }
 
 .nextButton svg>path {

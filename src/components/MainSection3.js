@@ -79,7 +79,6 @@ class MainSection3 extends Component {
                 this.props.history.push(routes.mainFooter)
             }, 500);
         }
-        e.preventDefault();
     }
 
     widthChange = () => {
@@ -97,7 +96,7 @@ class MainSection3 extends Component {
         const { leftImage, videoBackground } = this.props.section
         const { width, videoData } = this.state
         const { acf: { video_description: videoTitle, video_title: videoDescription } = Object } = videoData
-        console.log(videoTitle);
+
         const scrollDown = (
             <div className={s.down}>
                 <DelayLink
@@ -139,7 +138,7 @@ class MainSection3 extends Component {
                             <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
                                 <p>{lang === 'en' ? 'It is so easy' : 'To jest naprawdę proste'}</p>
                                 <DelayLink
-                                    to={routes.mainProd}
+                                    to={routes.productsHome}
                                     delay={0}
                                     onDelayStart={() => { }}
                                     onDelayEnd={() => { }}>

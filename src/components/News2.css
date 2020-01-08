@@ -4,6 +4,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-left: 6vh;
+}
+
+@media(max-width: 850px) {
+    .mainBox {
+        padding-left: 50px;
+    }
 }
 
 .topBanner {

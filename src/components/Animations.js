@@ -19,7 +19,7 @@ const burgerMenuLeave = () => {
     TweenMax.to('.burgerMenu', .3, { x: 160, ease: elasticEase2 })
 }
 const whiteElementLoad = () => {
-    TweenMax.to('.whiteElement', .35, { x: 0, ease: power })
+    // TweenMax.to('.whiteElement', .35, { x: 0, ease: power })
     // TweenMax.from('.whiteElement', .7, { backgroundColor: '#242424' })
 }
 const menuBoxLeave = () => {
@@ -27,16 +27,16 @@ const menuBoxLeave = () => {
 }
 
 export const onLoadAgeHandler = () => {
-    const end = () => {
+    // const end = () => {
 
-    }
-    const e = new TimelineMax({ delay: 1 })
-    TweenMax.set('.cameleon', { scale: 0 })
-    e.addLabel('start')
-        .to('.whiteElement', .5, { x: '-93vw', ease: elasticEase })
-        .to('.cameleon', .4, { scale: 1, ease: elasticEase, clearProps: 'all' }, 'start+=.2')
-        .staggerFrom('.formElement', .4, { y: 50, opacity: 0 }, .3)
-        .call(end)
+    // }
+    // const e = new TimelineMax({ delay: 1 })
+    // TweenMax.set('.cameleon', { scale: 0 })
+    // e.addLabel('start')
+    //     .to('.whiteElement', .5, { x: '-93vw', ease: elasticEase })
+    //     .to('.cameleon', .4, { scale: 1, ease: elasticEase, clearProps: 'all' }, 'start+=.2')
+    //     .staggerFrom('.formElement', .4, { y: 50, opacity: 0 }, .3)
+    //     .call(end)
 
     // console.log(document.querySelector('.whiteElement'));
 }

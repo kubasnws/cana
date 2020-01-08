@@ -174,7 +174,6 @@ class App extends Component {
     const difference = today.getTime() - userBirth.getTime()
     if (difference < 0) { //refusal
       const sec = difference / -1000
-      // const days = Math.floor(sec / (3600 * 24));
       const d = Math.floor(sec / (3600 * 24));
       const dDisplay = d > 0 ? d + (d === 1 ? " day" : " days") : "";
       this.setState({
@@ -192,9 +191,6 @@ class App extends Component {
 
 
   render() {
-
-
-    // window.addEventListener('wheel', (e) => scrollDirectionDetect(e));
 
     localStorage.setItem('isAgeOk', this.state.isAgeOk);
     if (localStorage.getItem('isAgeOk') !== 'true') {

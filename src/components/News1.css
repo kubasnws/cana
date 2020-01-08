@@ -4,6 +4,14 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
+    padding-left: 6vh;
+}
+
+@media(max-width: 850px) {
+    .mainBox {
+        padding-left: 50px;
+        justify-content: space-evenly;
+    }
 }
 
 .topBox {
@@ -27,6 +35,7 @@
 .logoBox {
     justify-content: flex-start;
     margin-left: 10vw;
+    margin-top: 20px;
 }
 
 .backgroundImage {

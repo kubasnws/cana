@@ -12,7 +12,7 @@ const CarouselMenu = () => {
                     <h1><Link to={routes.productsHome}>{lang === 'en' ? 'products' : 'produkty'}</Link></h1>
                 </div>
                 <div className={[styles.element, styles.active, 'active'].join(' ')}>
-                    <h1><Link to='/'>canna life</Link></h1>
+                    <h1><Link to={routes.mainProd}>canna life</Link></h1>
                 </div>
                 <div className={[styles.element, styles.disactive, 'disactive'].join(' ')}>
                     <h1><Link to={routes.mainFooter}>{lang === 'en' ? 'contact' : 'kontakt'}</Link></h1>

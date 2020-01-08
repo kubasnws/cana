@@ -10,7 +10,7 @@ const WhiteElement = ({ location, isSocialDisplay, language }) => {
 
     return (
         <div className={[s.whiteElement, 'whiteElement'].join(' ')}>
-            {language ? <Languages /> : <div></div>}
+            {!language ? <Languages /> : <div></div>}
             <SideNavigation location={location.pathname} />
             {!isSocialDisplay && <SocialMedia />}
         </div>

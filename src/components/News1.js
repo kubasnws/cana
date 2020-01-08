@@ -3,7 +3,7 @@ import s from './News1.css'
 import Logo from './Logo'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
-import Languages from './Languages';
+// import Languages from './Languages';
 
 class News1 extends Component {
     state = {
@@ -48,9 +48,9 @@ class News1 extends Component {
             <div className={s.mainBox}>
                 <div>
                     <div className={s.topBox}>
-                        <div className={s.languageBox}>
+                        {/* <div className={s.languageBox}>
                             <Languages />
-                        </div>
+                        </div> */}
                         <div className={s.logoBox}>
                             <Logo />
                         </div>

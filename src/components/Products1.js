@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import s from './Products1.css'
-import Languages from './Languages'
+// import Languages from './Languages'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft } from './Icons'
@@ -142,9 +142,9 @@ class Products1 extends Component {
             <div className={s.mainBox}>
                 <img className={s.backgroundImage} src={typeof horse === 'undefined' ? null : horse.url} alt={typeof horse === 'undefined' ? null : horse.name} />
                 <div className={s.topBox}>
-                    <div className={s.languageBox}>
+                    {/* <div className={s.languageBox}>
                         <Languages />
-                    </div>
+                    </div> */}
                     <div className={s.logoBox}>
                         <Logo />
                     </div>

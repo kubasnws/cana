@@ -44,7 +44,6 @@ class MainBanner extends Component {
                 debounce = false
             }, 1000);
         }
-        e.preventDefault();
     }
 
     render() {

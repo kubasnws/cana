@@ -7,7 +7,6 @@ import { lang } from '../usefullVariables';
 
 
 const ScrollItButton = ({ smallText, bigText, animation = null, location }) => {
-    console.log(bigText);
     const getCurrentPathname = () => {
         const localPathname = location.pathname;
         const actualPosition = () => {

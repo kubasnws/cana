@@ -1,14 +1,22 @@
 .mainBox {
     position: relative;
     width: 100%;
+    padding-left: 6vh;
+}
+
+@media(max-width: 850px) {
+    .mainBox {
+        padding-left: 50px;
+    }
 }
 
 .topBanner {
     width: 100%;
     position: relative;
     height: 18vh;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     z-index: 6;
 }
 
@@ -200,4 +208,8 @@
     .bottomButtons {
         width: 98%;
     }
+}
+
+.logoBox {
+    margin: 0 20px;
 }
