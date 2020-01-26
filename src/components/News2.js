@@ -6,7 +6,10 @@ import VideoDisplay from './VideoDisplay';
 import { routes } from '../routes';
 import { lang } from './usefullVariables';
 import { backendBaseUrl } from './usefullVariables';
+import Logo from './Logo';
 // import Swiper from 'swiper/js/swiper.esm.bundle';
+
+
 
 let debounce = true
 
@@ -57,7 +60,7 @@ class News2 extends Component {
             this.props.history.push(routes.newsHome)
         }
         else if (e.deltaY > 0 && !debounce) { //Down
-            this.props.history.push(routes.newsImages)
+            this.props.history.push(routes.newsInsta)
         }
     }
 
@@ -87,6 +90,9 @@ class News2 extends Component {
             <div className={s.mainBox}>
                 <div className={[s.topBanner, 'topBanner'].join(' ')}>
                     {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
+                    <div className={s.logoBox}>
+                        <Logo />
+                    </div>
                 </div>
                 <div className={s.content}>
                     {width <= 680 ? null : description}

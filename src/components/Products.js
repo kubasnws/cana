@@ -35,7 +35,6 @@ class Products extends Component {
         section3: {},
         footer: {},
         products: [],
-        instaPosts: [],
         isLoaded: false,
         width: Number,
     }

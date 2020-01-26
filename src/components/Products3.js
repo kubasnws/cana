@@ -5,7 +5,6 @@ import { LongArrowRight } from './Icons'
 import { withRouter } from "react-router";
 import { dateFormatted } from './userHandlers';
 import { routes } from '../routes';
-import { lang } from './usefullVariables';
 import { instaToken } from './usefullVariables';
 import Logo from './Logo';
 
@@ -49,12 +48,8 @@ class Products3 extends Component {
     }
 
     getDimensions = () => {
-        const windowHeight = window.innerHeight
-        const { height: bannerHeight } = document.querySelector('.topBannerSec3').getBoundingClientRect()
-        const { height: bottomButtonBoxHeight } = document.querySelector('.bottomButtonBox').getBoundingClientRect()
         const { width: instaWrapperWidth } = document.querySelector('.instaWrapper').getBoundingClientRect()
         this.setState({
-            instaBoxHeight: windowHeight - (bannerHeight + 50) - bottomButtonBoxHeight,
             instaElementDimensions3: instaWrapperWidth / 3,
             instaElementDimensions2: instaWrapperWidth / 2,
             instaElementDimensions: instaWrapperWidth,
@@ -65,7 +60,7 @@ class Products3 extends Component {
     onScroll = e => {
         const { localization } = this.props
         if (e.deltaY < 0 && !debounce) { //Up
-            localization === 'news' ? this.props.history.push(routes.newsImages) : this.props.history.push(routes.productsSingle)
+            localization === 'news' ? this.props.history.push(routes.newsVideos) : this.props.history.push(routes.productsSingle)
         }
         else if (e.deltaY > 0 && !debounce) { //Down
             localization === 'news' ? this.props.history.push(routes.newsFooter) : this.props.history.push(routes.productsFooter)
@@ -84,12 +79,8 @@ class Products3 extends Component {
         }, 2000);
 
         const { topBanner } = this.props.sectionApi
-        const { instagramData, instaBoxHeight, instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
-        const { social } = this.props
+        const { instagramData, instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
 
-        const instaHeight = {
-            height: `${instaBoxHeight}px`
-        }
         const instaElement = () => {
             if (width > 1200) {
                 return ({
@@ -125,16 +116,16 @@ class Products3 extends Component {
                     <div>check us on: @catchthedarkhorse</div>
                     {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
                 </div>
-                <div className={[s.instagramBox, 'instagramBox'].join(' ')} style={instaHeight}>
+                <div className={[s.instagramBox, 'instagramBox'].join(' ')}>
                     <div className={[s.instaWrapper, 'instaWrapper'].join(' ')}>
                         {generateElement}
                     </div>
                 </div>
-                <div className={[s.bottomButtons, 'bottomButtonBox'].join(' ')}>
+                {/* <div className={[s.bottomButtons, 'bottomButtonBox'].join(' ')}>
                     <div className={[s.button, s.rightButton].join(' ')}>
                         <a href={social.instagram} target='_blank' rel="noopener noreferrer"><div><span>{lang === 'en' ? 'See more' : 'Zobacz więcej'}</span><LongArrowRight /></div></a>
                     </div>
-                </div>
+                </div> */}
             </div>
 
         );
@@ -148,7 +139,7 @@ const InstaElement = ({ custStyle, data, data: { link, created_time: time, tags,
     return (
         <div className={[s.instaElement, 'instaElement'].join(' ')} style={custStyle()}>
             <img src={image} alt="Insta img" />
-            <a href={link} target='_blank' rel="noopener noreferrer">a</a>
+            <a href={link} target='_blank' rel="noopener noreferrer"></a>
             <div className={s.elementDescription}>
                 <div className={s.overText}>
                     <div className={s.description}>{truncate(description)}</div>

@@ -11,8 +11,9 @@
     border-radius: 50%;
     width: 36px;
     height: 36px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 20;
     position: relative;
 }

@@ -11,7 +11,6 @@ import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
-import { instaToken } from './usefullVariables';
 import { backendBaseUrl } from './usefullVariables';
 import WhiteElement from './WhiteElement'
 
@@ -21,13 +20,11 @@ const APISite_146 = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
 class News extends Component {
     state = {
         productsPage: {},
-        section1: {},
         section2: {},
         section3: {},
         section4: {},
         footer: {},
         products: [],
-        instaPosts: [],
         isLoaded: false,
         screenSize: {
             height: Number,
@@ -54,9 +51,6 @@ class News extends Component {
                     productsPage: {
                         sideBackgroundText: acf.right_background_text,
                         kitImage: acf.kit_image,
-                    },
-                    section1: {
-                        testImage: acf.test_image,
                     },
                     section2: {
                         topBanner: acf.banner_2,
@@ -96,28 +90,6 @@ class News extends Component {
             })
             .catch(error => console.log(error + " coś poszło nie tak!"))
 
-        this.getInstaPosts()
-
-    }
-
-    getInstaPosts = async () => {
-        // pobieranie api z insta
-        const num_photos = 6;
-        const apiLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
-
-        try {
-            const response = await fetch(apiLink)
-            const data = await response.json()
-
-            const posts = data.data;
-
-            this.setState(() => ({
-                instaPosts: posts
-            }));
-        } catch (err) {
-            console.log(err + " coś poszło nie tak!")
-        }
-
     }
 
     screenSize = () => {
@@ -133,7 +105,7 @@ class News extends Component {
         window.addEventListener('resize', this.screenSize)
 
         const path = window.location.pathname
-        const { productsPage, screenSize, isLoaded, products, section1, section2, section4, footer, instaPosts, sImages } = this.state
+        const { productsPage, screenSize, isLoaded, products, section2, section4, footer, sImages } = this.state
         const { images, social, section: footerContent, footerImages } = this.props
         const { sideBackgroundText, kitImage } = this.state.productsPage
         const backgroundText = {
@@ -157,7 +129,6 @@ class News extends Component {
                     <WhiteElement />
                     <Route path={routes.newsHome}
                         component={() => <News1
-                            sectionApi={section1}
                             sImages={sImages}
                             images={images}
                             products={products}
@@ -174,7 +145,6 @@ class News extends Component {
                     />
                     <Route path={routes.newsImages}
                         component={() => <News3
-                            sectionApi={section1}
                             images={images}
                             products={products}
                             isLoaded={isLoaded}
@@ -185,7 +155,6 @@ class News extends Component {
                         component={() => <Products3
                             sectionApi={section4}
                             screenSize={screenSize}
-                            instaPosts={instaPosts}
                             social={social}
                             localization='news'
                         />}

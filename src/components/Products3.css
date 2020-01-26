@@ -67,11 +67,13 @@
 }
 
 .instagramBox {
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     overflow: hidden;
     margin: 0 20px;
-    margin-top: 50px;
+    margin-top: 10vh;
+    z-index: 30;
 }
 
 .instaWrapper {

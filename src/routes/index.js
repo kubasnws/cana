@@ -61,7 +61,7 @@ export const navigation = {
     news: [
         routes.newsHome,
         routes.newsVideos,
-        routes.newsImages,
+        // routes.newsImages,
         routes.newsInsta,
         routes.newsFooter,
     ],
