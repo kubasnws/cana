@@ -12,20 +12,9 @@ import { productSideText } from './Animations'
 import { routes } from '../routes';
 import { backendBaseUrl } from './usefullVariables';
 import WhiteElement from './WhiteElement'
-import { lang } from './usefullVariables';
+
 
 const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
-let APIProducts;
-switch (lang) {
-    case 'pl':
-        APIProducts = `${backendBaseUrl}/wp-json/wp/v2/products`;
-        break;
-    case 'en':
-        APIProducts = `${backendBaseUrl}/en/wp-json/wp/v2/products`;
-        break;
-    default:
-        break;
-}
 
 class Products extends Component {
     state = {
@@ -34,7 +23,6 @@ class Products extends Component {
         section2: {},
         section3: {},
         footer: {},
-        products: [],
         isLoaded: false,
         width: Number,
     }
@@ -80,23 +68,23 @@ class Products extends Component {
             })
             .catch(error => console.log(error + " coś poszło nie tak!"))
         // pobieranie api postow
-        fetch(APIProducts)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const products = data;
+        // fetch(APIProducts)
+        //     .then(response => {
+        //         if (response.ok) {
+        //             return response;
+        //         }
+        //         throw Error(response.status)
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         const products = data;
 
-                this.setState(() => ({
-                    products: products,
-                    isLoaded: true,
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
+        //         this.setState(() => ({
+        //             products: products,
+        //             isLoaded: true,
+        //         }));
+        //     })
+        //     .catch(error => console.log(error + " coś poszło nie tak!"))
     }
 
     widthChange = () => {
@@ -106,9 +94,9 @@ class Products extends Component {
     render() {
         window.addEventListener('resize', this.widthChange)
 
-        const { productsPage, width, isLoaded, products, section1, section2, section3, footer } = this.state
-        const { images, social, section: footerContent, footerImages } = this.props
-        const path = window.location.pathname
+        const { productsPage, width, isLoaded, products, section1, section2, section3, footer } = this.state;
+        const { images, social, section: footerContent, footerImages } = this.props;
+        const path = window.location.pathname;
 
         const custStyles = {
             display: "none",
@@ -116,7 +104,6 @@ class Products extends Component {
 
         return (
             <section className={s.mainSection}>
-
                 {path !== routes.productsFooter && <BurgerMenu fixed={true} y={width > 950 ? null : '230px'} />}
                 <div className={s.leftSection} style={path === routes.productsFooter ? custStyles : {}}>
                     <WhiteElement />
@@ -124,7 +111,6 @@ class Products extends Component {
                         component={() => <Products1
                             sectionApi={section1}
                             images={images}
-                            products={products}
                             isLoaded={isLoaded}
                             width={width} />}
                     />

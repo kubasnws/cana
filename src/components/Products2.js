@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Products2.css'
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
@@ -7,6 +8,7 @@ import { withRouter } from "react-router";
 import { routes } from "../routes";
 import { lang } from './usefullVariables';
 import Logo from './Logo';
+import { fetchItems } from "../actions";
 
 let debounce = true
 
@@ -16,6 +18,8 @@ class Products2 extends Component {
     }
     componentDidMount() {
 
+        this.props.fetchProducts();
+
         new Swiper('.swiper-container', {
             slidesPerView: 1,
             spaceBetween: 60,
@@ -24,6 +28,7 @@ class Products2 extends Component {
                 prevEl: '.swiper-button-prev',
             },
             hashNavigation: true,
+            rebuildOnUpdate: true
         })
 
         window.addEventListener('wheel', this.onScroll, false);
@@ -62,7 +67,7 @@ class Products2 extends Component {
                 <div className={s.swiperBox}>
                     <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
                         <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
-                            <SwiperElements products={this.props.products} />
+                            <SwiperElements products={this.props.prodData} />
                         </div>
                     </div>
                     <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
@@ -98,10 +103,9 @@ class Products2 extends Component {
     }
 }
 
-const SwiperElements = props => {
+const SwiperElements = ({ products = [] }) => {
 
-    const products = props.products
-    const result = products.map(item => <SwiperElement key={item.id} item={item} />)
+    const result = products.map(item => products.length > 0 && <SwiperElement key={item.id} item={item} />)
     return (
         <>
             {result}
@@ -122,5 +126,13 @@ const SwiperElement = props => {
     )
 
 }
+const mapStateToProps = (state) => {
+    const { prodData } = state;
+    return { prodData: prodData }
+};
 
-export default withRouter(Products2);
+const mapDispatchToProps = dispatch => ({
+    fetchProducts: () => dispatch(fetchItems()),
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products2));

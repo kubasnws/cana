@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Products1.css'
 // import Languages from './Languages'
 import Logo from './Logo'
@@ -10,6 +11,7 @@ import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
 import { onLeaveSection1Handler } from './Animations';
 import { lang } from './usefullVariables';
+import { fetchItems } from "../actions";
 
 let debounce = false
 
@@ -20,7 +22,7 @@ class Products1 extends Component {
         bigDescription: String,
     }
     componentDidMount() {
-
+        this.props.fetchProducts();
 
         new Swiper('.swiper-prod', {
             navigation: {
@@ -43,7 +45,7 @@ class Products1 extends Component {
             }
         })
 
-        if (this.props.isLoaded)
+        if (this.props.prodData)
             this.displayBig()
 
         window.addEventListener('wheel', this.onScroll, false);
@@ -104,7 +106,9 @@ class Products1 extends Component {
 
     render() {
         const { horse, bannerPhoto } = this.props.sectionApi
-        const { width } = this.props
+        const { width, prodData } = this.props
+
+        { console.log(prodData) }
 
         const seeProducts = (
             <div className={s.titleLink}>
@@ -166,7 +170,7 @@ class Products1 extends Component {
                     <div className={s.swiper}>
                         <div className={[s.swiperContainer, 'swiper-container swiper-prod'].join(' ')}>
                             <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
-                                <SwiperElements products={this.props.products} hover={this.productHoverHandler} click={this.productClickHandler} />
+                                <SwiperElements products={prodData} hover={this.productHoverHandler} click={this.productClickHandler} />
                             </div>
                         </div>
                         <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
@@ -179,10 +183,9 @@ class Products1 extends Component {
     }
 }
 
-const SwiperElements = props => {
+const SwiperElements = ({ products = [], hover, click }) => {
 
-    const products = props.products
-    const result = products.map((item, index) => <SwiperElement key={item.id} index={index} element={item} hover={props.hover} click={props.click} />)
+    const result = products.map((item, index) => products.length > 0 && <SwiperElement key={item.id} index={index} element={item} hover={hover} click={click} />)
     return (
         <>
             {result}
@@ -204,7 +207,15 @@ const SwiperElement = ({ element, hover, click, index }) => {
             <img src={url} alt={name} className={index === 0 && s.active} data-description={element.title.rendered} onMouseEnter={e => hover(e)} onClick={() => click(currentProductLink)} />
         </div>
     )
-
 }
 
-export default withRouter(Products1);
+const mapStateToProps = (state) => {
+    const { prodData } = state;
+    return { prodData: prodData }
+};
+
+const mapDispatchToProps = dispatch => ({
+    fetchProducts: () => dispatch(fetchItems()),
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products1));

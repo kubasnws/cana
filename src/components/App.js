@@ -5,6 +5,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { Provider } from "react-redux";
+import store from "../store";
 import AgeChecker from './AgeChecker';
 // import HomePage from './HomePage';
 import MainSection1 from './MainSection1'
@@ -219,7 +221,7 @@ class App extends Component {
     } else {
 
       return (
-        <>
+        <Provider store={store}>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
               <Route path='/test' component={() => <Test />} />
@@ -272,7 +274,7 @@ class App extends Component {
               <Redirect to={routes.error} />
             </Switch>
           </Router>
-        </>
+        </Provider>
       );
     }
   }

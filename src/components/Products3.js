@@ -21,7 +21,6 @@ class Products3 extends Component {
         instagramData: [],
     }
     componentDidMount() {
-        console.log('first mount');
         this.getInstaApi()
 
         window.addEventListener('wheel', this.onScroll, false);
