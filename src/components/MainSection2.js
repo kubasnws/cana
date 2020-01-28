@@ -72,17 +72,7 @@ class MainSection2 extends Component {
                 <img src={sideTextSection__1} alt='Decoration text' />
                 <div className={[s.decorationText, 'decorationText'].join(' ')}>{lettersSplit('latest')}</div>
             </div>
-        )
-        const scrollDown = (
-            <div className={s.down}>
-                <DelayLink
-                    to={routes.mainVideo}
-                    delay={500}
-                    onDelayStart={() => onLeaveSection2Handler()}>
-                    <ChevronDown />
-                </DelayLink>
-            </div>
-        )
+        );
 
         return (
             <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
@@ -115,7 +105,6 @@ class MainSection2 extends Component {
                             </DelayLink>
                         </div>
                     </div>
-                    {scrollDown}
                 </div>
             </Swipe>
         );

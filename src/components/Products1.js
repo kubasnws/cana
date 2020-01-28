@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import s from './Products1.css'
-// import Languages from './Languages'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft } from './Icons'
@@ -11,7 +9,6 @@ import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
 import { onLeaveSection1Handler } from './Animations';
 import { lang } from './usefullVariables';
-import { fetchItems } from "../actions";
 
 let debounce = false
 
@@ -22,7 +19,6 @@ class Products1 extends Component {
         bigDescription: String,
     }
     componentDidMount() {
-        this.props.fetchProducts();
 
         new Swiper('.swiper-prod', {
             navigation: {
@@ -105,10 +101,8 @@ class Products1 extends Component {
     }
 
     render() {
-        const { horse, bannerPhoto } = this.props.sectionApi
+        const acf = this.props.productsPageData
         const { width, prodData } = this.props
-
-        { console.log(prodData) }
 
         const seeProducts = (
             <div className={s.titleLink}>
@@ -123,7 +117,7 @@ class Products1 extends Component {
         )
         const leftImage = (
             <div className={s.leftImage}>
-                <img src={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.url} alt={typeof bannerPhoto === 'undefined' ? null : bannerPhoto.name} />
+                <img src={acf && acf[0].acf.left_main_image.url} alt='' />
                 <div className={s.scrollWrapperBox}>
                     <ScrollItButton smallText={lang === 'en' ? 'Interested?' : 'Zainteresowany?'} location={routes.productsSingle} animation={onLeaveSection1Handler} />
                 </div>
@@ -144,11 +138,7 @@ class Products1 extends Component {
 
         return (
             <div className={s.mainBox}>
-                <img className={s.backgroundImage} src={typeof horse === 'undefined' ? null : horse.url} alt={typeof horse === 'undefined' ? null : horse.name} />
                 <div className={s.topBox}>
-                    {/* <div className={s.languageBox}>
-                        <Languages />
-                    </div> */}
                     <div className={s.logoBox}>
                         <Logo />
                     </div>
@@ -198,24 +188,9 @@ const SwiperElement = ({ element, hover, click, index }) => {
     const currentProductLink = `${routes.productsSingle}#${element.id}`
     return (
         <div className={[s.swiperSlide, 'swiper-slide'].join(' ')}>
-            {/* <DelayLink
-                to={currentProductLink}
-                delay={0}
-                onDelayStart={() => { }}
-                onDelayEnd={() => { }}>
-            </DelayLink> */}
             <img src={url} alt={name} className={index === 0 && s.active} data-description={element.title.rendered} onMouseEnter={e => hover(e)} onClick={() => click(currentProductLink)} />
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
-    const { prodData } = state;
-    return { prodData: prodData }
-};
-
-const mapDispatchToProps = dispatch => ({
-    fetchProducts: () => dispatch(fetchItems()),
-})
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products1));
+export default withRouter(Products1);

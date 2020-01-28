@@ -107,7 +107,7 @@ export const onLoadSection2Handler = () => {
         .add(whiteElementLoad, 'start')
         .fromTo('.sideText img', 2.5, { y: -100 }, { y: -1000, ease: elasticEase }, 'start-=.3')
         .staggerFromTo('.decorationText .letter', .5, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, ease: back }, .1, 'start+=.2')
-        .from('.cannaCar', .6, { opacity: 0, scale: 0, ease: elasticEase }, 'start+=.2')
+    // .from('.cannaCar', .6, { opacity: 0, scale: 0, ease: elasticEase }, 'start+=.2')
 }
 
 export const onLeaveSection2Handler = () => {

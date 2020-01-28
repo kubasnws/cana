@@ -28,13 +28,13 @@
 }
 
 @media(max-width: 1260px) {
-    .logo img {
-        width: 140px;
+    .logo {
+        width: 140px !important;
     }
 }
 
 @media(max-width: 600px) {
-    .logo img {
-        width: 110px;
+    .logo {
+        width: 100px !important;
     }
 }

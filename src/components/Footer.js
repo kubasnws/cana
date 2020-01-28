@@ -161,4 +161,6 @@ const EasyContact = ({ data: { phone, fax, mail } }) => {
 }
 
 
+
+
 export default withRouter(Footer);

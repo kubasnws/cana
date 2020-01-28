@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import styles from './MainSection1.css'
-import BannerTopBar from './BannerTopBar'
 import { onLoadSection1Handler, onLeaveSection1Handler } from './Animations'
 import WhiteElement from './WhiteElement'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
 import Typed from 'typed.js'
 import { withRouter } from "react-router";
-import { LongArrowRight, ChevronDown } from './Icons';
+import { LongArrowRight } from './Icons';
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
@@ -17,16 +16,12 @@ import { lang } from './usefullVariables';
 let debounce = true
 
 class MainSection1 extends Component {
-    state = {
-        width: Number
-    }
+    state = {}
+
     componentDidMount() {
-        onLoadSection1Handler()
-        this.widthChange()
+        onLoadSection1Handler();
 
         window.addEventListener('wheel', this.onScroll, false);
-
-
 
         const strings = ['Follow <br /> the <strong>Dark Horse</strong>', 'Follow <br /> the Dark Horse']
         const options = {
@@ -71,28 +66,14 @@ class MainSection1 extends Component {
         }
     }
 
-    widthChange = () => {
-        this.setState({ width: window.innerWidth });
-    }
-
     render() {
         debounce = true;
         setTimeout(() => {
             debounce = false
         }, 1400);
         window.addEventListener("resize", this.widthChange);
-        const { images } = this.props
-        const { sideTextSection__1, left_image__1, sample_product } = images
-        const { width } = this.state
-
-        const scrollDown = (
-            <div className={styles.down}>
-                <DelayLink
-                    to={routes.mainImage}>
-                    <ChevronDown />
-                </DelayLink>
-            </div>
-        )
+        const { images } = this.props;
+        const { sideTextSection__1, left_image__1, sample_product } = images;
 
         const seeProducts = (
             <div className={styles.products}>
@@ -109,10 +90,9 @@ class MainSection1 extends Component {
             <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
                 <div className={styles.mainContainer}>
                     <WhiteElement />
-                    <BannerTopBar logoDisplay={false} custStyle='section1' />
                     {seeProducts}
                     <div className={styles.logoBox}>
-                        <Logo customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
+                        <Logo />
                         <div className={styles.underLogoText}>
                             <span ref={(el) => { this.el = el }}></span>
                         </div>
@@ -127,7 +107,6 @@ class MainSection1 extends Component {
                     <div className={[styles.leftBox, 'sec1left'].join(' ')}>
                         <img src={left_image__1} alt="Canna" />
                     </div>
-                    {scrollDown}
                 </div>
             </Swipe>
         );

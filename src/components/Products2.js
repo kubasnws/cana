@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import s from './Products2.css'
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
@@ -8,7 +7,6 @@ import { withRouter } from "react-router";
 import { routes } from "../routes";
 import { lang } from './usefullVariables';
 import Logo from './Logo';
-import { fetchItems } from "../actions";
 
 let debounce = true
 
@@ -17,8 +15,6 @@ class Products2 extends Component {
 
     }
     componentDidMount() {
-
-        this.props.fetchProducts();
 
         new Swiper('.swiper-container', {
             slidesPerView: 1,
@@ -54,7 +50,8 @@ class Products2 extends Component {
             debounce = false
         }, 2000);
 
-        const { topBanner } = this.props.sectionApi
+        const acf = this.props.productsPageData;
+        console.log(acf)
         return (
             <div className={s.mainBox}>
                 <div className={s.topBanner}>
@@ -62,7 +59,7 @@ class Products2 extends Component {
                         <Logo />
                     </div>
                     <div>canna dark horse</div>
-                    {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
+                    {acf && <img src={acf[0].acf.top_image.url} alt={acf[0].acf.top_image.mime_type} />}
                 </div>
                 <div className={s.swiperBox}>
                     <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
@@ -126,13 +123,5 @@ const SwiperElement = props => {
     )
 
 }
-const mapStateToProps = (state) => {
-    const { prodData } = state;
-    return { prodData: prodData }
-};
 
-const mapDispatchToProps = dispatch => ({
-    fetchProducts: () => dispatch(fetchItems()),
-})
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products2));
+export default withRouter(Products2);

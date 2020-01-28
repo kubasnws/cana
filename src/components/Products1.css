@@ -33,13 +33,6 @@
     margin-top: 20px;
 }
 
-.backgroundImage {
-    position: absolute;
-    top: 0;
-    left: -120px;
-    z-index: -1;
-}
-
 .middleBox {
     display: flex;
     align-items: center;
@@ -131,7 +124,7 @@
 }
 
 .activeProduct>img {
-    height: 30vh;
+    height: 25vh;
     width: 100%;
     object-fit: contain;
 }

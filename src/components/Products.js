@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Products.css'
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { withRouter } from "react-router";
 import Products1 from './Products1'
 import Products2 from './Products2'
@@ -10,81 +11,19 @@ import BurgerMenu from './BurgerMenu'
 import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { routes } from '../routes';
-import { backendBaseUrl } from './usefullVariables';
-import WhiteElement from './WhiteElement'
+import WhiteElement from './WhiteElement';
+import { fetchItems } from "../actions";
 
-
-const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
 
 class Products extends Component {
     state = {
-        productsPage: {},
-        section1: {},
-        section2: {},
-        section3: {},
-        footer: {},
-        isLoaded: false,
         width: Number,
     }
 
     componentDidMount() {
         this.widthChange()
-        // pobieranie api strony
-        fetch(APISite)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const acf = data.acf;
-
-                this.setState(() => ({
-                    productsPage: {
-                        sideBackgroundText: acf.right_background_text,
-                        kitImage: acf.kit_image,
-                    },
-                    section1: {
-                        horse: acf.back_horse,
-                        bannerPhoto: acf.left_main_image,
-                        socialBar: acf.green_social_bar,
-                    },
-                    section2: {
-                        topBanner: acf.top_image,
-                    },
-                    section3: {
-                        topBanner: acf.top_image_2,
-                    },
-                    footer: {
-                        topBanner: acf.top_image_footer,
-                        cannaCircle: acf.canna_image,
-                        leftImage: acf.left_image,
-                        mailImage: acf.mail_image,
-                        green: acf.green_footer,
-                    }
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
-        // pobieranie api postow
-        // fetch(APIProducts)
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response;
-        //         }
-        //         throw Error(response.status)
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         const products = data;
-
-        //         this.setState(() => ({
-        //             products: products,
-        //             isLoaded: true,
-        //         }));
-        //     })
-        //     .catch(error => console.log(error + " coś poszło nie tak!"))
+        this.props.fetchProductsPage();
+        this.props.fetchProducts();
     }
 
     widthChange = () => {
@@ -94,8 +33,10 @@ class Products extends Component {
     render() {
         window.addEventListener('resize', this.widthChange)
 
-        const { productsPage, width, isLoaded, products, section1, section2, section3, footer } = this.state;
-        const { images, social, section: footerContent, footerImages } = this.props;
+        const { width, footer } = this.state;
+        const { section: footerContent, footerImages } = this.props;
+        const acf = this.props.productsPageData;
+        const products = this.props.prodData;
         const path = window.location.pathname;
 
         const custStyles = {
@@ -104,27 +45,27 @@ class Products extends Component {
 
         return (
             <section className={s.mainSection}>
+                {/* <Switch> */}
                 {path !== routes.productsFooter && <BurgerMenu fixed={true} y={width > 950 ? null : '230px'} />}
                 <div className={s.leftSection} style={path === routes.productsFooter ? custStyles : {}}>
                     <WhiteElement />
+
                     <Route path={routes.productsHome}
                         component={() => <Products1
-                            sectionApi={section1}
-                            images={images}
-                            isLoaded={isLoaded}
+                            prodData={products}
+                            acf={acf}
                             width={width} />}
                     />
                     <Route path={routes.productsSingle}
                         component={() => <Products2
-                            sectionApi={section2}
-                            products={products}
+                            prodData={products}
+                            acf={acf}
                             width={width} />}
                     />
                     <Route path={routes.productsInsta}
                         component={() => <Products3
-                            sectionApi={section3}
+                            acf={acf}
                             width={width}
-                            social={social}
                         />}
                     />
 
@@ -135,28 +76,27 @@ class Products extends Component {
                         section={footerContent}
                     />}
                 />
-
-                {width > 950 ? <SideBarText productsPage={productsPage} footer={footer} /> : null}
+                {/* </Switch> */}
+                {width > 950 ? <SideBarText acf={acf} footer={footer} /> : null}
             </section>
         );
     }
 }
 
-const SideBarText = ({ productsPage, footer }) => {
+const SideBarText = ({ acf }) => {
 
-    const { sideBackgroundText, kitImage } = productsPage
     const path = window.location.pathname
 
     const backgroundText = {
-        backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? null : sideBackgroundText.url})`,
+        backgroundImage: `url(${acf && acf[0].acf.right_background_text.url})`,
         overflow: path === routes.productsFooter ? 'hidden' : 'unset'
     }
 
     return (
         <div className={s.rightSection} style={backgroundText}>
-            <Route path={routes.products} component={() => <SideBarTextElement api={productsPage} />} />
-            {path === routes.productsInsta && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
-            {path === routes.productsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
+            <Route path={routes.products} component={() => <SideBarTextElement />} />
+            {path === routes.productsInsta && acf && <img className={s.starterKitImage} src={acf[0].acf.kit_image.url} alt={acf[0].acf.kit_image.name} />}
+            {/* {path === routes.productsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null} */}
         </div>
     )
 }
@@ -184,5 +124,18 @@ class SideBarTextElement extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    const { productsPageData, prodData } = state;
+    return {
+        productsPageData: productsPageData,
+        prodData: prodData,
+    }
+};
 
-export default withRouter(Products);
+const mapDispatchToProps = dispatch => ({
+    fetchProductsPage: () => dispatch(fetchItems('/wp-json/acf/v3/pages/146', 'productsPageData')),
+    fetchProducts: () => dispatch(fetchItems('/wp-json/wp/v2/products', 'prodData')),
+})
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products));

@@ -6,6 +6,8 @@ import DelayLink from './DelayLink';
 import { routes } from '../routes';
 import { TimelineMax } from 'gsap';
 import { backendBaseUrl } from './usefullVariables';
+import { fetchInsta } from '../actions';
+import Logo from './Logo';
 
 class VideoDisplay extends Component {
     state = {
@@ -17,14 +19,21 @@ class VideoDisplay extends Component {
         productsArray: [],
     }
 
+    componentDidMount() {
+        // this.loadApiHandler();
+        this.getConnectionProducts()
+    }
+
     loadApiHandler = () => {
         const { videoData: { acf: { video_products_conection: videoPostsConnection } = Object } } = this.props
+        console.log(this.props.videoData);
         if (typeof videoPostsConnection !== 'undefined' && videoPostsConnection.length > 0) {
-            let prodArray = []
+            let prodArray = [];
+
             videoPostsConnection.forEach(item => {
                 const productId = item.chose_product
                 const videoApi = `${backendBaseUrl}/wp-json/wp/v2/products/${productId}`
-
+                console.log(videoApi);
                 fetch(videoApi)
                     .then(response => {
                         if (response.ok) {
@@ -43,10 +52,21 @@ class VideoDisplay extends Component {
                     })
                     .catch(error => console.log(error + " coś nie tak"))
             })
-
-
-
         }
+    }
+
+    getConnectionProducts = () => {
+        const { videoData: { acf: { video_products_conection: videoPostsConnection } = Object } } = this.props;
+        const fetchInterval = setInterval(() => {
+            console.log(this.props.videoData);
+            if (videoPostsConnection) {
+                clearInterval(fetchInterval);
+                videoPostsConnection.forEach(item => {
+                    const productId = item.chose_product;
+                    console.log(productId);
+                })
+            }
+        }, 1000);
     }
 
     onDuration = (duration) => {
@@ -79,17 +99,19 @@ class VideoDisplay extends Component {
     render() {
 
         const { isVideoPlaying, isVolumeOff, notifications, secondsElapsed, productsArray, duration } = this.state
-        const { width, videoBackground, videoData: { acf: { video: { url: videoLink } = Object, video_description: videoTitle, video_title: videoDescription, video_products_conection: videoPostsConnection } = Object } = Object } = this.props
+        const { videoBackground, videoData: { acf: { video: { url: videoLink } = Object, video_description: videoTitle, video_title: videoDescription, video_products_conection: videoPostsConnection } = Object } = Object } = this.props
         const descriptionVideo = (
             <div className={[s.description, s.descriptionVid].join(' ')}>
                 <h1>{videoTitle}</h1>
                 <div className={s.text}>{videoDescription}</div>
             </div>
         )
-        this.loadApiHandler()
         return (
             <>
                 <div className={s.videoBox}>
+                    <div className={s.logoBox}>
+                        <Logo customStyles={{ width: '50%' }} />
+                    </div>
                     <div className={s.videoControls}>
                         <div className={s.playBox} onClick={() => this.playPauseHandler()}>
                             {isVideoPlaying ? <PauseButton /> : <PlayButton />}
@@ -100,7 +122,7 @@ class VideoDisplay extends Component {
                         <div className={s.notifications} onClick={this.handlerNotifications}>
                             {notifications ? <BellSlash /> : <Bell />}
                         </div>
-                        {width <= 820 ? descriptionVideo : null}
+                        {descriptionVideo}
                     </div>
                     <Player
                         className={[s.videoDev, 'videoDev'].join(' ')}
@@ -113,8 +135,7 @@ class VideoDisplay extends Component {
                         width='100%'
                         height='100%'
                     />
-                    {width <= 680 ? null : <img className={s.backVid} src={videoBackground} alt="Under video" />}
-                    {width <= 820 ? null : <div className={[s.number, 'sec_3_number'].join(' ')}>2.</div>}
+                    <img className={s.backVid} src={videoBackground} alt="Under video" />
                     {notifications && <ConnectedProducts duration={duration} productsArray={productsArray} arr={videoPostsConnection} secondsElapsed={secondsElapsed} />}
                 </div>
 

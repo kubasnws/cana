@@ -143,14 +143,14 @@ class News extends Component {
                             isLoaded={isLoaded}
                             screenSize={screenSize} />}
                     />
-                    <Route path={routes.newsImages}
+                    {/* <Route path={routes.newsImages}
                         component={() => <News3
                             images={images}
                             products={products}
                             isLoaded={isLoaded}
                             screenSize={screenSize}
                         />}
-                    />
+                    /> */}
                     <Route path={routes.newsInsta}
                         component={() => <Products3
                             sectionApi={section4}

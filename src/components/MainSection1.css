@@ -15,7 +15,8 @@
 .logoBox {
     max-width: 160px;
     width: fit-content;
-    margin: 20px 0 0 90px;
+    margin-left: 4vw;
+    padding-top: 4vh;
     z-index: 10;
     position: relative;
 }
@@ -170,19 +171,17 @@
 
 }
 
-@media(max-width: 1030px) {
+@media(max-width: 992px) {
     .sampleProductBox {
-        width: 84%;
         justify-content: flex-start;
     }
 
     .sampleProduct {
-        width: 200px;
         margin-top: 60px;
     }
 
     .sampleProduct {
-        width: 120px;
+        width: 20vw;
         margin-top: 30px;
     }
 }
@@ -195,9 +194,7 @@
     }
 
     .sampleProduct {
-        width: 70px;
-        margin-left: 14vw;
-        margin-top: 0;
+        margin-top: 8vh;
     }
 
     .nextButton {
@@ -206,10 +203,12 @@
 
     .nextButton>span {
         font-size: 14px;
-
     }
 
-    .logoBox {
-        margin: 20px 0 0 12vw;
+    .buttonBox {
+        right: 0;
+        left: unset;
+        bottom: 3vh;
+        padding-left: 7vw;
     }
 }

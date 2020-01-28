@@ -52,7 +52,7 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    height: 270px;
+    align-self: center;
 }
 
 .description h1 {
@@ -91,6 +91,19 @@
     position: fixed;
     left: 5vw;
     bottom: 10vh;
+    z-index: 0;
+}
+
+
+
+.buttonWrapper,
+.description {
+    z-index: 2;
+}
+
+.buttonWrapper {
+    margin-bottom: 6vmax;
+    /* white-space: nowrap; */
 }
 
 .buttonWrapper p {
@@ -170,10 +183,25 @@
     }
 }
 
+@media(max-width: 992px) {
+    .logoBox {
+        left: calc(50px + 4vw);
+    }
+}
+
 @media(max-width: 820px) {
     .leftSection {
         flex-direction: column-reverse;
         align-items: center;
+        height: 100%;
+    }
+
+    .description {
+        display: none;
+    }
+
+    .leftImage {
+        display: none;
     }
 
     .content {
@@ -183,30 +211,37 @@
         margin-top: 10px;
     }
 
+    .video {
+        display: flex;
+        align-items: center;
+        width: 55vw;
+    }
 
-    .videoBox {
-        height: 133vw;
+    .content {
+        height: 18vh;
     }
 
     .leftSection>div {
         padding: 0;
     }
 
-}
-
-@media(max-width: 680px) {
-    .videoBox {
-        max-width: 90%;
+    .logoBox {
+        display: none;
     }
 
-    .video {
-        width: 88%;
-        margin-left: 50px;
-    }
 }
+
+@media(max-width: 680px) {}
 
 .logoBox {
     position: absolute;
     top: 4vh;
-    left: 16vw;
+    left: 10vw;
+    z-index: 15;
+}
+
+@media(max-width: 576px) {
+    .video {
+        width: 70vw;
+    }
 }

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Products3.css'
 import { instaSection } from './Animations';
 import { LongArrowRight } from './Icons'
 import { withRouter } from "react-router";
 import { dateFormatted } from './userHandlers';
 import { routes } from '../routes';
-import { instaToken } from './usefullVariables';
 import Logo from './Logo';
+import { fetchInsta } from "../actions";
 
 
 let debounce = true
@@ -18,32 +19,14 @@ class Products3 extends Component {
         instaWrapperWidth2: Number,
         instaWrapperWidth: Number,
         width: Number,
-        instagramData: [],
     }
     componentDidMount() {
-        this.getInstaApi()
+        this.props.fetchInsta();
+
+        instaSection('enter')
 
         window.addEventListener('wheel', this.onScroll, false);
         this.getDimensions()
-    }
-
-    getInstaApi = async () => {
-
-        const num_photos = 6;
-        const instaLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
-
-        try {
-
-            const response = await fetch(instaLink);
-            const data = await response.json();
-
-            this.setState({ instagramData: data.data });
-            instaSection('enter');
-        } catch (err) {
-
-            console.log(`${err}, coś poszło nie tak!`)
-        }
-
     }
 
     getDimensions = () => {
@@ -77,8 +60,9 @@ class Products3 extends Component {
             debounce = false
         }, 2000);
 
-        const { topBanner } = this.props.sectionApi
-        const { instagramData, instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
+        const acf = this.props.productsPageData;
+        const insta = this.props.insta;
+        const { instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
 
         const instaElement = () => {
             if (width > 1200) {
@@ -99,7 +83,7 @@ class Products3 extends Component {
             }
         }
 
-        const generateElement = instagramData.length > 0 && instagramData.map(item => (
+        const generateElement = insta && insta.map(item => (
             <InstaElement
                 key={item.id}
                 data={item}
@@ -113,18 +97,13 @@ class Products3 extends Component {
                         <Logo />
                     </div>
                     <div>check us on: @catchthedarkhorse</div>
-                    {typeof topBanner === 'undefined' ? null : <img src={topBanner.url} alt={topBanner.name} />}
+                    {acf && <img src={acf[0].acf.top_image_2.url} alt={acf[0].acf.top_image_2.mime_type} />}
                 </div>
                 <div className={[s.instagramBox, 'instagramBox'].join(' ')}>
                     <div className={[s.instaWrapper, 'instaWrapper'].join(' ')}>
                         {generateElement}
                     </div>
                 </div>
-                {/* <div className={[s.bottomButtons, 'bottomButtonBox'].join(' ')}>
-                    <div className={[s.button, s.rightButton].join(' ')}>
-                        <a href={social.instagram} target='_blank' rel="noopener noreferrer"><div><span>{lang === 'en' ? 'See more' : 'Zobacz więcej'}</span><LongArrowRight /></div></a>
-                    </div>
-                </div> */}
             </div>
 
         );
@@ -152,4 +131,13 @@ const InstaElement = ({ custStyle, data, data: { link, created_time: time, tags,
     )
 }
 
-export default withRouter(Products3);
+const mapStateToProps = (state) => {
+    const { insta } = state;
+    return { insta: insta }
+};
+
+const mapDispatchToProps = dispatch => ({
+    fetchInsta: () => dispatch(fetchInsta()),
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products3));

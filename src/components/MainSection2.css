@@ -34,9 +34,10 @@ a {
 
 .bottomBox .description .title {
     font-size: 16px;
+    line-height: 22px;
     letter-spacing: 2px;
-    line-height: 50px;
     font-family: "Impact";
+    margin-bottom: 1.5vh;
     text-transform: uppercase;
 }
 
@@ -119,15 +120,6 @@ a {
     color: #CBB898;
 }
 
-
-
-
-.cannaBox {
-    height: 100%;
-    width: auto;
-    position: relative;
-}
-
 .cannaCar {
     position: absolute;
     top: 0;
@@ -149,6 +141,10 @@ a {
     position: fixed;
     bottom: 4vh;
     right: 8vw;
+}
+
+.buttonWrapper a {
+    white-space: nowrap;
 }
 
 @media(max-width: 1450px) {
@@ -192,7 +188,7 @@ a {
     }
 
     .cannaCar {
-        transform: translateY(16vw);
+        transform: translateY(-10vw);
         width: 100vw;
     }
 
@@ -204,13 +200,26 @@ a {
 }
 
 @media(max-width: 770px) {
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 4vh;
+    }
+
     .bottomBox {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-end;
+        width: 90%;
+        align-self: center;
+        position: static;
+    }
+
+    .description {
+        width: 100%;
     }
 
     .buttonWrapper {
-        width: 180px;
         margin-top: 20px;
     }
 
@@ -235,5 +244,11 @@ a {
 .logoBox {
     position: absolute;
     top: 4vh;
-    left: 16vw;
+    left: 10vw;
+}
+
+@media(max-width: 992px) {
+    .logoBox {
+        left: calc(50px + 4vw);
+    }
 }

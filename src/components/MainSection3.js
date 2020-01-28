@@ -42,10 +42,10 @@ class MainSection3 extends Component {
                 break;
         }
         const firstPostAPI = `${backendBaseUrl}/wp-json/wp/v2/video_posts/${language}`
-
         try {
             const response = await fetch(firstPostAPI);
             const data = await response.json();
+
 
             this.setState({ videoData: data });
         } catch (err) {
@@ -90,25 +90,12 @@ class MainSection3 extends Component {
         setTimeout(() => {
             debounce = false
         }, 1400);
-        window.addEventListener('resize', this.widthChange)
+        window.addEventListener('resize', this.widthChange);
 
         const { sideTextSection__1 } = this.props.images
         const { leftImage, videoBackground } = this.props.section
         const { width, videoData } = this.state
         const { acf: { video_description: videoTitle, video_title: videoDescription } = Object } = videoData
-
-        const scrollDown = (
-            <div className={s.down}>
-                <DelayLink
-                    to={routes.mainFooter}
-                    delay={500}
-                    onDelayStart={onLeaveSection3Handler}>
-                    <>
-                        <ChevronDown />
-                    </>
-                </DelayLink>
-            </div>
-        )
 
         const sideText = (
             <div className={[s.sideText, 'sideText'].join(' ')}>
@@ -129,10 +116,10 @@ class MainSection3 extends Component {
                 <div className={s.mainContainer}>
                     <WhiteElement socialMedia={this.props.socialMedia} />
                     <div className={s.logoBox}>
-                        <Logo customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
+                        <Logo customStyles={{ width: '160px' }} />
                     </div>
                     <BurgerMenu fixed={true} />
-                    {width <= 820 ? null : <img className={[s.leftImage, 'sec_3_image'].join(' ')} src={leftImage} alt="" />}
+                    <img className={[s.leftImage, 'sec_3_image'].join(' ')} src={leftImage} alt="" />
                     <div className={s.leftSection}>
                         <div className={s.content}>
                             <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
@@ -146,19 +133,17 @@ class MainSection3 extends Component {
                                     <div className={s.nextButton}><span>Click</span><LongArrowRight /></div>
                                 </DelayLink>
                             </div>
-                            {width <= 820 ? null : description}
+                            {description}
                         </div>
                         <div className={[s.video, 'videoSec3'].join(' ')}>
                             <VideoDisplay
                                 videoData={videoData}
-                                width={width}
                                 videoBackground={videoBackground}
                             />
 
                         </div>
                     </div>
                     {width <= 1150 ? null : sideText}
-                    {scrollDown}
                 </div>
             </Swipe>
         );
