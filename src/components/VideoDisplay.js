@@ -32,7 +32,6 @@ class VideoDisplay extends Component {
             const num = postsArray.toString();
             const res = await axios.get(`http://cana.snwsprodukcja71.pl/wp-json/wp/v2/products?include=${num}`);
             const data = res.data;
-            console.log(data);
             this.setState({ productsArray: data });
         }
 

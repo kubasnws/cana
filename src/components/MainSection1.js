@@ -51,8 +51,6 @@ class MainSection1 extends Component {
     }
 
     onScroll = e => {
-        console.log('scroll');
-
         if (e.deltaY < 0 && !debounce) { //Up
 
             onLeaveSection1Handler()
@@ -126,4 +124,4 @@ const mapStateToProps = (state) => {
     return { mainPageApi }
 };
 
-export default withRouter(connect(mapStateToProps)(MainSection1));
+export default withRouter(connect(mapStateToProps)(MainSection1)); 

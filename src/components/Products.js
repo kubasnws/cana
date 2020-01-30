@@ -12,16 +12,16 @@ import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { routes } from '../routes';
 import WhiteElement from './WhiteElement';
+import { prodApiLink, prodPageApiLink } from "./usefullVariables";
 import { fetchItems } from "../actions";
 
 
 class Products extends Component {
     state = {
-        width: Number,
+
     }
 
     componentDidMount() {
-        this.widthChange()
         this.props.fetchProductsPage();
         this.props.fetchProducts();
     }
@@ -31,12 +31,10 @@ class Products extends Component {
     }
 
     render() {
-        window.addEventListener('resize', this.widthChange)
 
-        const { width, footer } = this.state;
+        const { footer } = this.state;
         const { section: footerContent, footerImages } = this.props;
         const acf = this.props.productsPageData;
-        const products = this.props.prodData;
         const path = window.location.pathname;
 
         const custStyles = {
@@ -45,28 +43,21 @@ class Products extends Component {
 
         return (
             <section className={s.mainSection}>
-                {/* <Switch> */}
-                {path !== routes.productsFooter && <BurgerMenu fixed={true} y={width > 950 ? null : '230px'} />}
+                {path !== routes.productsFooter && <BurgerMenu fixed={true} />}
                 <div className={s.leftSection} style={path === routes.productsFooter ? custStyles : {}}>
                     <WhiteElement />
 
                     <Route path={routes.productsHome}
                         component={() => <Products1
-                            prodData={products}
-                            acf={acf}
-                            width={width} />}
+                            acf={acf} />}
                     />
                     <Route path={routes.productsSingle}
                         component={() => <Products2
-                            prodData={products}
-                            acf={acf}
-                            width={width} />}
+                            acf={acf} />}
                     />
                     <Route path={routes.productsInsta}
                         component={() => <Products3
-                            acf={acf}
-                            width={width}
-                        />}
+                            acf={acf} />}
                     />
 
                 </div>
@@ -76,8 +67,7 @@ class Products extends Component {
                         section={footerContent}
                     />}
                 />
-                {/* </Switch> */}
-                {width > 950 ? <SideBarText acf={acf} footer={footer} /> : null}
+                <SideBarText acf={acf} footer={footer} />
             </section>
         );
     }
@@ -125,16 +115,13 @@ class SideBarTextElement extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { productsPageData, prodData } = state;
-    return {
-        productsPageData: productsPageData,
-        prodData: prodData,
-    }
+    const { productsPageData } = state;
+    return { productsPageData }
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchProductsPage: () => dispatch(fetchItems('/wp-json/acf/v3/pages/146', 'productsPageData')),
-    fetchProducts: () => dispatch(fetchItems('/wp-json/wp/v2/products', 'prodData')),
+    fetchProductsPage: () => dispatch(fetchItems(prodPageApiLink, 'productsPageData')),
+    fetchProducts: () => dispatch(fetchItems(prodApiLink, 'prodData')),
 })
 
 

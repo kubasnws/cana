@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Products1.css'
 import Logo from './Logo'
 import DelayLink from './DelayLink'
@@ -8,6 +9,7 @@ import { withRouter } from "react-router";
 import { routes } from '../routes';
 import ScrollItButton from './ScrollItButton/ScrollItButton';
 import { onLeaveSection1Handler } from './Animations';
+import Swipe from 'react-easy-swipe';
 import { lang } from './usefullVariables';
 
 let debounce = false
@@ -19,6 +21,10 @@ class Products1 extends Component {
         bigDescription: String,
     }
     componentDidMount() {
+
+
+        this.props.prodData && this.displayBig()
+
 
         new Swiper('.swiper-prod', {
             navigation: {
@@ -40,9 +46,6 @@ class Products1 extends Component {
                 }
             }
         })
-
-        if (this.props.prodData)
-            this.displayBig()
 
         window.addEventListener('wheel', this.onScroll, false);
     }
@@ -96,13 +99,17 @@ class Products1 extends Component {
         }
     }
 
+    onSwipeUp = () => {
+        setTimeout(() => { this.props.history.push(routes.productsSingle) }, 500);
+    }
+
     productClickHandler = link => {
         this.props.history.push(link)
     }
 
     render() {
-        const acf = this.props.productsPageData
-        const { width, prodData } = this.props
+        const acf = this.props.productsPageData;
+        const { prodData } = this.props;
 
         const seeProducts = (
             <div className={s.titleLink}>
@@ -126,49 +133,50 @@ class Products1 extends Component {
 
         const titlePl = (
             <>
-                Zobacz nasze <span>produkty!</span>
+                Zobacz nasze <br /><span>produkty!</span>
             </>
         )
 
         const titleEn = (
             <>
-                Check out the <span>products!</span>
+                Check out the <br /><span>products!</span>
             </>
         )
 
         return (
-            <div className={s.mainBox}>
-                <div className={s.topBox}>
-                    <div className={s.logoBox}>
-                        <Logo />
-                    </div>
-                </div>
-                <div className={s.middleBox}>
-                    {width >= 800 ? leftImage : null}
-                    <div className={s.rightProduct}>
-                        <div className={s.titleBox}>
-                            <h1 className={s.title}>{lang === 'en' ? titleEn : titlePl}</h1>
-                            {seeProducts}
-                        </div>
-                        <div className={s.activeProduct}>
-                            <img src={this.state.bigImage} alt="Big product" />
-                            <div className={s.activeDescription}>{this.state.bigDescription}</div>
+            <Swipe onSwipeUp={this.onSwipeUp}>
+                <div className={s.mainBox}>
+                    <div className={s.topBox}>
+                        <div className={s.logoBox}>
+                            <Logo />
                         </div>
                     </div>
-                </div>
-                <div className={s.bottomBox}>
-                    <div className={s.swiper}>
-                        <div className={[s.swiperContainer, 'swiper-container swiper-prod'].join(' ')}>
-                            <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
-                                <SwiperElements products={prodData} hover={this.productHoverHandler} click={this.productClickHandler} />
+                    <div className={s.middleBox}>
+                        {leftImage}
+                        <div className={s.rightProduct}>
+                            <div className={s.titleBox}>
+                                <h1 className={s.title}>{lang === 'en' ? titleEn : titlePl}</h1>
+                                {seeProducts}
+                            </div>
+                            <div className={s.activeProduct}>
+                                <img src={this.state.bigImage} alt="Big product" />
+                                <div className={s.activeDescription}>{this.state.bigDescription}</div>
                             </div>
                         </div>
-                        <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
-                        <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
+                    </div>
+                    <div className={s.bottomBox}>
+                        <div className={s.swiper}>
+                            <div className={[s.swiperContainer, 'swiper-container swiper-prod'].join(' ')}>
+                                <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
+                                    {prodData && <SwiperElements products={prodData} hover={this.productHoverHandler} click={this.productClickHandler} />}
+                                </div>
+                            </div>
+                            <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
+                            <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </Swipe>
         );
     }
 }
@@ -193,4 +201,9 @@ const SwiperElement = ({ element, hover, click, index }) => {
     )
 }
 
-export default withRouter(Products1);
+const mapStateToProps = (state) => {
+    const { prodData, productsPageData } = state;
+    return { prodData, productsPageData }
+};
+
+export default withRouter(connect(mapStateToProps)(Products1));

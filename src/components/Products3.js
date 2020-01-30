@@ -26,17 +26,6 @@ class Products3 extends Component {
         instaSection('enter')
 
         window.addEventListener('wheel', this.onScroll, false);
-        this.getDimensions()
-    }
-
-    getDimensions = () => {
-        const { width: instaWrapperWidth } = document.querySelector('.instaWrapper').getBoundingClientRect()
-        this.setState({
-            instaElementDimensions3: instaWrapperWidth / 3,
-            instaElementDimensions2: instaWrapperWidth / 2,
-            instaElementDimensions: instaWrapperWidth,
-            width: window.innerWidth,
-        });
     }
 
     onScroll = e => {
@@ -60,35 +49,14 @@ class Products3 extends Component {
             debounce = false
         }, 2000);
 
-        const prodPageApi = this.props.prodPageApi && this.props.prodPageApi[0];
+        const prodPageApi = this.props.productsPageData && this.props.productsPageData[0];
         const { acf: { top_image_2: topImage } = Object } = prodPageApi ? prodPageApi : Object;
         const insta = this.props.insta;
-        const { instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
-
-        const instaElement = () => {
-            if (width > 1200) {
-                return ({
-                    width: `${instaElementDimensions3 - 20}px`,
-                    height: `${instaElementDimensions3 - 60}px`
-                })
-            } else if (width < 1200 && width > 600) {
-                return ({
-                    width: `${instaElementDimensions2 - 10}px`,
-                    height: `${instaElementDimensions2 - 60}px`
-                })
-            } else if (width < 600) {
-                return ({
-                    width: `${instaElementDimensions}px`,
-                    height: `${instaElementDimensions - 60}px`
-                })
-            }
-        }
 
         const generateElement = insta && insta.map(item => (
             <InstaElement
                 key={item.id}
                 data={item}
-                custStyle={instaElement}
             />))
 
         return (
@@ -97,7 +65,7 @@ class Products3 extends Component {
                     <div className={s.logoBox}>
                         <Logo />
                     </div>
-                    <div>check us on: @catchthedarkhorse</div>
+                    <div className={s.text}>check us on: @catchthedarkhorse</div>
                     {topImage && <img src={topImage.url} alt={topImage.mime_type} />}
                 </div>
                 <div className={[s.instagramBox, 'instagramBox'].join(' ')}>
@@ -106,17 +74,16 @@ class Products3 extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 }
 
 
-const InstaElement = ({ custStyle, data: { link, created_time: time, caption: { text: description } = null, images: { standard_resolution: { url: image } } } }) => {
+const InstaElement = ({ data: { link, created_time: time, caption: { text: description } = null, images: { standard_resolution: { url: image } } } }) => {
 
     const truncate = input => input.length > 60 ? `${input.substring(0, 60)}...` : input;
     return (
-        <div className={[s.instaElement, 'instaElement'].join(' ')} style={custStyle()}>
+        <div className={[s.instaElement, 'instaElement'].join(' ')}>
             <img src={image} alt="Insta img" />
             <a href={link} target='_blank' rel="noopener noreferrer"></a>
             <div className={s.elementDescription}>
@@ -133,10 +100,10 @@ const InstaElement = ({ custStyle, data: { link, created_time: time, caption: { 
 }
 
 const mapStateToProps = (state) => {
-    const { insta, prodPageApi } = state;
+    const { insta, productsPageData } = state;
     return {
         insta,
-        prodPageApi
+        productsPageData
     }
 };
 

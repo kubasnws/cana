@@ -47,6 +47,12 @@
     position: relative;
 }
 
+@media(max-width: 800px) {
+    .leftImage {
+        display: none;
+    }
+}
+
 .scrollWrapperBox {
     position: absolute;
     bottom: 0;
@@ -71,10 +77,10 @@
     letter-spacing: 2px;
     line-height: 82px;
     color: #fff;
-    ;
     font-family: "Roboto Slab";
     font-weight: 300;
     text-align: right;
+    white-space: nowrap;
 }
 
 .titleBox h1>span {
@@ -84,6 +90,7 @@
     font-weight: 500;
     font-size: 82px;
     font-family: "bannerBig";
+
 }
 
 .nextButton {

@@ -45,9 +45,7 @@ class Footer extends Component {
             if (callNow) func.apply(context, args);
         };
     };
-    test = () => {
-        console.log('test');
-    }
+
     onSwipeDown = () => {
         onLeaveFooterHandler()
 

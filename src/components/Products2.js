@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Products2.css'
 import DelayLink from './DelayLink'
 import { LongArrowRight, LongArrowLeft, ChevronUp, ChevronDown } from './Icons'
@@ -6,6 +7,7 @@ import Swiper from 'swiper/js/swiper.esm.bundle';
 import { withRouter } from "react-router";
 import { routes } from "../routes";
 import { lang } from './usefullVariables';
+import Swipe from 'react-easy-swipe';
 import Logo from './Logo';
 
 let debounce = true
@@ -43,6 +45,13 @@ class Products2 extends Component {
         }
     }
 
+    onSwipeDown = () => {
+        setTimeout(() => { this.props.history.push(routes.productsHome) }, 500);
+    }
+    onSwipeUp = () => {
+        setTimeout(() => { this.props.history.push(routes.productsInsta) }, 500);
+    }
+
     render() {
 
         debounce = true;
@@ -51,51 +60,51 @@ class Products2 extends Component {
         }, 2000);
 
         const acf = this.props.productsPageData;
-        console.log(acf)
         return (
-            <div className={s.mainBox}>
-                <div className={s.topBanner}>
-                    <div className={s.logoBox}>
-                        <Logo />
+            <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
+                <div className={s.mainBox}>
+                    <div className={s.topBanner}>
+                        <div className={s.logoBox}>
+                            <Logo />
+                        </div>
+                        <div className={s.text}>canna dark horse</div>
+                        {acf && <img src={acf[0].acf.top_image.url} alt={acf[0].acf.top_image.mime_type} />}
                     </div>
-                    <div>canna dark horse</div>
-                    {acf && <img src={acf[0].acf.top_image.url} alt={acf[0].acf.top_image.mime_type} />}
-                </div>
-                <div className={s.swiperBox}>
-                    <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
-                        <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
-                            <SwiperElements products={this.props.prodData} />
+                    <div className={s.swiperBox}>
+                        <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
+                            <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
+                                <SwiperElements products={this.props.prodData} />
+                            </div>
+                        </div>
+                        <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
+                        <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
+                    </div>
+                    <div className={s.bottomButtons}>
+                        <div className={[s.button, s.leftButton].join(' ')}>
+                            <DelayLink
+                                to={routes.productsHome}>
+                                <div>
+                                    <ChevronUp />
+                                    <span>
+                                        {lang === 'en' ? 'See all products' : 'Zobacz wszystkie produkty'}
+                                    </span>
+                                </div>
+                            </DelayLink>
+
+                        </div>
+                        <div className={[s.button, s.rightButton].join(' ')}>
+                            <DelayLink
+                                to={routes.productsInsta}
+                                delay={0}
+                                onDelayStart={() => { }}
+                                onDelayEnd={() => { }}>
+                                <div><span>Catch the dark horse</span><ChevronDown /></div>
+                            </DelayLink>
+
                         </div>
                     </div>
-                    <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
-                    <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
                 </div>
-                <div className={s.bottomButtons}>
-                    <div className={[s.button, s.leftButton].join(' ')}>
-                        <DelayLink
-                            to={routes.productsHome}>
-                            <div>
-                                <ChevronUp />
-                                <span>
-                                    {lang === 'en' ? 'See all products' : 'Zobacz wszystkie produkty'}
-                                </span>
-                            </div>
-                        </DelayLink>
-
-                    </div>
-                    <div className={[s.button, s.rightButton].join(' ')}>
-                        <DelayLink
-                            to={routes.productsInsta}
-                            delay={0}
-                            onDelayStart={() => { }}
-                            onDelayEnd={() => { }}>
-                            <div><span>Catch the dark horse</span><ChevronDown /></div>
-                        </DelayLink>
-
-                    </div>
-                </div>
-            </div>
-
+            </Swipe>
         );
     }
 }
@@ -124,4 +133,9 @@ const SwiperElement = props => {
 
 }
 
-export default withRouter(Products2);
+const mapStateToProps = (state) => {
+    const { prodData, productsPageData } = state;
+    return { prodData, productsPageData }
+};
+
+export default withRouter(connect(mapStateToProps)(Products2));
