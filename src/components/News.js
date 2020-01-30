@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './News.css'
 import { Route } from 'react-router-dom';
 import News1 from './News1'
 import News2 from './News2'
-import News3 from './News3'
 import Products3 from './Products3'
 import Footer from './Footer'
 import BurgerMenu from './BurgerMenu'
@@ -11,11 +11,9 @@ import { lettersSplit } from './userHandlers'
 import { productSideText } from './Animations'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
-import { backendBaseUrl } from './usefullVariables';
-import WhiteElement from './WhiteElement'
-
-const APISite = `${backendBaseUrl}/wp-json/acf/v3/pages/230`;
-const APISite_146 = `${backendBaseUrl}/wp-json/acf/v3/pages/146`;
+import { newsPageApiLink, prodPageApiLink } from './usefullVariables';
+import WhiteElement from './WhiteElement';
+import { fetchItems } from "../actions";
 
 class News extends Component {
     state = {
@@ -26,97 +24,33 @@ class News extends Component {
         footer: {},
         products: [],
         isLoaded: false,
-        screenSize: {
-            height: Number,
-            width: Number,
-        },
         sImages: {},
     }
 
     componentDidMount() {
-        this.screenSize()
-        // pobieranie api strony
-        fetch(APISite)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const acf = data.acf;
-
-                this.setState(() => ({
-                    productsPage: {
-                        sideBackgroundText: acf.right_background_text,
-                        kitImage: acf.kit_image,
-                    },
-                    section2: {
-                        topBanner: acf.banner_2,
-                        videoBackground: acf.video_background_news.url,
-                    },
-
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
-        // pobieranie api strony z postami
-        fetch(APISite_146)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-                throw Error(response.status)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const acf = data.acf;
-
-                this.setState(() => ({
-                    sImages: {
-                        socialBar: acf.green_social_bar,
-                    },
-                    section4: {
-                        topBanner: acf.top_image_2,
-                    },
-                    footer: {
-                        topBanner: acf.top_image_footer,
-                        cannaCircle: acf.canna_image,
-                        leftImage: acf.left_image,
-                        mailImage: acf.mail_image,
-                        green: acf.green_footer,
-                    }
-                }));
-            })
-            .catch(error => console.log(error + " coś poszło nie tak!"))
-
-    }
-
-    screenSize = () => {
-        this.setState({
-            screenSize: {
-                width: window.innerWidth,
-                height: window.innerHeight,
-            },
-        });
+        !this.props.newsPageApi && this.props.fetchNewsPage();
+        !this.props.prodPageApi && this.props.fetchProdPage();
     }
 
     render() {
         window.addEventListener('resize', this.screenSize)
+        const mainPageApi = this.props.mainPageApi && this.props.mainPageApi[0];
+        const { acf: { footer_images: footerImages } = Object } = mainPageApi ? mainPageApi : Object;
 
+        const newsPageApi = this.props.newsPageApi && this.props.newsPageApi[0];
+        const { acf: { right_background_text: sideBackgroundText, kit_image: kitImage } = Object } = newsPageApi ? newsPageApi : Object;
         const path = window.location.pathname
-        const { productsPage, screenSize, isLoaded, products, section2, section4, footer, sImages } = this.state
-        const { images, social, section: footerContent, footerImages } = this.props
-        const { sideBackgroundText, kitImage } = this.state.productsPage
+        const { productsPage, screenSize, isLoaded, products, section2, section4 } = this.state
+        const { images, social, section: footerContent } = this.props;
         const backgroundText = {
             backgroundImage: `url(${typeof sideBackgroundText === 'undefined' ? '' : sideBackgroundText.url})`,
             overflow: path === routes.productsFooter ? 'hidden' : 'unset'
         }
         const sideBarText = (
             <div className={s.rightSection} style={backgroundText}>
-                <Route path='/news' component={() => <SideBarTextElement api={productsPage} />} />
-                {path === routes.newsInsta && typeof kitImage !== 'undefined' ? <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' /> : null}
-                {path === routes.newsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null}
+                <Route path={routes.news} component={() => <SideBarTextElement api={productsPage} />} />
+                {path === routes.newsInsta && (kitImage && <img className={s.starterKitImage} src={kitImage.url} alt='starter kit' />)}
+                {path === routes.newsFooter && (footerImages && <img className={s.cannaCircle} src={footerImages.bottom_small.url} alt='canna circle' />)}
             </div>
         )
         const custStyles = {
@@ -127,14 +61,7 @@ class News extends Component {
                 {path !== routes.productsFooter && <BurgerMenu fixed={true} y='40px' />}
                 <div className={s.leftSection} style={path === routes.newsFooter ? custStyles : {}}>
                     <WhiteElement />
-                    <Route path={routes.newsHome}
-                        component={() => <News1
-                            sImages={sImages}
-                            images={images}
-                            products={products}
-                            isLoaded={isLoaded}
-                            screenSize={screenSize} />}
-                    />
+                    <Route path={routes.newsHome} component={() => <News1 />} />
                     <Route path={routes.newsVideos}
                         component={() => <News2
                             sectionApi={section2}
@@ -143,14 +70,6 @@ class News extends Component {
                             isLoaded={isLoaded}
                             screenSize={screenSize} />}
                     />
-                    {/* <Route path={routes.newsImages}
-                        component={() => <News3
-                            images={images}
-                            products={products}
-                            isLoaded={isLoaded}
-                            screenSize={screenSize}
-                        />}
-                    /> */}
                     <Route path={routes.newsInsta}
                         component={() => <Products3
                             sectionApi={section4}
@@ -205,4 +124,18 @@ class SideBarTextElement extends Component {
 }
 
 
-export default withRouter(News);
+const mapStateToProps = (state) => {
+    const { prodPageApi, newsPageApi, mainPageApi } = state;
+    return {
+        newsPageApi,
+        prodPageApi,
+        mainPageApi
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    fetchNewsPage: () => dispatch(fetchItems(newsPageApiLink, 'newsPageApi', false)),
+    fetchProdPage: () => dispatch(fetchItems(prodPageApiLink, 'prodPageApi'))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(News));

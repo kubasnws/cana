@@ -18,7 +18,7 @@ import Footer from './Footer'
 import Products from './Products'
 import News from './News';
 import { routes } from '../routes';
-import Test from './Test'
+import Test from './Test';
 
 
 // import RouterComponent from './RouterComponent';
@@ -82,65 +82,6 @@ class App extends Component {
   componentDidMount() {
     this.setLanguage()
 
-    fetch(API)
-      .then(response => {
-        if (response.ok) {
-          return response;
-        }
-        throw Error(response.status)
-      })
-      .then(response => response.json())
-      .then(data => {
-        const acf = data.acf;
-
-        socialLinks = acf.social_media
-        contactInfos = acf.easy_contact
-        imageLogo = {
-          white: acf.logo.url,
-          dark: acf.logo_dark.url
-        }
-        // menuItems = acf.
-
-        this.setState(() => ({
-          logo: acf.logo.url,
-          social_media: acf.social_media,
-          images: {
-            cameleon: acf.cameleon.url,
-            circle_cana: acf.circle_cana.url,
-            cana_text_background: acf.cana_text_background.url,
-            side_logo: acf.side_logo.url,
-            logo: acf.logo.url,
-            dark_logo: acf.logo_dark.url,
-            sideTextSection__1: acf.side_text.url,
-            sample_product: acf.sample_product.url,
-            left_image__1: acf.left_image__1.url,
-            left_image__2: acf.left_image__2.url,
-            cannaCar: acf.canna_car.url,
-          },
-          mainSection2: {
-            title: acf.description_2.title,
-            text: acf.description_2.text
-          },
-          mainSection3: {
-            videoBackground: acf.video_background.url,
-            title: acf.text_group.title,
-            text: acf.text_group.text,
-            videoDev: acf.video_dev.url,
-            leftImage: acf.image_sec_3.url
-          },
-          footer: {
-            information: acf.information,
-            easyContact: acf.easy_contact,
-            images: acf.footer_images,
-          },
-          videos: {
-            smoke_1: acf.banner_video.url,
-            smoke_2: acf.age_verification_video.url
-          }
-        }));
-      })
-      .catch(error => console.log(error + " coś nie tak"))
-
     window.addEventListener('touchstart', () => {
       document.querySelector('.body').classList.add('bodyOverflowFalse')
     });
@@ -197,25 +138,25 @@ class App extends Component {
     localStorage.setItem('isAgeOk', this.state.isAgeOk);
     if (localStorage.getItem('isAgeOk') !== 'true') {
       return (
-        <Router>
-          <Redirect to={routes.age} />
-          <Route
-            path={routes.age}
-            component={(e) => <AgeChecker
-              location={e.location.pathname}
-              selectHandler={this.selectHandler}
-              day={this.state.day}
-              month={this.state.month}
-              year={this.state.year}
-              ageVerificationHandler={this.ageVerificationHandler}
-              images={this.state.images}
-              videos={this.state.videos}
-              isAnimated={this.state.isAgeAnimated}
-              fail={this.state.ageFail}
-              comeBack={this.state.ageComeBack}
-            />}
-          />
-        </Router>
+        <Provider store={store}>
+          <Router>
+            <Redirect to={routes.age} />
+            <Route
+              path={routes.age}
+              component={(e) => <AgeChecker
+                location={e.location.pathname}
+                selectHandler={this.selectHandler}
+                day={this.state.day}
+                month={this.state.month}
+                year={this.state.year}
+                ageVerificationHandler={this.ageVerificationHandler}
+                isAnimated={this.state.isAgeAnimated}
+                fail={this.state.ageFail}
+                comeBack={this.state.ageComeBack}
+              />}
+            />
+          </Router>
+        </Provider>
       );
 
     } else {
@@ -224,16 +165,15 @@ class App extends Component {
         <Provider store={store}>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route path='/test' component={() => <Test />} />
-              <Route exact path={routes.home} component={() => <MainBanner
-                logo={this.state.logo}
-                socialMedia={this.state.social_media}
-                videos={this.state.videos} />} />
-              <Route path={routes.mainProd}
-                component={() => <MainSection1
-                  images={this.state.images}
-                  socialMedia={this.state.social_media} />}
-              />
+              <Route path='/test' >
+                <Test />
+              </Route>
+              <Route exact path={routes.home} >
+                <MainBanner />
+              </Route>
+              <Route path={routes.mainProd} >
+                <MainSection1 />
+              </Route>
               <Route path={routes.mainImage}
                 component={() => <MainSection2
                   images={this.state.images}
@@ -280,5 +220,4 @@ class App extends Component {
   }
 }
 
-
-export default App;
+export default (App);

@@ -21,12 +21,10 @@ export const INSTA_REQUEST = 'INSTA_REQUEST';
 export const INSTA_SUCCESS = 'INSTA_SUCCESS';
 export const INSTA_FAILURE = 'INSTA_FAILURE';
 
-export const fetchItems = (link, itemType) => (dispatch, getState) => {
+export const fetchItems = (link, itemType, lang = true) => (dispatch, getState) => {
     dispatch({ type: FETCH_REQUEST });
-    if (itemType in getState()) return
-
     return axios
-        .get(`${baseUrl}${link}`)
+        .get(`${lang ? baseUrl : backendBaseUrl}${link}`)
         .then(({ data }) => {
             data = Array.isArray(data) ? data : [data];
             dispatch({
@@ -41,6 +39,8 @@ export const fetchItems = (link, itemType) => (dispatch, getState) => {
             dispatch({ type: FETCH_FAILURE });
         })
 }
+
+
 
 export const fetchInsta = () => (dispatch, getState) => {
     dispatch({ type: INSTA_REQUEST });

@@ -5,7 +5,7 @@ import Logo from './Logo'
 import CopyrightSnws from './CopyrightSnws';
 import { lang } from './usefullVariables';
 
-const AgeFormContent = ({ comeBack, fail, selectHandler, day, month, year, ageVerificationHandler, logo }) => {
+const AgeFormContent = ({ comeBack, fail, selectHandler, day, month, year, ageVerificationHandler }) => {
     return (
         <div className={styles.contentFormBox}>
             <div className={styles.titleContainer}>
@@ -24,7 +24,7 @@ const AgeFormContent = ({ comeBack, fail, selectHandler, day, month, year, ageVe
                 />
             </div>
             <div className={styles.bottomInformation}>
-                <Logo logo={logo} customStyles={{ width: 100 }} clicable={false} />
+                <Logo customStyles={{ width: 100 }} clicable={false} />
                 <CopyrightSnws />
             </div>
         </div>

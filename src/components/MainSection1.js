@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import styles from './MainSection1.css'
 import { onLoadSection1Handler, onLeaveSection1Handler } from './Animations'
 import WhiteElement from './WhiteElement'
-import Logo from './Logo'
+import Logo from './Logo';
+import BurgerMenu from './BurgerMenu';
 import DelayLink from './DelayLink'
 import Typed from 'typed.js'
 import { withRouter } from "react-router";
@@ -13,7 +15,7 @@ import ScrollItButton from './ScrollItButton/ScrollItButton';
 import { lang } from './usefullVariables';
 
 
-let debounce = true
+let debounce = true;
 
 class MainSection1 extends Component {
     state = {}
@@ -72,8 +74,13 @@ class MainSection1 extends Component {
             debounce = false
         }, 1400);
         window.addEventListener("resize", this.widthChange);
-        const { images } = this.props;
-        const { sideTextSection__1, left_image__1, sample_product } = images;
+
+        const mainPageApi = this.props.mainPageApi && this.props.mainPageApi[0];
+        const { acf: {
+            left_image__1: leftImage,
+            side_text: sideText,
+            sample_product: sampleProduct
+        } = Object } = mainPageApi ? mainPageApi : Object;
 
         const seeProducts = (
             <div className={styles.products}>
@@ -90,6 +97,7 @@ class MainSection1 extends Component {
             <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
                 <div className={styles.mainContainer}>
                     <WhiteElement />
+                    <BurgerMenu fixed={true} />
                     {seeProducts}
                     <div className={styles.logoBox}>
                         <Logo />
@@ -97,15 +105,15 @@ class MainSection1 extends Component {
                             <span ref={(el) => { this.el = el }}></span>
                         </div>
                     </div>
-                    <div className={[styles.sideText, 'sideText'].join(' ')}><img src={sideTextSection__1} alt='Decoration text' /></div>
+                    <div className={[styles.sideText, 'sideText'].join(' ')}><img src={sideText && sideText.url} alt='Decoration text' /></div>
                     <div className={[styles.sampleProductBox, 'sampleProductBox'].join(' ')}>
-                        <img className={styles.sampleProduct} src={sample_product} alt="Sample product" />
+                        <img className={styles.sampleProduct} src={sampleProduct && sampleProduct.url} alt="Sample product" />
                     </div>
                     <div className={[styles.buttonBox, 'buttonBox'].join(' ')}>
                         <ScrollItButton smallText={lang === 'en' ? 'How?' : 'Jak?'} bigText={lang === 'en' ? 'Just take it easy!' : 'Na luzie i bez stresu!'} animation={onLeaveSection1Handler} />
                     </div>
                     <div className={[styles.leftBox, 'sec1left'].join(' ')}>
-                        <img src={left_image__1} alt="Canna" />
+                        <img src={leftImage && leftImage.url} alt="Canna" />
                     </div>
                 </div>
             </Swipe>
@@ -113,4 +121,9 @@ class MainSection1 extends Component {
     }
 }
 
-export default withRouter(MainSection1);
+const mapStateToProps = (state) => {
+    const { mainPageApi } = state;
+    return { mainPageApi }
+};
+
+export default withRouter(connect(mapStateToProps)(MainSection1));

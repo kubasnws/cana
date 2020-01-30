@@ -60,7 +60,8 @@ class Products3 extends Component {
             debounce = false
         }, 2000);
 
-        const acf = this.props.productsPageData;
+        const prodPageApi = this.props.prodPageApi && this.props.prodPageApi[0];
+        const { acf: { top_image_2: topImage } = Object } = prodPageApi ? prodPageApi : Object;
         const insta = this.props.insta;
         const { instaElementDimensions3, instaElementDimensions2, instaElementDimensions, width } = this.state
 
@@ -97,7 +98,7 @@ class Products3 extends Component {
                         <Logo />
                     </div>
                     <div>check us on: @catchthedarkhorse</div>
-                    {acf && <img src={acf[0].acf.top_image_2.url} alt={acf[0].acf.top_image_2.mime_type} />}
+                    {topImage && <img src={topImage.url} alt={topImage.mime_type} />}
                 </div>
                 <div className={[s.instagramBox, 'instagramBox'].join(' ')}>
                     <div className={[s.instaWrapper, 'instaWrapper'].join(' ')}>
@@ -111,7 +112,7 @@ class Products3 extends Component {
 }
 
 
-const InstaElement = ({ custStyle, data, data: { link, created_time: time, tags, caption: { text: description } = null, images: { standard_resolution: { url: image } } } }) => {
+const InstaElement = ({ custStyle, data: { link, created_time: time, caption: { text: description } = null, images: { standard_resolution: { url: image } } } }) => {
 
     const truncate = input => input.length > 60 ? `${input.substring(0, 60)}...` : input;
     return (
@@ -132,8 +133,11 @@ const InstaElement = ({ custStyle, data, data: { link, created_time: time, tags,
 }
 
 const mapStateToProps = (state) => {
-    const { insta } = state;
-    return { insta: insta }
+    const { insta, prodPageApi } = state;
+    return {
+        insta,
+        prodPageApi
+    }
 };
 
 const mapDispatchToProps = dispatch => ({

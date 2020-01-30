@@ -1,42 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './News1.css'
 import Logo from './Logo'
 import { withRouter } from "react-router";
 import { routes } from '../routes';
-import { instaToken } from './usefullVariables';
-
-// import Languages from './Languages';
+import { fetchInsta } from "../actions";
 
 class News1 extends Component {
-    state = {
-        bigImage: String,
-        bigDescription: String,
-        instaPost: Object,
-    }
+    state = {}
     componentDidMount() {
-        this.getInstaApi();
+        !this.props.insta && this.props.fetchInsta();
         window.addEventListener('wheel', this.onScroll, false);
     }
 
     componentWillUnmount() {
         window.removeEventListener('wheel', this.onScroll, false);
-    }
-
-    getInstaApi = async () => {
-
-        const num_photos = 1;
-        const instaLink = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instaToken}&count=${num_photos}`;
-
-        try {
-
-            const response = await fetch(instaLink);
-            const data = await response.json();
-            this.setState({ instaPost: data.data[0] });
-        } catch (err) {
-
-            console.log(`${err}, coś poszło nie tak!`)
-        }
-
     }
 
     onScroll = e => {
@@ -49,8 +27,8 @@ class News1 extends Component {
     }
 
     render() {
-        const { images: { standard_resolution: { url: instaUrl } = [] } = [], caption: { text: instaPostTitle } = [] } = this.state.instaPost;
-        console.log(this.state.instaPost);
+        const insta = this.props.insta;
+        const instaPost = insta && insta.map((item, index) => index === 0 && <FirstInstaImage key={item.id} insta={item} />);
         return (
             <div className={s.mainBox}>
                 <div>
@@ -71,17 +49,7 @@ class News1 extends Component {
                     <h1>#catchthedarkhorse</h1>
                 </div>
                 <div className={s.bottomBox}>
-                    <div className={s.instaTitle}>
-                        {instaPostTitle}
-                    </div>
-                    <img src={instaUrl} alt="test" />
-
-                    {/* <div className={s.absoluteBox}>
-                        <div className={s.textWrapper}>
-                            <h2>Run, jump, catch the Dark Horse</h2>
-                            <div>Ut ante arcu, imperdiet et diam ut, egestas bibendum mi. Sed eget libero ex maecenas.</div>
-                        </div>
-                    </div> */}
+                    {instaPost}
                 </div>
             </div>
 
@@ -89,4 +57,24 @@ class News1 extends Component {
     }
 }
 
-export default withRouter(News1);
+const FirstInstaImage = ({ insta }) => {
+    return (
+        <>
+            <div className={s.instaTitle}>
+                {insta.caption && insta.caption.text}
+            </div>
+            <img src={insta.images && insta.images.standard_resolution.url} alt={insta.user && insta.user.username} />
+        </>
+    );
+}
+
+const mapStateToProps = (state) => {
+    const { insta } = state;
+    return { insta }
+};
+
+const mapDispatchToProps = dispatch => ({
+    fetchInsta: () => dispatch(fetchInsta()),
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(News1));

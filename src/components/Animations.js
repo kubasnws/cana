@@ -52,7 +52,6 @@ export const onLoadBannerHandler = () => {
         .from(`.menuContainer .active`, .5, { opacity: 0, y: 200 }, 'start')
         .from(`.menuContainer .disactive:first-of-type`, 1.4, { opacity: 0, x: 200, ease: elasticEase }, .6, 'start+=.4')
         .from(`.menuContainer .disactive:last-of-type`, 1.4, { opacity: 0, x: -200, ease: elasticEase }, .6, 'start+=.4')
-        .from(`.logo`, 1.2, { scale: 0, ease: elasticEase }, '-=1.2')
 }
 
 export const onLeaveBannerHandler = () => {

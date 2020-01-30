@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './MainSection2.css'
 import { onLoadSection2Handler, onLeaveSection2Handler } from './Animations'
 import DelayLink from './DelayLink'
-import { LongArrowRight, ChevronDown } from './Icons'
+import { LongArrowRight } from './Icons'
 import WhiteElement from './WhiteElement'
 import { lettersSplit } from './userHandlers'
 import { withRouter } from "react-router";
-import BurgerMenu from './BurgerMenu'
+import BurgerMenu from './BurgerMenu';
 import Swipe from 'react-easy-swipe';
 import Logo from './Logo'
 import { routes } from '../routes';
-import { lang } from './usefullVariables';
+import { lang, mainPageApiLink } from './usefullVariables';
+import { fetchItems } from "../actions";
 
 let debounce = true
 
@@ -61,15 +63,22 @@ class MainSection2 extends Component {
             debounce = false
         }, 1400);
         window.addEventListener('resize', this.widthChange)
-        // window.addEventListener('wheel', (e) => scrollDirectionDetect(e, this.props.history));
 
-        const { sideTextSection__1, cannaCar } = this.props.images
-        const { title, text: apiText } = this.props.sectionApi
+        const mainPageApi = this.props.mainPageApi && this.props.mainPageApi[0];
+        const { acf: {
+            canna_car: cannaCar,
+            side_text: sideTextImg,
+            description_2: {
+                title,
+                text
+            } = Object,
+        } = Object } = mainPageApi ? mainPageApi : Object;
+
         const { width } = this.state
 
         const sideText = (
             <div className={[s.sideText, 'sideText'].join(' ')}>
-                <img src={sideTextSection__1} alt='Decoration text' />
+                <img src={sideTextImg && sideTextImg.url} alt='Decoration text' />
                 <div className={[s.decorationText, 'decorationText'].join(' ')}>{lettersSplit('latest')}</div>
             </div>
         );
@@ -82,17 +91,16 @@ class MainSection2 extends Component {
                     <div className={s.logoBox}>
                         <Logo customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
                     </div>
-                    {/* <Languages fixed={true} x='6vh' y={width <= 600 ? '20vw' : '70vw'} /> */}
                     <BurgerMenu fixed={true} />
                     <div className={s.cannaBox}>
                         <div className={[s.number, 'sec_1_number'].join(' ')}>3.</div>
-                        <img className={[s.cannaCar, 'cannaCar'].join(' ')} src={cannaCar} alt='' />
+                        <img className={[s.cannaCar, 'cannaCar'].join(' ')} src={cannaCar && cannaCar.url} alt='Car' />
                     </div>
                     {width <= 1150 ? null : sideText}
                     <div className={s.bottomBox}>
                         <div className={s.description}>
                             <div className={s.title}>{title}</div>
-                            <div className={s.text}>{apiText}</div>
+                            <div className={s.text}>{text}</div>
                         </div>
                         <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
                             <p>{lang === 'en' ? 'See how to roll' : 'Zobacz jak skręcać'}</p>
@@ -111,4 +119,9 @@ class MainSection2 extends Component {
     }
 }
 
-export default withRouter(MainSection2);
+const mapStateToProps = (state) => {
+    const { mainPageApi } = state;
+    return { mainPageApi }
+};
+
+export default withRouter(connect(mapStateToProps)(MainSection2));

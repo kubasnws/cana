@@ -6,8 +6,8 @@ import DelayLink from './DelayLink';
 import { routes } from '../routes';
 import { TimelineMax } from 'gsap';
 import { backendBaseUrl } from './usefullVariables';
-import { fetchInsta } from '../actions';
 import Logo from './Logo';
+import axios from 'axios';
 
 class VideoDisplay extends Component {
     state = {
@@ -20,53 +20,23 @@ class VideoDisplay extends Component {
     }
 
     componentDidMount() {
-        // this.loadApiHandler();
-        this.getConnectionProducts()
+        this.loadConnectionProducts();
     }
 
-    loadApiHandler = () => {
-        const { videoData: { acf: { video_products_conection: videoPostsConnection } = Object } } = this.props
-        console.log(this.props.videoData);
-        if (typeof videoPostsConnection !== 'undefined' && videoPostsConnection.length > 0) {
-            let prodArray = [];
+    loadConnectionProducts = () => {
+        const { acf: { video_products_conection: con } } = this.props.videoData;
+        let postsArray = [];
+        con.forEach(item => postsArray = [...postsArray, item.chose_product]);
 
-            videoPostsConnection.forEach(item => {
-                const productId = item.chose_product
-                const videoApi = `${backendBaseUrl}/wp-json/wp/v2/products/${productId}`
-                console.log(videoApi);
-                fetch(videoApi)
-                    .then(response => {
-                        if (response.ok) {
-                            return response;
-                        }
-                        throw Error(response.status)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        prodArray.push(data)
-
-                        this.setState({
-                            productsArray: prodArray,
-                        })
-
-                    })
-                    .catch(error => console.log(error + " coś nie tak"))
-            })
+        const getCurrentProducts = async postsArray => {
+            const num = postsArray.toString();
+            const res = await axios.get(`http://cana.snwsprodukcja71.pl/wp-json/wp/v2/products?include=${num}`);
+            const data = res.data;
+            console.log(data);
+            this.setState({ productsArray: data });
         }
-    }
 
-    getConnectionProducts = () => {
-        const { videoData: { acf: { video_products_conection: videoPostsConnection } = Object } } = this.props;
-        const fetchInterval = setInterval(() => {
-            console.log(this.props.videoData);
-            if (videoPostsConnection) {
-                clearInterval(fetchInterval);
-                videoPostsConnection.forEach(item => {
-                    const productId = item.chose_product;
-                    console.log(productId);
-                })
-            }
-        }, 1000);
+        postsArray.length > 0 && getCurrentProducts(postsArray);
     }
 
     onDuration = (duration) => {
@@ -135,7 +105,7 @@ class VideoDisplay extends Component {
                         width='100%'
                         height='100%'
                     />
-                    <img className={s.backVid} src={videoBackground} alt="Under video" />
+                    <img className={s.backVid} src={videoBackground && videoBackground.url} alt="Under video" />
                     {notifications && <ConnectedProducts duration={duration} productsArray={productsArray} arr={videoPostsConnection} secondsElapsed={secondsElapsed} />}
                 </div>
 

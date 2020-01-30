@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import styles from './MainBanner.css';
 import BannerVideo from './BannerVideo';
 import BannerTopBar from "./BannerTopBar";
@@ -8,15 +9,14 @@ import { onLoadBannerHandler, onLeaveBannerHandler } from './Animations'
 import { withRouter } from "react-router";
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
+import { fetchItems } from "../actions";
+import { mainPageApiLink } from "./usefullVariables";
 
 
 let debounce = false
 
 class MainBanner extends Component {
-    state = {
-
-    }
-
+    state = {}
 
     componentDidMount() {
         onLoadBannerHandler()
@@ -50,18 +50,31 @@ class MainBanner extends Component {
 
         var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
+        const mainPageApi = this.props.mainPageApi && this.props.mainPageApi[0];
+        const { acf: {
+            banner_video: bannerVideo,
+            social_media: socialMedia
+        } = Object } = mainPageApi ? mainPageApi : Object;
+
+
         return (
             <Swipe onSwipeUp={this.onSwipeUp}>
                 <section className={styles.start} id={styles.start}>
-                    {iOS ? null : <BannerVideo videos={this.props.videos} type={1} />}
+                    {iOS ? null : (bannerVideo && <BannerVideo video={bannerVideo} />)}
 
                     <BannerTopBar logo={this.props.logo} textDisplay={true} />
                     <CarouselMenu />
-                    <BannerBottomBar socialMedia={this.props.socialMedia} />
+                    {socialMedia && <BannerBottomBar socialMedia={socialMedia} />}
                 </section >
             </Swipe>
         );
     }
 }
 
-export default withRouter(MainBanner);
+const mapStateToProps = (state) => {
+    const { mainPageApi } = state;
+    return { mainPageApi }
+};
+
+
+export default withRouter(connect(mapStateToProps)(MainBanner));

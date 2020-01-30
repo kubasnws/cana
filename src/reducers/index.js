@@ -8,13 +8,13 @@ const initialState = [];
 const routeReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_SUCCESS:
-            console.log('test');
+            // console.log('test');
             return {
                 ...state,
                 [action.payload.itemType]: [...action.payload.data]
             }
         case INSTA_SUCCESS:
-            console.log('test2');
+            // console.log('test2');
             return {
                 ...state,
                 insta: [...action.payload.instaData]

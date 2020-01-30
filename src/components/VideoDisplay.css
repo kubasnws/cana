@@ -19,7 +19,7 @@
     display: none;
     top: 2vw;
     left: 2vw;
-    z-index: 15;
+    z-index: 5;
 }
 
 @media(max-width: 820px) {

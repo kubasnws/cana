@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './Logo.css';
-import { imageLogo } from './App'
 import { Link } from 'react-router-dom';
 import { onLoadLogoHandler } from './Animations';
-
+import { fetchItems } from "../actions";
+import { mainPageApiLink } from "./usefullVariables";
 
 class Logo extends Component {
     state = {}
 
     componentDidMount() {
-        onLoadLogoHandler()
-        console.log('logo update');
+        !this.props.mainPageApi && this.props.fetchMainPage();
+        // onLoadLogoHandler();
     }
 
     render() {
-        const { customStyles, color, clicable } = this.props;
+        const { customStyles, color, clicable, mainPageApi: api = [] } = this.props;
+        const { acf } = api.length > 0 && api[0];
+
         const darkLeft = {
             borderTop: '3px solid #242424',
             borderLeft: '3px solid #242424'
@@ -29,7 +32,7 @@ class Logo extends Component {
                     <div className={s.logo}>
                         <div className={[s.logoAnimationLines, 'logoAnimationLines'].join(' ')} style={color === 'dark' ? darkLeft : null}></div>
                         <div className={[s.logoAnimationLines, 'logoAnimationLines'].join(' ')} style={color === 'dark' ? darkRight : null}></div>
-                        <img className={[s.logo, 'logo'].join(' ')} src={color === 'dark' ? imageLogo.dark : imageLogo.white} style={customStyles ? customStyles : {}} alt="Logo" />
+                        <img className={[s.logo, 'logo'].join(' ')} src={acf && (color === 'dark' ? acf.logo_dark.url : acf.logo.url)} style={customStyles ? customStyles : {}} alt="Logo" />
                     </div>
                 </Link>
             </>
@@ -37,5 +40,13 @@ class Logo extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    const { mainPageApi } = state;
+    return { mainPageApi }
+};
 
-export default Logo;
+const mapDispatchToProps = dispatch => ({
+    fetchMainPage: () => dispatch(fetchItems(mainPageApiLink, 'mainPageApi')),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logo);

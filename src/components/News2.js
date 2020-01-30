@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import s from './News2.css'
 import { news2 } from './Animations';
 import { withRouter } from "react-router";
@@ -7,48 +8,21 @@ import { routes } from '../routes';
 import { lang } from './usefullVariables';
 import { backendBaseUrl } from './usefullVariables';
 import Logo from './Logo';
+import { fetchItems } from "../actions";
+import { videoApiLink, newsPageApiLink } from "./usefullVariables";
 // import Swiper from 'swiper/js/swiper.esm.bundle';
-
-
 
 let debounce = true
 
 class News2 extends Component {
-    state = {
-        videoData: {},
-    }
+    state = {}
 
     componentDidMount() {
+        !this.props.videoData && this.props.fetchVideo();
 
-        this.getVideoApi()
-
-        news2('enter')
+        news2('enter');
+        console.log('news 2');
         window.addEventListener('wheel', this.onScroll, false);
-    }
-
-    getVideoApi = async () => {
-        let language = 'pl'
-        switch (lang) {
-            case 'pl':
-                language = '';
-                break;
-            case 'en':
-                language = '/en';
-                break;
-            default:
-                break;
-        }
-
-        const videoApi = `${backendBaseUrl}${language}/wp-json/wp/v2/video_posts?per_page=1`;
-
-        try {
-            const response = await fetch(videoApi)
-            const data = await response.json()
-
-            this.setState({ videoData: data[0] });
-        } catch (err) {
-            console.log(`${err}, coś poszło nie tak!`);
-        }
     }
 
     componentWillUnmount() {
@@ -72,14 +46,11 @@ class News2 extends Component {
             debounce = false
         }, 2000);
 
-        const { topBanner, videoBackground } = this.props.sectionApi
-        const { videoData } = this.state
-        const { acf: { video_description: videoTitle, video_title: videoDescription } = Object } = videoData
-        const { screenSize: {
-            width,
-            // height,
-        } } = this.props
+        const videoApi = this.props.videoData && this.props.videoData[0];
+        const newsPageApi = this.props.newsPageApi && this.props.newsPageApi[0];
 
+        const { acf: { video_description: videoTitle, video_title: videoDescription } = Object } = videoApi ? videoApi : Object;
+        const { acf: { video_background_news: videoBackground, banner_2: topBanner } = Object } = newsPageApi ? newsPageApi : Object;
         const description = (
             <div className={[s.left, 'left'].join(' ')}>
                 <h2>{videoTitle}</h2>
@@ -95,12 +66,11 @@ class News2 extends Component {
                     </div>
                 </div>
                 <div className={s.content}>
-                    {width <= 680 ? null : description}
+                    {description}
                     <div className={s.right}>
                         <div className={[s.videoBox, 'videoBox'].join(' ')}>
                             <VideoDisplay
-                                videoData={videoData}
-                                width={width}
+                                videoData={videoApi}
                                 videoBackground={videoBackground}
                             />
                         </div>
@@ -112,4 +82,17 @@ class News2 extends Component {
     }
 }
 
-export default withRouter(News2);
+const mapStateToProps = (state) => {
+    const { videoData, mainPageApi, newsPageApi } = state;
+    return {
+        mainPageApi,
+        videoData,
+        newsPageApi
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    fetchVideo: () => dispatch(fetchItems(videoApiLink(1), 'videoData')),
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(News2));
