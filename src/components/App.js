@@ -8,7 +8,6 @@ import {
 import { Provider } from "react-redux";
 import store from "../store";
 import AgeChecker from './AgeChecker';
-// import HomePage from './HomePage';
 import MainSection1 from './MainSection1'
 import MainBanner from './MainBanner';
 import ErrorPage from './ErrorPage'
@@ -19,26 +18,10 @@ import Products from './Products'
 import News from './News';
 import { routes } from '../routes';
 import Test from './Test';
+import { LastLocationProvider } from 'react-router-last-location';
 
 
 // import RouterComponent from './RouterComponent';
-let postNumber = '2';
-switch (localStorage.getItem('lang')) {
-  case 'pl':
-    postNumber = '2'
-    break;
-  case 'en':
-    postNumber = '292';
-    break;
-  default:
-    break;
-}
-
-const API = `http://cana.snwsprodukcja71.pl/wp-json/acf/v3/pages/${postNumber}`;
-export let socialLinks = Object
-export let menuItems = Object
-export let contactInfos = Object
-export let imageLogo = Object
 
 if (localStorage.getItem("isAgeOk") === null) {
   localStorage.setItem("isAgeOk", false)
@@ -70,23 +53,23 @@ class App extends Component {
         bottom_big: {},
       },
     },
-  }
+  };
 
 
   setLanguage = () => {
     if (localStorage.getItem('lang') === null) {
       localStorage.setItem('lang', 'pl');
     }
-  }
+  };
 
   componentDidMount() {
-    this.setLanguage()
+    this.setLanguage();
 
     window.addEventListener('touchstart', () => {
       document.querySelector('.body').classList.add('bodyOverflowFalse')
     });
 
-    const today = new Date()
+    const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     const yyyy = today.getFullYear();
@@ -103,20 +86,20 @@ class App extends Component {
     this.setState({
       [name]: e.target.value
     })
-  }
+  };
 
 
   ageVerificationHandler = () => {
-    let { day, month, year } = this.state
-    day = parseInt(day)
-    month = parseInt(month)
-    year = parseInt(year)
-    const minAge = 18
+    let { day, month, year } = this.state;
+    day = parseInt(day);
+    month = parseInt(month);
+    year = parseInt(year);
+    const minAge = 18;
     const userBirth = new Date((year + minAge), month, day);
-    const today = new Date()
-    const difference = today.getTime() - userBirth.getTime()
+    const today = new Date();
+    const difference = today.getTime() - userBirth.getTime();
     if (difference < 0) { //refusal
-      const sec = difference / -1000
+      const sec = difference / -1000;
       const d = Math.floor(sec / (3600 * 24));
       const dDisplay = d > 0 ? d + (d === 1 ? " day" : " days") : "";
       this.setState({
@@ -129,7 +112,7 @@ class App extends Component {
       })
     }
 
-  }
+  };
 
 
 
@@ -164,55 +147,57 @@ class App extends Component {
       return (
         <Provider store={store}>
           <Router basename={process.env.PUBLIC_URL}>
-            <Switch>
-              <Route path='/test' >
-                <Test />
-              </Route>
-              <Route exact path={routes.home} >
-                <MainBanner />
-              </Route>
-              <Route path={routes.mainProd} >
-                <MainSection1 />
-              </Route>
-              <Route path={routes.mainImage}
-                component={() => <MainSection2
-                  images={this.state.images}
-                  sectionApi={this.state.mainSection2}
-                  socialMedia={this.state.social_media} />} />
-              <Route path={routes.mainVideo}
-                component={() => <MainSection3
-                  images={this.state.images}
-                  section={this.state.mainSection3}
-                  socialMedia={this.state.social_media} />} />
-              <Route path={routes.mainFooter}
-                component={() => <Footer
-                  images={this.state.images}
-                  section={this.state.footer}
-                />}
-              />
-              <Route path={routes.products}
-                component={() => <Products
-                  images={this.state.images}
-                  social={this.state.social_media}
-                  footer={this.state.footer}
-                  footerImages={this.state.images}
-                  section={this.state.footer}
-                />} />
-              <Route path={routes.news}
-                component={() => <News
-                  images={this.state.images}
-                  social={this.state.social_media}
-                  footer={this.state.footer}
-                  footerImages={this.state.images}
-                  section={this.state.footer}
-                />} />
-              <Route
-                path={routes.age}
-                component={AgeChecker}
-              />
-              <Route path={routes.error} component={() => <ErrorPage cameleon={this.state.images} />} />
-              <Redirect to={routes.error} />
-            </Switch>
+            <LastLocationProvider>
+              <Switch>
+                <Route path='/test' >
+                  <Test />
+                </Route>
+                <Route exact path={routes.home} >
+                  <MainBanner />
+                </Route>
+                <Route path={routes.mainProd} >
+                  <MainSection1 />
+                </Route>
+                <Route path={routes.mainImage}
+                  component={() => <MainSection2
+                    images={this.state.images}
+                    sectionApi={this.state.mainSection2}
+                    socialMedia={this.state.social_media} />} />
+                <Route path={routes.mainVideo}
+                  component={() => <MainSection3
+                    images={this.state.images}
+                    section={this.state.mainSection3}
+                    socialMedia={this.state.social_media} />} />
+                <Route path={routes.mainFooter}
+                  component={() => <Footer
+                    images={this.state.images}
+                    section={this.state.footer}
+                  />}
+                />
+                <Route path={routes.products}
+                  component={() => <Products
+                    images={this.state.images}
+                    social={this.state.social_media}
+                    footer={this.state.footer}
+                    footerImages={this.state.images}
+                    section={this.state.footer}
+                  />} />
+                <Route path={routes.news}
+                  component={() => <News
+                    images={this.state.images}
+                    social={this.state.social_media}
+                    footer={this.state.footer}
+                    footerImages={this.state.images}
+                    section={this.state.footer}
+                  />} />
+                <Route
+                  path={routes.age}
+                  component={AgeChecker}
+                />
+                <Route path={routes.error} component={() => <ErrorPage cameleon={this.state.images} />} />
+                <Redirect to={routes.error} />
+              </Switch>
+            </LastLocationProvider>
           </Router>
         </Provider>
       );

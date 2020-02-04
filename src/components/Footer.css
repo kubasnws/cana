@@ -177,9 +177,7 @@ footer {
         margin-left: unset;
         margin-bottom: 6px;
     }
-}
 
-@media(max-width: 800px) {
     .backText {
         font-size: 120px;
         line-height: .8
@@ -226,6 +224,10 @@ footer {
         color: #e2ceaa;
         font-family: 'bannerBig';
         text-transform: uppercase;
+    }
+
+    .copy {
+        left: 14vw;
     }
 }
 

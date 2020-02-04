@@ -90,7 +90,14 @@
     font-weight: 500;
     font-size: 82px;
     font-family: "bannerBig";
+}
 
+
+
+@media only screen and (max-width: 998px) {
+    .titleBox h1>span {
+        font-size: 70px;
+    }
 }
 
 .nextButton {
@@ -307,5 +314,21 @@
 
     .activeProduct {
         padding-bottom: 10px;
+    }
+}
+
+@media(max-width: 992px) {
+    .titleBox h1>span {
+        font-size: 60px;
+    }
+
+    .activeProduct {
+        padding: 14px 0;
+    }
+}
+
+@media(max-width: 786px) {
+    .activeProduct {
+        padding: 6vh;
     }
 }

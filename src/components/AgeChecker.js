@@ -10,6 +10,8 @@ import Languages from './Languages';
 import { fetchItems } from "../actions";
 import { mainPageApiLink } from "./usefullVariables";
 
+
+
 class AgeChecker extends Component {
     state = {};
     componentDidMount() {
@@ -21,19 +23,21 @@ class AgeChecker extends Component {
             return <Redirect push to={routes.home} />;
         }
 
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
         const mainPageApi = this.props.mainPageApi && this.props.mainPageApi[0];
         const { acf: {
             circle_cana: circleCanna,
             cameleon,
             side_logo: sideLogo,
             cana_text_background: cannaText,
+            age_verification_video
         } = Object } = mainPageApi ? mainPageApi : Object;
 
         return (
             <div className={styles.ageChecker}>
-                {/* <BannerVideo videos={this.props.videos} /> */}
+                {iOS ? null : (age_verification_video && <BannerVideo video={age_verification_video} />)}
                 <div className={styles.leftContent}>
-
                     <div className={styles.langBox}>
                         <Languages />
                     </div>

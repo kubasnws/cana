@@ -36,8 +36,6 @@
     flex-direction: column;
     align-items: center;
     margin-top: 16vh;
-
-
 }
 
 .sideText>span {
@@ -57,7 +55,12 @@
 }
 
 
-
+@media(max-width: 1200px) {
+    .starterKitImage {
+        width: 100%;
+        transform: translate(10%, -100%);
+    }
+}
 
 @keyframes rotating {
     from {

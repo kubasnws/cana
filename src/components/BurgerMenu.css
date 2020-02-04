@@ -23,6 +23,15 @@
     cursor: pointer;
 }
 
+@media(max-width: 992px) {
+
+    .burgerMenuFixed,
+    .burgerMenu {
+        top: 20px;
+        right: 24px;
+    }
+}
+
 .burgerMenu>span {
     height: 40px;
     width: 1px;
@@ -79,6 +88,12 @@
     font-size: 12px;
     margin-right: 5px;
     display: block
+}
+
+@media(max-width: 992px) {
+    .text>span {
+        display: none;
+    }
 }
 
 .burgerMenuContainer {

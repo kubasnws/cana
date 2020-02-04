@@ -18,6 +18,11 @@ const languagesLeave = () => {
 const burgerMenuLeave = () => {
     TweenMax.to('.burgerMenu', .3, { x: 160, ease: elasticEase2 })
 }
+
+const burgerMenuLoad = () => {
+    new TimelineMax().from('.burgerCircle', 1, { x: 200, ease: elasticEase })
+        .staggerFromTo('.burgerText span', .4, { opacity: 0, y: -40 }, { opacity: 1, y: 0, ease: elasticEase }, .1, "-=.7")
+}
 const whiteElementLoad = () => {
     // TweenMax.to('.whiteElement', .35, { x: 0, ease: power })
     // TweenMax.from('.whiteElement', .7, { backgroundColor: '#242424' })
@@ -59,7 +64,7 @@ export const onLeaveBannerHandler = () => {
     e.addLabel('start')
         .add(languagesLeave)
         .add(logoLeave, 'start+=.2')
-        .add(burgerMenuLeave, 'start')
+        // .add(burgerMenuLeave, 'start')
         .to(`.scrollIt`, .4, { y: 100, opacity: .4, ease: elasticEase2 }, 'start')
         .staggerTo(`.social li`, .14, { x: -250, opacity: 1, ease: elasticEase2 }, .06, 'start')
         .to(`.menuContainer .active`, .6, { y: -100, opacity: 0, ease: elasticEase }, 'start')
@@ -81,8 +86,7 @@ export const onLoadSection1Handler = () => {
     const e = new TimelineMax({ delay: .3 })
     e.addLabel('start')
         .staggerFrom(`.languages li`, 1.3, { y: 30, opacity: 0, ease: elasticEase }, .16)
-        .from('.burgerCircle', 1, { x: 200, ease: elasticEase }, 'start+=.3')
-        .staggerFromTo('.burgerText span', .4, { opacity: 0, y: -40 }, { opacity: 1, y: 0, ease: elasticEase }, .1, "start+=1")
+        .add(burgerMenuLoad, 'start')
         .add(whiteElementLoad, 'start')
         .fromTo('.sideText img', 1.5, { y: '100vh' }, { y: -100, opacity: 1, ease: elasticEase }, 'start+=.2')
         .from('.sampleProductBox > img', .5, { y: 100, opacity: 0, ease: power }, 'start+=.2')
@@ -95,8 +99,8 @@ export const onLeaveSection1Handler = () => {
     e.addLabel('start')
         .add(languagesLeave)
         .add(logoLeave, 'start+=.2')
-        .add(burgerMenuLeave, 'start')
-        .add(menuBoxLeave, 'start')
+        // .add(burgerMenuLeave, 'start')
+        // .add(menuBoxLeave, 'start')
         .to('.sec1left > img', .4, { scale: 0, opacity: 0, ease: elasticEase2 }, 'start')
 }
 
@@ -104,6 +108,7 @@ export const onLoadSection2Handler = () => {
     const e = new TimelineMax({ delay: .3 })
     e.addLabel('start')
         .add(whiteElementLoad, 'start')
+        .add(burgerMenuLoad, 'start')
         .fromTo('.sideText img', 2.5, { y: -100 }, { y: -1000, ease: elasticEase }, 'start-=.3')
         .staggerFromTo('.decorationText .letter', .5, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, ease: back }, .1, 'start+=.2')
     // .from('.cannaCar', .6, { opacity: 0, scale: 0, ease: elasticEase }, 'start+=.2')
@@ -113,13 +118,15 @@ export const onLeaveSection2Handler = () => {
     const e = new TimelineMax()
     e.addLabel('start')
         .staggerTo('.decorationText .letter', .3, { x: -300, opacity: 0, ease: elasticEase2 }, .04)
-        .add(menuBoxLeave, 'start')
+    // .add(burgerMenuLeave, 'start')
+    // .add(menuBoxLeave, 'start')
 }
 
 export const onLoadSection3Handler = (delay) => {
     const e = new TimelineMax({ delay: .3 })
     e.addLabel('start')
         .staggerFromTo('.decorationText .letter', .7, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, ease: back }, .1)
+        .add(burgerMenuLoad, 'start')
         .fromTo('.sideText img', 2.5, { y: -1000 }, { y: -2000, ease: elasticEase }, 'start')
         .from('.sec_3_image', .5, { opacity: 0, y: 80, ease: power }, 'start+=.2')
         .from('.sec_3_number', .7, { scale: 0, ease: elasticEase }, 'start+=.3')
@@ -133,7 +140,8 @@ export const onLeaveSection3Handler = () => {
     e.addLabel('start')
         .staggerTo('.decorationText .letter', .4, { x: -300, opacity: 0, ease: elasticEase2 }, .04)
         .to('.videoSec3', .3, { scale: .4, opacity: 0, ease: elasticEase2 }, 'start')
-        .add(menuBoxLeave, 'start')
+    // .add(burgerMenuLeave, 'start')
+    // .add(menuBoxLeave, 'start')
 }
 
 export const onLoadFooterHandler = () => {
@@ -141,6 +149,7 @@ export const onLoadFooterHandler = () => {
     e.addLabel('start')
         .add(whiteElementLoad, 'start')
         .staggerFrom('.contactElement', .5, { opacity: 0, scale: 0, ease: elasticEase }, .25, 'start+=.3')
+        .add(burgerMenuLoad, 'start')
         .from('.backTextFooter', .3, { opacity: 0 }, 'start')
         .from('.productFooter', .6, { opacity: 0, scale: .7, ease: elasticEase }, 'start+=.4')
         .fromTo('.sideText img', 2.5, { y: -2000 }, { y: -2400, ease: elasticEase }, 'start')
@@ -152,6 +161,7 @@ export const onLeaveFooterHandler = () => {
         .staggerTo('.contactElement', .3, { opacity: 0, x: -200, ease: elasticEase }, .08)
         .to('.backTextFooter', .3, { opacity: 0 }, 'start')
         .to('.productFooter', .3, { opacity: 0, scale: .7, ease: elasticEase }, 'start')
+        // .add(burgerMenuLeave, 'start')
         .add(logoLeave, 'start+=.2')
 
 }

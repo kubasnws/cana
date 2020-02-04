@@ -58,7 +58,7 @@ class News extends Component {
         }
         return (
             <section className={s.mainSection}>
-                {path !== routes.productsFooter && <BurgerMenu fixed={true} y='40px' />}
+                {path !== routes.newsFooter && <BurgerMenu fixed={true} y='40px' />}
                 <div className={s.leftSection} style={path === routes.newsFooter ? custStyles : {}}>
                     <WhiteElement />
                     <Route path={routes.newsHome} component={() => <News1 />} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import s from './Products.css'
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { withRouter } from "react-router";
 import Products1 from './Products1'
 import Products2 from './Products2'
@@ -14,32 +14,37 @@ import { routes } from '../routes';
 import WhiteElement from './WhiteElement';
 import { prodApiLink, prodPageApiLink } from "./usefullVariables";
 import { fetchItems } from "../actions";
+import { withLastLocation } from 'react-router-last-location';
 
 
 class Products extends Component {
     state = {
-
-    }
+        locationArray: Object,
+    };
 
     componentDidMount() {
         this.props.fetchProductsPage();
-        this.props.fetchProducts();
+        !this.props.prodData && this.props.fetchProducts();
+    }
+
+    setLocationArray = () => {
+        const { lastLocation, location: currentLocaiton } = this.props;
+        return { lastLocation, currentLocaiton };
     }
 
     widthChange = () => {
         this.setState({ width: window.innerWidth });
-    }
+    };
 
     render() {
 
-        const { footer } = this.state;
-        const { section: footerContent, footerImages } = this.props;
+        const { locationArray } = this.state;
         const acf = this.props.productsPageData;
         const path = window.location.pathname;
 
         const custStyles = {
             display: "none",
-        }
+        };
 
         return (
             <section className={s.mainSection}>
@@ -61,51 +66,55 @@ class Products extends Component {
                     />
 
                 </div>
-                <Route path={routes.productsFooter}
-                    component={() => <Footer
-                        images={footerImages}
-                        section={footerContent}
-                    />}
-                />
-                <SideBarText acf={acf} footer={footer} />
+                <Route path={routes.productsFooter} component={() => <Footer />} />
+                <SideBarText acf={acf} history={this.setLocationArray()} />
             </section>
         );
     }
 }
 
-const SideBarText = ({ acf }) => {
-
-    const path = window.location.pathname
+const SideBarText = ({ acf, history }) => {
+    const path = history.pathname;
 
     const backgroundText = {
         backgroundImage: `url(${acf && acf[0].acf.right_background_text.url})`,
         overflow: path === routes.productsFooter ? 'hidden' : 'unset'
-    }
+    };
 
     return (
         <div className={s.rightSection} style={backgroundText}>
-            <Route path={routes.products} component={() => <SideBarTextElement />} />
+            <Route path={routes.products} component={() => <SideBarTextElement history={history} />} />
             {path === routes.productsInsta && acf && <img className={s.starterKitImage} src={acf[0].acf.kit_image.url} alt={acf[0].acf.kit_image.name} />}
-            {/* {path === routes.productsFooter && typeof footer.cannaCircle !== 'undefined' ? <img className={s.cannaCircle} src={footer.cannaCircle.url} alt='canna circle' /> : null} */}
+            {path === routes.newsFooter && (acf && <img className={s.cannaCircle} src={acf[0].acf.footer_images.bottom_small.url} alt='canna circle' />)}
         </div>
     )
-}
+};
 
 class SideBarTextElement extends Component {
-    state = {}
+    state = {};
+
     componentDidMount() {
-        const path = window.location.pathname
-        if (path === routes.productsHome)
-            productSideText(0, path)
-        else if (path === routes.productsSingle)
-            productSideText(0, path)
-        else if (path === routes.productsInsta)
-            productSideText(0, path)
-        else if (path === routes.productsFooter)
-            productSideText(0, path)
+        const { currentLocaiton, lastLocation } = this.props.history;
+
+        currentLocaiton && this.startSideTextAnimation(currentLocaiton, lastLocation);
     }
+
+    startSideTextAnimation = (currentLocaiton, lastLocation) => {
+        console.log(currentLocaiton, lastLocation);
+        const pathname = currentLocaiton.pathname;
+        if (pathname === routes.productsHome)
+            productSideText(0, pathname);
+        //  && (lastLocation ? lastLocation.pathname !== pathname : true)
+        else if (pathname === routes.productsSingle)
+            productSideText(0, pathname);
+        else if (pathname === routes.productsInsta)
+            productSideText(0, pathname);
+        else if (pathname === routes.productsFooter)
+            productSideText(0, pathname)
+    }
+
     render() {
-        const splitHorse = lettersSplit('dark horse')
+        const splitHorse = lettersSplit('dark horse');
         return (
             <div className={[s.sideText, 'productSideText'].join(' ')} >
                 {splitHorse}
@@ -122,7 +131,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     fetchProductsPage: () => dispatch(fetchItems(prodPageApiLink, 'productsPageData')),
     fetchProducts: () => dispatch(fetchItems(prodApiLink, 'prodData')),
-})
+});
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Products));
+export default withLastLocation(withRouter(connect(mapStateToProps, mapDispatchToProps)(Products)));

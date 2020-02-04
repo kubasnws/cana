@@ -10,7 +10,7 @@ import { withRouter } from "react-router";
 import Swipe from 'react-easy-swipe';
 import { routes } from '../routes';
 import { fetchItems } from "../actions";
-import { mainPageApiLink } from "./usefullVariables";
+import {mainPageApiLink, prodApiLink, prodPageApiLink} from "./usefullVariables";
 
 
 let debounce = false
@@ -19,6 +19,7 @@ class MainBanner extends Component {
     state = {}
 
     componentDidMount() {
+        !this.props.prodData && this.props.fetchProducts();
         onLoadBannerHandler()
         window.addEventListener('wheel', this.onScroll, false);
     }
@@ -76,5 +77,8 @@ const mapStateToProps = (state) => {
     return { mainPageApi }
 };
 
+const mapDispatchToProps = dispatch => ({
+    fetchProducts: () => dispatch(fetchItems(prodApiLink, 'prodData'))
+});
 
-export default withRouter(connect(mapStateToProps)(MainBanner));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainBanner));

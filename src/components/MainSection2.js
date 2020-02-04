@@ -11,18 +11,17 @@ import BurgerMenu from './BurgerMenu';
 import Swipe from 'react-easy-swipe';
 import Logo from './Logo'
 import { routes } from '../routes';
-import { lang, mainPageApiLink } from './usefullVariables';
-import { fetchItems } from "../actions";
+import { lang } from './usefullVariables';
 
-let debounce = true
+let debounce = true;
 
 class MainSection2 extends Component {
     state = {
         width: Number,
-    }
+    };
     componentDidMount() {
-        onLoadSection2Handler()
-        this.widthChange()
+        onLoadSection2Handler();
+        this.widthChange();
         window.addEventListener('wheel', this.onScroll, false);
     }
 
@@ -31,38 +30,38 @@ class MainSection2 extends Component {
     }
 
     onSwipeDown = () => {
-        onLeaveSection2Handler()
+        onLeaveSection2Handler();
         setTimeout(() => { this.props.history.push(routes.mainProd) }, 500);
-    }
+    };
     onSwipeUp = () => {
-        onLeaveSection2Handler()
+        onLeaveSection2Handler();
         setTimeout(() => { this.props.history.push(routes.mainVideo) }, 500);
-    }
+    };
 
     onScroll = e => {
         if (e.deltaY < 0 && !debounce) { //Up
-            onLeaveSection2Handler()
+            onLeaveSection2Handler();
             setTimeout(() => {
                 this.props.history.push(routes.mainProd)
             }, 500);
         }
         else if (e.deltaY > 0 && !debounce) { //Down
-            onLeaveSection2Handler()
+            onLeaveSection2Handler();
             setTimeout(() => {
                 this.props.history.push(routes.mainVideo)
             }, 500);
         }
-    }
+    };
 
     widthChange = () => {
         this.setState({ width: window.innerWidth });
-    }
+    };
     render() {
         debounce = true;
         setTimeout(() => {
             debounce = false
         }, 1400);
-        window.addEventListener('resize', this.widthChange)
+        window.addEventListener('resize', this.widthChange);
 
         const mainPageApi = this.props.mainPageApi && this.props.mainPageApi[0];
         const { acf: {
@@ -74,7 +73,7 @@ class MainSection2 extends Component {
             } = Object,
         } = Object } = mainPageApi ? mainPageApi : Object;
 
-        const { width } = this.state
+        const { width } = this.state;
 
         const sideText = (
             <div className={[s.sideText, 'sideText'].join(' ')}>
@@ -105,7 +104,7 @@ class MainSection2 extends Component {
                         <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
                             <p>{lang === 'en' ? 'See how to roll' : 'Zobacz jak skręcać'}</p>
                             <DelayLink
-                                to={routes.newsImages}
+                                to={routes.newsHome}
                                 delay={0}
                                 onDelayStart={() => { }}>
                                 <button type='button'>{lang === 'en' ? 'check it!' : 'Sprawdź to!'}</button>

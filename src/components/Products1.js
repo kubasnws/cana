@@ -12,18 +12,18 @@ import { onLeaveSection1Handler } from './Animations';
 import Swipe from 'react-easy-swipe';
 import { lang } from './usefullVariables';
 
-let debounce = false
+let debounce = false;
 
 
 class Products1 extends Component {
     state = {
         bigImage: String,
         bigDescription: String,
-    }
+    };
     componentDidMount() {
 
 
-        this.props.prodData && this.displayBig()
+        this.props.prodData && this.displayBig();
 
 
         new Swiper('.swiper-prod', {
@@ -45,7 +45,7 @@ class Products1 extends Component {
                     slidesPerView: 4,
                 }
             }
-        })
+        });
 
         window.addEventListener('wheel', this.onScroll, false);
     }
@@ -55,57 +55,57 @@ class Products1 extends Component {
     }
 
     displayBig = () => {
-        const firstProd = document.querySelector('.swiper-slide > img')
+        const firstProd = document.querySelector('.swiper-slide > img');
 
-        const description = firstProd.getAttribute('data-description')
-        const image = firstProd.getAttribute('src')
+        const description = firstProd.getAttribute('data-description');
+        const image = firstProd.getAttribute('src');
 
         this.setState({
             bigImage: image,
             bigDescription: description
         });
-    }
+    };
 
     productHoverHandler = e => {
-        const prod = e.target
+        const prod = e.target;
         const active = document.querySelectorAll(`.${s.swiperSlide}>img`);
 
         active.forEach(item => {
             item.classList.remove(s.active);
         });
-        prod.classList.add(s.active)
-        const description = prod.getAttribute('data-description')
-        const image = prod.getAttribute('src')
+        prod.classList.add(s.active);
+        const description = prod.getAttribute('data-description');
+        const image = prod.getAttribute('src');
 
         this.setState({
             bigImage: image,
             bigDescription: description
         });
-    }
+    };
 
 
 
     onScroll = e => {
         if (e.deltaY < 0) { //Up
-            return
+
         }
         else if (e.deltaY > 0 && !debounce) { //Down
             // onLeaveSection2Handler()
-            debounce = true
+            debounce = true;
             setTimeout(() => {
-                this.props.history.push(routes.productsSingle)
+                this.props.history.push(routes.productsSingle);
                 debounce = false
             }, 500);
         }
-    }
+    };
 
     onSwipeUp = () => {
         setTimeout(() => { this.props.history.push(routes.productsSingle) }, 500);
-    }
+    };
 
     productClickHandler = link => {
         this.props.history.push(link)
-    }
+    };
 
     render() {
         const acf = this.props.productsPageData;
@@ -121,7 +121,7 @@ class Products1 extends Component {
                     <div className={s.nextButton}><span>{lang === 'en' ? 'Or keep up with latest news' : 'Lub bądź na bieżąco z najnowszymi wiadomościami'}</span><LongArrowRight /></div>
                 </DelayLink>
             </div>
-        )
+        );
         const leftImage = (
             <div className={s.leftImage}>
                 <img src={acf && acf[0].acf.left_main_image.url} alt='' />
@@ -129,19 +129,19 @@ class Products1 extends Component {
                     <ScrollItButton smallText={lang === 'en' ? 'Interested?' : 'Zainteresowany?'} location={routes.productsSingle} animation={onLeaveSection1Handler} />
                 </div>
             </div>
-        )
+        );
 
         const titlePl = (
             <>
                 Zobacz nasze <br /><span>produkty!</span>
             </>
-        )
+        );
 
         const titleEn = (
             <>
                 Check out the <br /><span>products!</span>
             </>
-        )
+        );
 
         return (
             <Swipe onSwipeUp={this.onSwipeUp}>
@@ -183,23 +183,23 @@ class Products1 extends Component {
 
 const SwiperElements = ({ products = [], hover, click }) => {
 
-    const result = products.map((item, index) => products.length > 0 && <SwiperElement key={item.id} index={index} element={item} hover={hover} click={click} />)
+    const result = products.map((item, index) => products.length > 0 && <SwiperElement key={item.id} index={index} element={item} hover={hover} click={click} />);
     return (
         <>
             {result}
         </>
     )
-}
+};
 
 const SwiperElement = ({ element, hover, click, index }) => {
-    const { url, name } = element.acf.images[0]
-    const currentProductLink = `${routes.productsSingle}#${element.id}`
+    const { url, name } = element.acf.images[0];
+    const currentProductLink = `${routes.productsSingle}#${element.id}`;
     return (
         <div className={[s.swiperSlide, 'swiper-slide'].join(' ')}>
             <img src={url} alt={name} className={index === 0 && s.active} data-description={element.title.rendered} onMouseEnter={e => hover(e)} onClick={() => click(currentProductLink)} />
         </div>
     )
-}
+};
 
 const mapStateToProps = (state) => {
     const { prodData, productsPageData } = state;
