@@ -11,7 +11,6 @@ class Logo extends Component {
 
     componentDidMount() {
         !this.props.mainPageApi && this.props.fetchMainPage();
-        // onLoadLogoHandler();
     }
 
     render() {

@@ -1,4 +1,5 @@
 .sideNavBox {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -57,4 +58,24 @@
     font-family: 'BannerBig';
     font-weight: 500;
     font-size: 32px;
+}
+
+.siteNameBox {
+    width: 10px;
+    height: 10px;
+    align-self: center;
+}
+
+.siteName {
+    white-space: nowrap;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-family: 'Roboto Slab';
+    transform: rotate(-90deg);
+}
+
+@media(max-width: 768px) {
+    .siteName {
+        display: none;
+    }
 }

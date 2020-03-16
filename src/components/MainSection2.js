@@ -88,7 +88,7 @@ class MainSection2 extends Component {
                 <div className={s.mainContainer}>
                     <WhiteElement socialMedia={this.props.socialMedia} />
                     <div className={s.logoBox}>
-                        <Logo customStyles={width <= 599 ? { width: '100px' } : { width: '160px' }} />
+                        <Logo />
                     </div>
                     <BurgerMenu fixed={true} />
                     <div className={s.cannaBox}>
@@ -104,7 +104,7 @@ class MainSection2 extends Component {
                         <div className={[s.buttonWrapper, 'buttonBox'].join(' ')}>
                             <p>{lang === 'en' ? 'See how to roll' : 'Zobacz jak skręcać'}</p>
                             <DelayLink
-                                to={routes.newsHome}
+                                to={routes.newsVideos}
                                 delay={0}
                                 onDelayStart={() => { }}>
                                 <button type='button'>{lang === 'en' ? 'check it!' : 'Sprawdź to!'}</button>

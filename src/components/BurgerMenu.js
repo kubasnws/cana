@@ -48,7 +48,7 @@ class BurgerMenu extends Component {
                     <span></span>
                     {whereAmI}
                 </div>
-                {menuIsOpen ? <MenuContentBox menuIsOpen={menuIsOpen} clickHandler={this.burgerMenuHandler} /> : null}
+                {menuIsOpen ? <MenuContentBox clickHandler={this.burgerMenuHandler} /> : null}
             </>
         );
     }
@@ -60,13 +60,13 @@ class MenuContentBox extends Component {
         menuOpen()
     }
     render() {
-        const { clickHandler } = this.props
+        const { clickHandler } = this.props;
+
         return (
-            <div className={[s.menuContentBox, 'menuContentBox'].join(' ')}>
+            <div className={[s.menuContentBox, 'menuContentBox'].join(' ')} onClick={clickHandler}>
                 <div className={[s.whiteMenuBox, 'whiteMenuBox'].join(' ')}>
-                    <div className={[s.menuCloseBox, 'menuCloseBox'].join(' ')} onClick={() => clickHandler()}><CloseButton /></div>
+                    <div className={[s.menuCloseBox, 'menuCloseBox'].join(' ')}><CloseButton /></div>
                     <div className={s.menuLeft}>
-                        {/* <img src={} alt=""/> */}
                         <Logo color='dark' />
                     </div>
                     <div className={s.menuCenter}>

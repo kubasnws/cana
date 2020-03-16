@@ -131,6 +131,7 @@ export const onLoadSection3Handler = (delay) => {
         .from('.sec_3_image', .5, { opacity: 0, y: 80, ease: power }, 'start+=.2')
         .from('.sec_3_number', .7, { scale: 0, ease: elasticEase }, 'start+=.3')
         .add(whiteElementLoad, 'start')
+        // .add(onLoadLogoHandler, 'start+=.4')
         .staggerFrom('.section3Desc > *', .5, { x: 500, opacity: 0, ease: back1 }, .16, 'start+=.6')
         .from('.videoSec3', .5, { scale: .4, opacity: 0, ease: elasticEase, clearProps: 'all' }, 'start+=.4')
 }

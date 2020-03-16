@@ -61,50 +61,50 @@ class Products2 extends Component {
 
         const acf = this.props.productsPageData;
         return (
-            <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
-                <div className={s.mainBox}>
-                    <div className={s.topBanner}>
-                        <div className={s.logoBox}>
-                            <Logo />
-                        </div>
-                        <div className={s.text}>canna dark horse</div>
-                        {acf && <img src={acf[0].acf.top_image.url} alt={acf[0].acf.top_image.mime_type} />}
+            // <Swipe onSwipeDown={this.onSwipeDown} onSwipeUp={this.onSwipeUp}>
+            <div className={s.mainBox}>
+                <div className={s.topBanner}>
+                    <div className={s.logoBox}>
+                        <Logo />
                     </div>
-                    <div className={s.swiperBox}>
-                        <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
-                            <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
-                                <SwiperElements products={this.props.prodData} />
+                    <div className={s.text}>canna dark horse</div>
+                    {acf && <img src={acf[0].acf.top_image.url} alt={acf[0].acf.top_image.mime_type} />}
+                </div>
+                <div className={s.swiperBox}>
+                    <div className={[s.swiperContainer, 'swiper-container'].join(' ')}>
+                        <div className={[s.swiperWrapper, 'swiper-wrapper'].join(' ')}>
+                            <SwiperElements products={this.props.prodData} />
+                        </div>
+                    </div>
+                    <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
+                    <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
+                </div>
+                <div className={s.bottomButtons}>
+                    <div className={[s.button, s.leftButton].join(' ')}>
+                        <DelayLink
+                            to={routes.productsHome}>
+                            <div>
+                                <ChevronUp />
+                                <span>
+                                    {lang === 'en' ? 'See all products' : 'Zobacz wszystkie produkty'}
+                                </span>
                             </div>
-                        </div>
-                        <div className={[s.swiperButtonNext, s.swiperButton, 'swiper-button-next'].join(' ')}><LongArrowRight /></div>
-                        <div className={[s.swiperButtonPrev, s.swiperButton, 'swiper-button-prev'].join(' ')}><LongArrowLeft /></div>
+                        </DelayLink>
+
                     </div>
-                    <div className={s.bottomButtons}>
-                        <div className={[s.button, s.leftButton].join(' ')}>
-                            <DelayLink
-                                to={routes.productsHome}>
-                                <div>
-                                    <ChevronUp />
-                                    <span>
-                                        {lang === 'en' ? 'See all products' : 'Zobacz wszystkie produkty'}
-                                    </span>
-                                </div>
-                            </DelayLink>
+                    <div className={[s.button, s.rightButton].join(' ')}>
+                        <DelayLink
+                            to={routes.productsInsta}
+                            delay={0}
+                            onDelayStart={() => { }}
+                            onDelayEnd={() => { }}>
+                            <div><span>Catch the dark horse</span><ChevronDown /></div>
+                        </DelayLink>
 
-                        </div>
-                        <div className={[s.button, s.rightButton].join(' ')}>
-                            <DelayLink
-                                to={routes.productsInsta}
-                                delay={0}
-                                onDelayStart={() => { }}
-                                onDelayEnd={() => { }}>
-                                <div><span>Catch the dark horse</span><ChevronDown /></div>
-                            </DelayLink>
-
-                        </div>
                     </div>
                 </div>
-            </Swipe>
+            </div>
+            // </Swipe>
         );
     }
 }

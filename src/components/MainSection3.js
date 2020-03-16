@@ -124,7 +124,7 @@ class MainSection3 extends Component {
                 <div className={s.mainContainer}>
                     <WhiteElement socialMedia={this.props.socialMedia} />
                     <div className={s.logoBox}>
-                        <Logo customStyles={{ width: '160px' }} />
+                        <Logo />
                     </div>
                     <BurgerMenu fixed={true} />
                     <img className={[s.leftImage, 'sec_3_image'].join(' ')} src={leftImage && leftImage.url} alt="" />
