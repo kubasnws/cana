@@ -70,10 +70,7 @@ class MenuContentBox extends Component {
                         <Logo color='dark' />
                     </div>
                     <div className={s.menuCenter}>
-                        <div className={[s.infos, 'infos'].join(' ')}>
-                            {/* <div className={[s.element, 'element'].join(' ')}><span>Call us: </span>{contactInfos.phone}</div>
-                            <div className={[s.element, 'element'].join(' ')}><span>Send an e-mail: </span>{contactInfos.mail}</div> */}
-                        </div>
+                        <div className={[s.infos, 'infos'].join(' ')}></div>
                         <div className={[s.navigation, 'navigation'].join(' ')}>
                             <div className={[s.navElement, 'navElement'].join(' ')}>
                                 <h2><Link to={routes.productsHome}>{lang === 'en' ? 'products' : 'produkty'}</Link></h2>

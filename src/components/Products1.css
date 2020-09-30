@@ -1,334 +1,398 @@
 .mainBox {
-    position: relative;
-    padding-left: 6vh;
+  position: relative;
+  padding-left: 6vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-@media(max-width: 850px) {
-    .mainBox {
-        padding-left: 50px;
-    }
+@media (max-width: 850px) {
+  .mainBox {
+    padding-left: 50px;
+  }
 }
 
 .topBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .languageBox,
 .logoBox {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .languageBox {
-    justify-content: flex-end;
-    margin: 6vh 10vw 40px 0;
+  justify-content: flex-end;
+  margin: 6vh 10vw 40px 0;
 }
 
 .logoBox {
-    justify-content: flex-start;
-    margin-left: 10vw;
-    margin-top: 20px;
+  justify-content: flex-start;
+  margin-left: 10vw;
+  margin-top: 20px;
 }
 
 .middleBox {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .leftImage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  position: relative;
 }
 
-@media(max-width: 800px) {
-    .leftImage {
-        display: none;
-    }
+@media (max-width: 800px) {
+  .leftImage {
+    display: none;
+  }
 }
 
 .scrollWrapperBox {
-    position: absolute;
-    bottom: 0;
-    right: 30px;
+  width: fit-content;
 }
 
 .titleBox {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding-right: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 4vw;
 }
 
 .rightProduct {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
 
 .titleBox h1 {
-    font-size: 68px;
-    letter-spacing: 2px;
-    line-height: 82px;
-    color: #fff;
-    font-family: "Roboto Slab";
-    font-weight: 300;
-    text-align: right;
-    white-space: nowrap;
+  font-size: 68px;
+  letter-spacing: 2px;
+  line-height: 82px;
+  color: #fff;
+  font-family: "Roboto Slab";
+  font-weight: 300;
+  /* text-align: right; */
+  white-space: nowrap;
 }
 
-.titleBox h1>span {
-    color: #77924A;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 82px;
-    font-family: "bannerBig";
+.titleBox h1 > span {
+  color: #77924a;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 82px;
+  font-family: "bannerBig";
 }
-
-
 
 @media only screen and (max-width: 998px) {
-    .titleBox h1>span {
-        font-size: 70px;
-    }
+  .titleBox h1 > span {
+    font-size: 70px;
+  }
 }
 
 .nextButton {
-    margin-left: auto;
-    border-bottom: 1px solid #77924A;
-    width: fit-content;
-    z-index: 10;
-    white-space: nowrap;
+  margin-left: auto;
+  border-bottom: 1px solid #77924a;
+  width: fit-content;
+  z-index: 10;
+  white-space: nowrap;
 }
 
 .nextButton span {
-    text-decoration: none;
-    color: #77924A;
-    font-weight: bold;
-    margin-right: 10px;
-    white-space: nowrap;
+  text-decoration: none;
+  color: #77924a;
+  font-weight: bold;
+  margin-right: 10px;
+  white-space: nowrap;
 }
 
-@media(max-width: 550px) {
-    .nextButton {
-        border-bottom: none;
-    }
+@media (max-width: 550px) {
+  .nextButton {
+    border-bottom: none;
+  }
 
-    .nextButton span {
-        white-space: normal;
-    }
+  .nextButton span {
+    white-space: normal;
+  }
 }
 
-.nextButton svg>path {
-    color: #77924A;
+.nextButton svg > path {
+  color: #77924a;
 }
 
 .activeProduct {
-    padding: 50px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
 }
 
-.activeProduct>img {
-    height: 25vh;
-    width: 100%;
-    object-fit: contain;
+.activeProduct > img {
+  height: 25vh;
+  min-height: 70%;
+  width: 100%;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .activeDescription {
-    font-size: 10px;
-    letter-spacing: 1px;
-    color: hsl(0, 0%, 54%);
-    font-family: "Roboto Slab";
-    font-weight: 400;
-    margin-top: 20px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: hsl(0, 0%, 54%);
+  font-family: "Roboto Slab";
+  font-weight: 400;
+  margin-top: 3vh;
 }
 
 .bottomBox {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  padding: 5vh 0;
 }
 
 .socialMedia {
-    width: 120px;
+  width: 120px;
 }
 
-
-
 .swiper {
-    width: calc(100% - 120px);
-    position: relative;
-    margin: 0 auto;
+  /* width: calc(100% - 120px); */
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
 }
 
 .swiperContainer {
-    width: 66%;
-    height: 100%;
-    margin: 0 auto;
+  width: calc(100% - 100px);
+  height: 100%;
+  margin: 0 auto;
 }
 
 .swiperSlide {
-    display: grid;
-    place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 1;
 }
 
-.swiperSlide>img {
-    height: 100px;
-    cursor: pointer;
-    transition: .2s ease-in-out;
-    filter: grayscale(1)
+.swiperSlide > img {
+  max-height: 130px;
+  width: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  filter: grayscale(1);
 }
 
-.swiperSlide>img.active {
-    filter: grayscale(0)
+.swiperSlide > img.active {
+  filter: grayscale(0);
 }
 
-.swiperSlide>a {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* z-index: 10; */
+.swiperSlide > a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* z-index: 10; */
 }
-
-.swiperButtonNext {}
 
 .swiperButton {
-    background: none;
-    font-size: 30px;
-    outline: none;
+  background: none;
+  font-size: 30px;
+  outline: none;
 }
 
-.swiperButton>svg>path {
-    color: hsl(0, 0%, 54%);
+.swiperButton > svg > path {
+  color: hsl(0, 0%, 54%);
 }
 
-.swiperButtonNext {
-    right: 80px;
+/* .swiperButtonNext {
+  right: 80px;
 }
 
 .swiperButtonPrev {
-    left: 80px;
-}
+  left: 80px;
+} */
 
 .imageWrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 65vh;
-    width: 120px;
-    display: grid;
-    place-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 65vh;
+  width: 120px;
+  display: grid;
+  place-items: center;
 }
 
 .socialImage {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@media (min-height: 1200px) {
+  .activeProduct {
+    margin-top: 17vh;
+  }
+}
+
+@media (max-width: 1439px) {
+  .languageBox {
+    margin-bottom: unset;
+    white-space: nowrap;
+  }
+
+  .titleBox > h1 {
+    font-size: 54px;
+    line-height: 120%;
+  }
+
+  /* .titleBox> */
+}
+
+@media (max-width: 800px) {
+  .activeProduct {
+    margin: 0 auto;
+  }
+
+  .rightProduct {
     width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  }
+
+  .titleBox {
+    padding-right: 100px;
+  }
 }
 
-@media(min-height: 1200px) {
-    .activeProduct {
-        margin-top: 17vh;
-    }
+@media (max-width: 770px) {
+  .swiperContainer {
+    width: 94%;
+  }
+
+  .swiperButtonNext {
+    right: 10px;
+  }
+
+  .swiperButtonPrev {
+    left: 10px;
+  }
 }
 
-@media(max-width: 1439px) {
-    .languageBox {
-        margin-bottom: unset;
-        white-space: nowrap;
-    }
+@media (max-width: 550px) {
+  .swiper {
+    width: 100%;
+  }
 
-    .titleBox>h1 {
-        font-size: 54px;
-        line-height: 120%;
-    }
+  .titleBox {
+    padding-right: unset;
+    align-items: center;
+  }
 
-    /* .titleBox> */
+  .titleBox > h1 {
+    text-align: center;
+  }
 }
 
-@media(max-width: 800px) {
-    .activeProduct {
-        margin: 0 auto;
+@media (max-width: 450px) {
+  .titleBox > h1 {
+    font-size: 40px;
+    line-height: 140%;
+  }
 
-    }
+  .titleBox > h1 > span {
+    font-size: 55px;
+  }
 
-    .rightProduct {
-        width: 100%;
-    }
-
-    .titleBox {
-        padding-right: 100px;
-    }
+  .activeProduct {
+    padding-bottom: 10px;
+  }
 }
 
-@media(max-width: 770px) {
-    .swiperContainer {
-        width: 94%;
-    }
+@media (max-width: 992px) {
+  .titleBox h1 > span {
+    font-size: 60px;
+  }
 
-    .swiperButtonNext {
-        right: 10px;
-    }
-
-    .swiperButtonPrev {
-        left: 10px;
-    }
+  .activeProduct {
+    padding: 14px 0;
+  }
 }
 
-@media(max-width: 550px) {
-    .swiper {
-        width: 100%;
-    }
-
-    .titleBox {
-        padding-right: unset;
-        align-items: center;
-    }
-
-    .titleBox>h1 {
-        text-align: center;
-    }
+@media (max-width: 786px) {
+  .activeProduct {
+    padding: 6vh;
+  }
 }
 
-@media(max-width: 450px) {
-    .titleBox>h1 {
-        font-size: 40px;
-        line-height: 140%;
-    }
-
-    .titleBox>h1>span {
-        font-size: 55px;
-    }
-
-    .activeProduct {
-        padding-bottom: 10px;
-    }
+.contentBox {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row-reverse;
 }
 
-@media(max-width: 992px) {
-    .titleBox h1>span {
-        font-size: 60px;
-    }
-
-    .activeProduct {
-        padding: 14px 0;
-    }
+.left,
+.right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
 
-@media(max-width: 786px) {
-    .activeProduct {
-        padding: 6vh;
-    }
+.right {
+  justify-content: space-between;
+  padding-left: 5vw;
+}
+
+@media (max-width: 800px) {
+  .contentBox {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .scrollWrapperBox {
+    display: none;
+  }
+}
+
+.right .scrollWrapperBox {
+  margin-left: auto;
+}
+
+.left {
+  height: 100%;
+  position: relative;
+  padding-top: 5vh;
+  padding-right: 4vw;
+}
+
+.left .leftImage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 180px);
+  width: 100%;
+  pointer-events: none;
+}
+
+.left .leftImage img {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
 }

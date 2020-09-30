@@ -47,7 +47,7 @@ a {
     font-size: 16px;
     letter-spacing: 1px;
     line-height: 30px;
-    color: #8e8d8d;
+    color: #b1b1b1;
     font-family: "Roboto Slab";
     font-weight: 300;
 }
@@ -125,6 +125,7 @@ a {
     top: 0;
     left: 0;
     transform: translateY(-50px);
+    opacity: .6;
 }
 
 .number {
